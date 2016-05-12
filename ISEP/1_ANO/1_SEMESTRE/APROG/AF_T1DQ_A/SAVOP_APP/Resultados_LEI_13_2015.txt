@@ -1,0 +1,9 @@
+
+Votação de: LEI_13_2015
+
+PartidoB  ;nDep: 4;Votos a favor: 0;Votos contra: 1;Abstenções: 1;Faltou: 2
+PartidoA  ;nDep: 3;Votos a favor: 2;Votos contra: 0;Abstenções: 0;Faltou: 1
+PartidoC  ;nDep: 1;Votos a favor: 1;Votos contra: 0;Abstenções: 0;Faltou: 0
+PartidoD  ;nDep: 1;Votos a favor: 0;Votos contra: 1;Abstenções: 0;Faltou: 0
+
+Totais    ;nDep: 9;Votos a favor: 3;Votos contra: 2;Abstenções: 1;Faltou: 3
