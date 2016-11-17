@@ -10,8 +10,8 @@ import java.util.Set;
 /**
  * Represents a simulator for the experiences.
  *
- * @author Eric Amaral 1141570
  * @author Daniel Gonçalves 1151452
+ * @author Eric Amaral 1141570
  * @author Ivo Ferro 1151159
  * @author Tiago Correia 1151031
  */
