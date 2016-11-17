@@ -71,6 +71,8 @@ public class Material {
     }
 
     /**
+     * Gets the material's name.
+     *
      * @return the name
      */
     public String getName() {
@@ -78,6 +80,8 @@ public class Material {
     }
 
     /**
+     * Sets the material's name.
+     *
      * @param name the name to set
      */
     public void setName(String name) {
@@ -85,6 +89,8 @@ public class Material {
     }
 
     /**
+     * Gets the latent heat.
+     *
      * @return the latentHeat
      */
     public Double getLatentHeat() {
@@ -92,6 +98,8 @@ public class Material {
     }
 
     /**
+     * Sets the latent heat.
+     *
      * @param latentHeat the latentHeat to set
      */
     public void setLatentHeat(Double latentHeat) {
@@ -99,6 +107,8 @@ public class Material {
     }
 
     /**
+     * Gets the heat capacity.
+     *
      * @return the heatCapacity
      */
     public Double getHeatCapacity() {
@@ -106,6 +116,8 @@ public class Material {
     }
 
     /**
+     * Sets the heat capacity.
+     *
      * @param heatCapacity the heatCapacity to set
      */
     public void setHeatCapacity(Double heatCapacity) {
@@ -113,6 +125,8 @@ public class Material {
     }
 
     /**
+     * Gets the density.
+     *
      * @return the density
      */
     public Double getDensity() {
@@ -120,6 +134,8 @@ public class Material {
     }
 
     /**
+     * Sets the density.
+     *
      * @param density the density to set
      */
     public void setDensity(Double density) {
@@ -127,6 +143,8 @@ public class Material {
     }
 
     /**
+     * Gets the vaporization temperature.
+     *
      * @return the vaporisationTemperature
      */
     public Double getVaporisationTemperature() {
@@ -134,6 +152,8 @@ public class Material {
     }
 
     /**
+     * Sets the vaporization temperature.
+     *
      * @param vaporisationTemperature the vaporisationTemperature to set
      */
     public void setVaporisationTemperature(Double vaporisationTemperature) {
@@ -141,14 +161,18 @@ public class Material {
     }
 
     /**
-     * @return the meltable
+     * Gets the meltable state.
+     *
+     * @return true if the material is meltable, false otherwise.
      */
     public boolean isMeltable() {
         return meltable;
     }
 
     /**
-     * @param meltable the meltable to set
+     * Sets the meltable state.
+     *
+     * @param meltable the meltable state
      */
     public void setMeltable(boolean meltable) {
         this.meltable = meltable;
