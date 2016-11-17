@@ -127,4 +127,10 @@ public class Gas {
                 && Math.abs(this.minWavelength - other.minWavelength) < EPSILON;
     }
 
+    @Override
+    public String toString() {
+        return String.format("Gas{name=%s, maxWavelength=%d, minWavelength=%d}",
+                name, maxWavelength, minWavelength);
+    }
+
 }

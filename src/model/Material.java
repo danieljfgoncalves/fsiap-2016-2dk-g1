@@ -208,4 +208,12 @@ public class Material {
                 && Math.abs(this.vaporisationTemperature - other.vaporisationTemperature) < EPSILON;
     }
 
+    @Override
+    public String toString() {
+        return String.format("Material{name=%s, meltable=%s, latentHeat=%4f, "
+                + "heatCapacity=%4f, density=%4f, vaporisationTemperature=%4f}",
+                name, meltable, latentHeat, heatCapacity,
+                density, vaporisationTemperature);
+    }
+
 }
