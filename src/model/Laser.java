@@ -14,27 +14,27 @@ import java.util.Objects;
  * @author Tiago Correia 1151031
  */
 public class Laser {
-    
+
     /**
      * Selected wavelength.
      */
-    private Double wavelength;
-    
+    private int wavelength;
+
     /**
      * Selected gas object.
      */
     private Gas gas;
-    
+
     /**
      * Area of selected focal point.
      */
     private Double focalPointArea;
-    
+
     /**
      * Laser's power.
      */
     private Double power;
-    
+
     /**
      * Error margin for comparisions.
      */
@@ -42,38 +42,41 @@ public class Laser {
 
     /**
      * Constructs a Laser instance.
-     * 
+     *
      * @param wavelength selected wavelength
      * @param gas selected gas
-     * @param focalPointArea selected focal point area 
+     * @param focalPointArea selected focal point area
      */
-    public Laser(Double wavelength, Gas gas, Double focalPointArea) {
+    public Laser(int wavelength, Gas gas, Double focalPointArea) {
         this.wavelength = wavelength;
         this.gas = gas;
         this.focalPointArea = focalPointArea;
-        
+
         // TODO: calculate max power
         this.power = null;
     }
 
     /**
      * Obtains the laser's wavelength.
+     *
      * @return the wavelength
      */
-    public Double getWavelength() {
+    public int getWavelength() {
         return wavelength;
     }
 
     /**
      * Sets the laser's wavelength.
+     *
      * @param wavelength the wavelength to set
      */
-    public void setWavelength(Double wavelength) {
+    public void setWavelength(int wavelength) {
         this.wavelength = wavelength;
     }
 
     /**
      * Obtains the area of selected focal point.
+     *
      * @return the focalPointArea
      */
     public Double getFocalPointArea() {
@@ -82,6 +85,7 @@ public class Laser {
 
     /**
      * Sets the area of selected focal point.
+     *
      * @param focalPointArea the focalPointArea to set
      */
     public void setFocalPointArea(Double focalPointArea) {
@@ -90,6 +94,7 @@ public class Laser {
 
     /**
      * Obtains the laser's power.
+     *
      * @return the power
      */
     public Double getPower() {
@@ -107,7 +112,7 @@ public class Laser {
 
     @Override
     public boolean equals(Object obj) {
-       
+
         if (this == obj) {
             return true;
         }
@@ -124,7 +129,7 @@ public class Laser {
 
     @Override
     public String toString() {
-        return String.format("Laser{" + "wavelength=%0.2f, gas=%s, focalPointArea=%0.2f}", 
+        return String.format("Laser{" + "wavelength=%d, gas=%s, focalPointArea=%.2f}",
                 this.wavelength, this.gas, this.focalPointArea);
     }
 }

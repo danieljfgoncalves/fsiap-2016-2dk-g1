@@ -5,6 +5,7 @@ package controller;
 
 import java.util.Set;
 import model.Gas;
+import model.Laser;
 import model.Material;
 import model.Simulator;
 
@@ -37,6 +38,16 @@ public class GenerateLaserController {
      * The selected material.
      */
     private Material material;
+
+    /**
+     * The selected focal point area.
+     */
+    private Double focalPointArea;
+
+    /**
+     * The laser to generate.
+     */
+    private Laser laser;
 
     /**
      * Creates a generate laser controller.
@@ -90,5 +101,26 @@ public class GenerateLaserController {
      */
     public void setMaterial(Material material) {
         this.material = material;
+    }
+
+    /**
+     * Sets the focal point area to cut.
+     *
+     * @param focalPointArea focal point area to cut
+     */
+    public void setFocalPointArea(Double focalPointArea) {
+        this.focalPointArea = focalPointArea;
+    }
+
+    /**
+     * Creates the laser for the experience.
+     */
+    public void newLaser() {
+        laser = simulator.newLaser(wavelength, gas, focalPointArea);
+    }
+
+    public void initiateCut() {
+        // TODO create the controller to calculate the laser cut.
+        throw new UnsupportedOperationException("Not implemented yet.");
     }
 }
