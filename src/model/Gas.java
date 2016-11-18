@@ -102,6 +102,17 @@ public class Gas {
         this.minWavelength = minWavelength;
     }
 
+    /**
+     * Verify if wavelength is compatible with this gas.
+     *
+     * @param wavelength wavelength to verify
+     * @return true if the wavelength lies in the allowed range, false otherwise
+     */
+    public boolean isCompatible(int wavelength) {
+        return wavelength >= this.minWavelength
+                && wavelength <= this.maxWavelength;
+    }
+
     @Override
     public int hashCode() {
         int hash = 5;

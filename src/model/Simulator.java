@@ -108,6 +108,24 @@ public class Simulator {
         this.curiosities = curiosities;
     }
 
+    /**
+     * Gets all gases compatible with a given wavelength.
+     *
+     * @param wavelength wavelength to check
+     * @return all gases compatible with the wavelength
+     */
+    public Set<Gas> getGasesByWavelength(int wavelength) {
+        Set<Gas> compatibleGases = new HashSet<>();
+
+        for (Gas gas : gases) {
+            if (gas.isCompatible(wavelength)) {
+                compatibleGases.add(gas);
+            }
+        }
+
+        return compatibleGases;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
