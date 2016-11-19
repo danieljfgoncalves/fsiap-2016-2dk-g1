@@ -18,12 +18,12 @@ public class MaximumPowerCalculus implements Calculable {
     /**
      * The wavelength.
      */
-    private int wavelength;
+    private Double wavelength;
 
     /**
      * The focal point diameter.
      */
-    private double focalPointDiameter;
+    private Double focalPointArea;
 
     /**
      * The pank's constant.
@@ -39,11 +39,11 @@ public class MaximumPowerCalculus implements Calculable {
      * Constructs an instance of MaximumPowerCalculus.
      *
      * @param wavelength the wavelength for calculus
-     * @param focalPointDiameter the focal point diameter for calculus
+     * @param focalPointArea the focal point diameter for calculus
      */
-    public MaximumPowerCalculus(int wavelength, int focalPointDiameter) {
+    public MaximumPowerCalculus(Double wavelength, Double focalPointArea) {
         this.wavelength = wavelength;
-        this.focalPointDiameter = focalPointDiameter;
+        this.focalPointArea = focalPointArea;
     }
 
     /**
@@ -51,7 +51,7 @@ public class MaximumPowerCalculus implements Calculable {
      *
      * @return wavelength
      */
-    public int getWavelength() {
+    public Double getWavelength() {
         return wavelength;
     }
 
@@ -60,7 +60,7 @@ public class MaximumPowerCalculus implements Calculable {
      *
      * @param wavelength wavelength
      */
-    public void setWavelength(int wavelength) {
+    public void setWavelength(Double wavelength) {
         this.wavelength = wavelength;
     }
 
@@ -69,17 +69,17 @@ public class MaximumPowerCalculus implements Calculable {
      *
      * @return focal point diameter
      */
-    public double getFocalPointDiameter() {
-        return focalPointDiameter;
+    public Double getFocalPointArea() {
+        return focalPointArea;
     }
 
     /**
      * Sets the focal point diameter.
      *
-     * @param focalPointDiameter focal point diameter
+     * @param focalPointArea focal point diameter
      */
-    public void setFocalPointDiameter(double focalPointDiameter) {
-        this.focalPointDiameter = focalPointDiameter;
+    public void setFocalPointArea(Double focalPointArea) {
+        this.focalPointArea = focalPointArea;
     }
 
     /**
@@ -107,8 +107,7 @@ public class MaximumPowerCalculus implements Calculable {
      */
     @Override
     public double calculate() {
-        Double beamArea = Math.PI * Math.pow((focalPointDiameter / 2), 2);
-        Double photonNumberOnArea = calculatePhotonNumberPerSquareMetre() * beamArea;
+        Double photonNumberOnArea = calculatePhotonNumberPerSquareMetre() * focalPointArea;
 
         return (photonNumberOnArea * PLANK_CONSTANT * SPEED_OF_LIGHT) / wavelength;
     }
