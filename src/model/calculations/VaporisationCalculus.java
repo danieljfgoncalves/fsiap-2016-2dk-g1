@@ -45,7 +45,7 @@ public class VaporisationCalculus implements Calculable {
      */
     public VaporisationCalculus(Double power, Double focalPointArea, Material material) {
 
-        this.powerDensity = power / focalPointArea; // Calculates the density
+        this.powerDensity = power / focalPointArea; // Calculates the density (W/m^2)
         this.material = material;
         this.inicialTemp = DEFAULT_INICIAL_TEMP;
     }

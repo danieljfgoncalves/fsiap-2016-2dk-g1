@@ -114,7 +114,7 @@ public class Simulator {
      * @param wavelength wavelength to check
      * @return all gases compatible with the wavelength
      */
-    public Set<Gas> getGasesByWavelength(int wavelength) {
+    public Set<Gas> getGasesByWavelength(Double wavelength) {
         Set<Gas> compatibleGases = new HashSet<>();
 
         for (Gas gas : gases) {
@@ -126,7 +126,7 @@ public class Simulator {
         return compatibleGases;
     }
 
-    public Laser newLaser(int wavelength, Gas gas, Double focalPointArea) {
+    public Laser newLaser(Double wavelength, Gas gas, Double focalPointArea) {
         return new Laser(wavelength, gas, focalPointArea);
     }
 

@@ -18,7 +18,7 @@ public class Laser {
     /**
      * Selected wavelength.
      */
-    private int wavelength;
+    private Double wavelength;
 
     /**
      * Selected gas object.
@@ -31,10 +31,20 @@ public class Laser {
     private Double focalPointArea;
 
     /**
-     * Laser's power.
+     * Laser's max power.
      */
-    private Double power;
+    private Double maxPower;
 
+    /**
+     * Power factor (ex. half of max power 0.5)
+     */
+    private Float factor;
+    
+    /**
+     * Default power factor
+     */
+    private final static Float DEFAULT_FACTOR = 1.0f;
+    
     /**
      * Error margin for comparisons.
      */
@@ -47,13 +57,14 @@ public class Laser {
      * @param gas selected gas
      * @param focalPointArea selected focal point area
      */
-    public Laser(int wavelength, Gas gas, Double focalPointArea) {
+    public Laser(Double wavelength, Gas gas, Double focalPointArea) {
         this.wavelength = wavelength;
         this.gas = gas;
         this.focalPointArea = focalPointArea;
+        this.factor = DEFAULT_FACTOR;
 
         // TODO: calculate max power
-        this.power = null;
+        this.maxPower = null;
     }
 
     /**
@@ -61,7 +72,7 @@ public class Laser {
      *
      * @return the wavelength
      */
-    public int getWavelength() {
+    public Double getWavelength() {
         return wavelength;
     }
 
@@ -70,7 +81,7 @@ public class Laser {
      *
      * @param wavelength the wavelength to set
      */
-    public void setWavelength(int wavelength) {
+    public void setWavelength(Double wavelength) {
         this.wavelength = wavelength;
     }
 
@@ -93,12 +104,28 @@ public class Laser {
     }
 
     /**
-     * Obtains the laser's power.
+     * Obtains the laser's max power.
      *
      * @return the power
      */
-    public Double getPower() {
-        return power;
+    public Double getMaxPower() {
+        return maxPower;
+    }
+
+    /**
+     * Obtains power factor (ex. half of max power 0.5)
+     * @return the factor
+     */
+    public Float getFactor() {
+        return factor;
+    }
+
+    /**
+     * Sets power factor (ex. half of max power 0.5)
+     * @param factor the factor to set
+     */
+    public void setFactor(Float factor) {
+        this.factor = factor;
     }
 
     @Override

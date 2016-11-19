@@ -23,12 +23,12 @@ public class Gas {
     /**
      * The maximum wavelength in nanometers.
      */
-    private int maxWavelength;
+    private Double maxWavelength;
 
     /**
      * The minimum wavelength in nanometers.
      */
-    private int minWavelength;
+    private Double minWavelength;
 
     /**
      * The epsilon value to calculate the error.
@@ -42,7 +42,7 @@ public class Gas {
      * @param maxWavelength the maximum wave length
      * @param minWavelength the minimum wave length
      */
-    public Gas(String name, int maxWavelength, int minWavelength) {
+    public Gas(String name, Double maxWavelength, Double minWavelength) {
         this.name = name;
         this.maxWavelength = maxWavelength;
         this.minWavelength = minWavelength;
@@ -71,7 +71,7 @@ public class Gas {
      *
      * @return the maxWavelength
      */
-    public int getMaxWavelength() {
+    public Double getMaxWavelength() {
         return maxWavelength;
     }
 
@@ -80,7 +80,7 @@ public class Gas {
      *
      * @param maxWavelength the maxWavelength to set
      */
-    public void setMaxWavelength(int maxWavelength) {
+    public void setMaxWavelength(Double maxWavelength) {
         this.maxWavelength = maxWavelength;
     }
 
@@ -89,7 +89,7 @@ public class Gas {
      *
      * @return the minWavelength
      */
-    public int getMinWavelength() {
+    public Double getMinWavelength() {
         return minWavelength;
     }
 
@@ -98,7 +98,7 @@ public class Gas {
      *
      * @param minWavelength the minWavelength to set
      */
-    public void setMinWavelength(int minWavelength) {
+    public void setMinWavelength(Double minWavelength) {
         this.minWavelength = minWavelength;
     }
 
@@ -108,7 +108,7 @@ public class Gas {
      * @param wavelength wavelength to verify
      * @return true if the wavelength lies in the allowed range, false otherwise
      */
-    public boolean isCompatible(int wavelength) {
+    public boolean isCompatible(Double wavelength) {
         return wavelength >= this.minWavelength
                 && wavelength <= this.maxWavelength;
     }
@@ -116,9 +116,9 @@ public class Gas {
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 73 * hash + Objects.hashCode(this.name);
-        hash = 73 * hash + this.maxWavelength;
-        hash = 73 * hash + this.minWavelength;
+        hash = 19 * hash + Objects.hashCode(this.name);
+        hash = 19 * hash + Objects.hashCode(this.maxWavelength);
+        hash = 19 * hash + Objects.hashCode(this.minWavelength);
         return hash;
     }
 

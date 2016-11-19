@@ -27,7 +27,7 @@ public class GenerateLaserController {
     /**
      * The selected wavelength.
      */
-    private int wavelength;
+    private Double wavelength;
 
     /**
      * The selected gas.
@@ -63,7 +63,7 @@ public class GenerateLaserController {
      *
      * @param wavelength wavelength to use
      */
-    public void setWavelength(int wavelength) {
+    public void setWavelength(Double wavelength) {
         this.wavelength = wavelength;
     }
 

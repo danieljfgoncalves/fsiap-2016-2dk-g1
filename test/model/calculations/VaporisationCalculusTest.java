@@ -13,14 +13,15 @@ import static org.junit.Assert.*;
  * @author Tiago Correia 1151031
  */
 public class VaporisationCalculusTest {
-    
+
     /**
-     * 
+     *
      */
     private Material testMaterial;
-    
+
     public VaporisationCalculusTest() {
-        
+
+        testMaterial = new Material("Graphit (carbon)", 5.95303E7, 7.20000E2, 2.23000E3, 4200.0, false);
     }
 
     /**
@@ -29,12 +30,11 @@ public class VaporisationCalculusTest {
     @Test
     public void testCalculate() {
         System.out.println("calculate");
-        VaporisationCalculus instance = null;
-        double expResult = 0.0;
-        double result = instance.calculate();
-        assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        VaporisationCalculus calculus = new VaporisationCalculus(180.0, 5.027E-5, testMaterial);
+        double expResult = 2.56745E-5;
+        double result = calculus.calculate();
+        System.out.printf("%n**%nExpected Result: %.4E%nResult: %.4E%n**%n", expResult, result);
+        assertEquals(expResult, result, 0.00001);
     }
-    
+
 }
