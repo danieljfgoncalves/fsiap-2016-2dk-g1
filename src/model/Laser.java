@@ -1,5 +1,5 @@
 /*
- * Package location for Application Controllers concepts.
+ * Package location for Application model concepts.
  */
 package model;
 
@@ -36,7 +36,7 @@ public class Laser {
     private Double power;
     
     /**
-     * Error margin for comparisions.
+     * Error margin for comparisons.
      */
     private final static Double EPSILON = 0.0001;
 

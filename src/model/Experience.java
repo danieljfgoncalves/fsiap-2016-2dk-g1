@@ -1,5 +1,5 @@
 /*
- * Package location for Application Controllers concepts.
+ * Package location for Application model concepts.
  */
 package model;
 

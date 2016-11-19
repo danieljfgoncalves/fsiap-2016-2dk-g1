@@ -1,5 +1,5 @@
 /*
- * Package location for Application Controllers concepts.
+ * Package location for Application model concepts.
  */
 package model;
 
@@ -16,7 +16,7 @@ public interface Calculable {
     /**
      * Calculates a given equation. 
      * 
-     * @return the result of the calculation.
+     * @return the result of the calculation as a double.
      */
     double calculate();
 }

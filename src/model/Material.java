@@ -21,22 +21,22 @@ public class Material {
     private String name;
 
     /**
-     * The temperature to melt or evaporise.
+     * The latent heat necessary to melt or evaporise (J/Kg).
      */
     private Double latentHeat;
 
     /**
-     * The material's heat capacity.
+     * The material's heat capacity (J/(KgºC)).
      */
     private Double heatCapacity;
 
     /**
-     * The material's density.
+     * The material's density (kg/m^3).
      */
     private Double density;
 
     /**
-     * The material's vaporisation temperature.
+     * The material's vaporisation temperature (ºC).
      */
     private Double vaporisationTemperature;
 
