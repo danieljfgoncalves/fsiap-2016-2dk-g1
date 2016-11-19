@@ -40,6 +40,11 @@ public class GenerateLaserController {
     private Material material;
 
     /**
+     * Material thickness.
+     */
+    private Double materialThickness;
+    
+    /**
      * The selected focal point area.
      */
     private Double focalPointArea;
@@ -102,6 +107,15 @@ public class GenerateLaserController {
     public void setMaterial(Material material) {
         this.material = material;
     }
+    
+    /**
+     * Sets the matrial's thickness to use.
+     *
+     * @param materialThickness  the selected material thickness
+     */
+    public void setMaterialThickness(Double materialThickness) {
+        this.materialThickness = materialThickness;
+    }
 
     /**
      * Sets the focal point area to cut.
@@ -116,7 +130,7 @@ public class GenerateLaserController {
      * Creates the laser for the experience.
      */
     public void newLaser() {
-        laser = simulator.newLaser(wavelength, gas, focalPointArea);
+        laser = simulator.newLaser(wavelength, gas, focalPointArea, material, materialThickness);
     }
 
     public void initiateCut() {

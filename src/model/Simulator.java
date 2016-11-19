@@ -126,8 +126,8 @@ public class Simulator {
         return compatibleGases;
     }
 
-    public Laser newLaser(Double wavelength, Gas gas, Double focalPointArea) {
-        return new Laser(wavelength, gas, focalPointArea);
+    public Laser newLaser(Double wavelength, Gas gas, Double focalPointArea, Material material, Double materialThickness) {
+        return new Laser(wavelength, gas, focalPointArea, material, materialThickness);
     }
 
     @Override
