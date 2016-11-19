@@ -19,11 +19,11 @@ public class MaximumPowerCalculusTest {
     public void testCalculate() {
         System.out.println("calculate");
 
-        int wavelength = 500;
-        int focalPointDiameter = 4;
+        Double wavelength = 500e-9;
+        Double focalPointArea = 200e-6;
 
-        MaximumPowerCalculus instance = new MaximumPowerCalculus(wavelength, focalPointDiameter);
-        double expResult = 0.954;
+        MaximumPowerCalculus instance = new MaximumPowerCalculus(wavelength, focalPointArea);
+        double expResult = 15.1833815e3;
         double result = instance.calculate();
         assertEquals(expResult, result, 0.0001);
     }

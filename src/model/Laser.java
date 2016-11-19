@@ -4,6 +4,7 @@
 package model;
 
 import java.util.Objects;
+import model.calculations.MaximumPowerCalculus;
 
 /**
  * Represents a laser class.
@@ -39,12 +40,12 @@ public class Laser {
      * Power factor (ex. half of max power 0.5)
      */
     private Float factor;
-    
+
     /**
      * Default power factor
      */
     private final static Float DEFAULT_FACTOR = 1.0f;
-    
+
     /**
      * Error margin for comparisons.
      */
@@ -55,16 +56,16 @@ public class Laser {
      *
      * @param wavelength selected wavelength
      * @param gas selected gas
-     * @param focalPointArea selected focal point area
+     * @param focalPointDiameter selected focal point diameter
      */
-    public Laser(Double wavelength, Gas gas, Double focalPointArea) {
+    public Laser(Double wavelength, Gas gas, Double focalPointDiameter) {
         this.wavelength = wavelength;
         this.gas = gas;
-        this.focalPointArea = focalPointArea;
+        this.focalPointArea = Math.PI * Math.pow((focalPointDiameter / 2), 2);
         this.factor = DEFAULT_FACTOR;
 
-        // TODO: calculate max power
-        this.maxPower = null;
+        MaximumPowerCalculus maximumPowerCalculus = new MaximumPowerCalculus(wavelength, focalPointArea);
+        this.maxPower = maximumPowerCalculus.calculate();
     }
 
     /**
@@ -114,6 +115,7 @@ public class Laser {
 
     /**
      * Obtains power factor (ex. half of max power 0.5)
+     *
      * @return the factor
      */
     public Float getFactor() {
@@ -122,6 +124,7 @@ public class Laser {
 
     /**
      * Sets power factor (ex. half of max power 0.5)
+     *
      * @param factor the factor to set
      */
     public void setFactor(Float factor) {
