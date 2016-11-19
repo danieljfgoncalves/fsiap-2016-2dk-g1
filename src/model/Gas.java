@@ -140,7 +140,7 @@ public class Gas {
 
     @Override
     public String toString() {
-        return String.format("Gas{name=%s, maxWavelength=%d, minWavelength=%d}",
+        return String.format("Gas{name=%s, maxWavelength=%f, minWavelength=%f}",
                 name, maxWavelength, minWavelength);
     }
 
