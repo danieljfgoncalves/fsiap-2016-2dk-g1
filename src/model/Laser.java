@@ -5,6 +5,7 @@ package model;
 
 import java.util.Objects;
 import model.calculations.MaximumPowerCalculus;
+import model.calculations.VaporisationCalculus;
 
 /**
  * Represents a laser class.
@@ -42,6 +43,21 @@ public class Laser {
     private Float factor;
 
     /**
+     * Selected material.
+     */
+    private Material material;
+
+    /**
+     * Material thickness.
+     */
+    private Double materialThickness;
+
+    /**
+     * The calculus necessary (depends on the selected material).
+     */
+    private Calculable calculus;
+
+    /**
      * Default power factor
      */
     private final static Float DEFAULT_FACTOR = 1.0f;
@@ -57,12 +73,21 @@ public class Laser {
      * @param wavelength selected wavelength
      * @param gas selected gas
      * @param focalPointDiameter selected focal point diameter
+     * @param material selected material
+     * @param materialThickness material's thickness
      */
-    public Laser(Double wavelength, Gas gas, Double focalPointDiameter) {
+    public Laser(Double wavelength, Gas gas, Double focalPointDiameter, Material material, Double materialThickness) {
         this.wavelength = wavelength;
         this.gas = gas;
         this.focalPointArea = Math.PI * Math.pow((focalPointDiameter / 2), 2);
         this.factor = DEFAULT_FACTOR;
+        this.material = material;
+        this.materialThickness = materialThickness;
+
+        // TODO: replace null when both calculus are implemented.
+        this.calculus = (material.isMeltable())
+                ? null
+                : new VaporisationCalculus(maxPower * factor, focalPointArea, material);
 
         MaximumPowerCalculus maximumPowerCalculus = new MaximumPowerCalculus(wavelength, focalPointArea);
         this.maxPower = maximumPowerCalculus.calculate();

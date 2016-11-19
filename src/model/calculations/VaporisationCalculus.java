@@ -64,8 +64,8 @@ public class VaporisationCalculus implements Calculable {
      *
      * @param powerDensity the powerDensity to set
      */
-    public void setPowerDensity(Double powerDensity) {
-        this.powerDensity = powerDensity;
+    public void setPowerDensity(Double power, Double focalPoint) {
+        this.powerDensity = power / focalPoint;
     }
 
     /**
