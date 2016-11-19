@@ -8,9 +8,10 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.PopupMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -28,6 +29,7 @@ import javax.swing.event.ChangeListener;
 import model.Gas;
 import model.Material;
 import model.Simulator;
+import view.components.DoubleJTextField;
 
 /**
  * Represents a panel with the fields to generate the laser.
@@ -107,6 +109,21 @@ public class GenerateLaserPanel extends JPanel {
      * The selected material.
      */
     private Material material;
+
+    /**
+     * The sselected material thickness.
+     */
+    private Double materialThickness;
+
+    /**
+     * The materialThicknessTextField.
+     */
+    private JTextField materialThicknessTextField;
+
+    /**
+     * The button to calculate maximum power.
+     */
+    private JButton calculateMaxPowerButton;
 
     /**
      * Creates an instance of GenerateLaserPanel.
@@ -249,20 +266,32 @@ public class GenerateLaserPanel extends JPanel {
 
     /**
      * Creates the panel for material thickness.
-     * 
+     *
      * @return material tickness panel
      */
     private JPanel createMaterialThickness() {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
-        
-        buttonPanel.add(new JLabel("Material Tickness:"));
-        buttonPanel.add(new JTextField(6));
+
+        materialThicknessTextField = new DoubleJTextField(6);
+        materialThicknessTextField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                try {
+                    Double.parseDouble(materialThicknessTextField.getText() + e.getKeyChar());
+                    calculateMaxPowerButton.setEnabled(true);
+                } catch (Exception exception) {
+                    calculateMaxPowerButton.setEnabled(false);
+                }
+            }
+        });
+
+        buttonPanel.add(new JLabel("Espessura do material:"));
+        buttonPanel.add(materialThicknessTextField);
         buttonPanel.add(new JLabel("m"));
-        
-        
+
         return buttonPanel;
     }
-    
+
     /**
      * Creates the panel for calculate button.
      *
@@ -271,7 +300,10 @@ public class GenerateLaserPanel extends JPanel {
     private JPanel createCalculateButtonPanel() {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
 
-        buttonPanel.add(new JButton("Calcular poder máximo"));
+        calculateMaxPowerButton = new JButton("Calcular poder máximo");
+        calculateMaxPowerButton.setEnabled(false);
+
+        buttonPanel.add(calculateMaxPowerButton);
 
         return buttonPanel;
     }
@@ -310,12 +342,12 @@ public class GenerateLaserPanel extends JPanel {
      */
     private void updateGasComboBox() {
         gasesComboBox.removeAllItems();
-        
+
         Iterator<Gas> gasesIterator = gases.iterator();
-        while(gasesIterator.hasNext()) {
+        while (gasesIterator.hasNext()) {
             gasesComboBox.addItem(gasesIterator.next());
         }
-        
+
         gasesComboBox.setRenderer(new GasRenderer());
         gas = (Gas) gasesComboBox.getSelectedItem();
         controller.setGas(gas);
