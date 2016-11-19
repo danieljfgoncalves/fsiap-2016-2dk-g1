@@ -126,6 +126,10 @@ public class Simulator {
         return compatibleGases;
     }
 
+    public Laser newLaser(int wavelength, Gas gas, Double focalPointArea) {
+        return new Laser(wavelength, gas, focalPointArea);
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
