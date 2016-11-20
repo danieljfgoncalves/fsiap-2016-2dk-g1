@@ -6,8 +6,8 @@ package view;
 import controller.CalculateLaserCutController;
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import javax.swing.ImageIcon;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -15,10 +15,9 @@ import javax.swing.JSlider;
 import javax.swing.JTable;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import view.components.DoubleJTextField;
 import view.components.ImagePanel;
+import view.components.ResultTableModel;
 
 /**
  * Represents a panel with the laser cut results.
@@ -55,8 +54,6 @@ public class CalculateLaserCutPanel extends JPanel {
      */
     private JTable resultsTable;
 
-    private final static String[] RESULT_COLUMN_NAMES = {"Results", "Values"};
-
     /**
      * Creates an instance of Calculate Laser Cut Panel.
      *
@@ -89,7 +86,7 @@ public class CalculateLaserCutPanel extends JPanel {
         setLayout(new BorderLayout(10, 10));
 
         add(new ImagePanel(), BorderLayout.CENTER);
-	add(createDataPanel(), BorderLayout.EAST);
+        add(createDataPanel(), BorderLayout.EAST);
     }
 
     /**
@@ -99,7 +96,7 @@ public class CalculateLaserCutPanel extends JPanel {
      */
     private JPanel createDataPanel() {
 
-        JPanel dataPanel = new JPanel(new BorderLayout(10,10));
+        JPanel dataPanel = new JPanel(new BorderLayout(10, 10));
 
         dataPanel.add(createVariablesPanel(), BorderLayout.NORTH);
         dataPanel.add(createResultsPanel(), BorderLayout.CENTER);
@@ -114,7 +111,7 @@ public class CalculateLaserCutPanel extends JPanel {
      */
     private JPanel createVariablesPanel() {
 
-        JPanel varPanel = new JPanel(new BorderLayout(10,10));
+        JPanel varPanel = new JPanel(new BorderLayout(10, 10));
 
         varPanel.add(createPowerPanel(), BorderLayout.WEST);
         varPanel.add(createCuttingTimePanel(), BorderLayout.EAST);
@@ -131,16 +128,23 @@ public class CalculateLaserCutPanel extends JPanel {
 
         JPanel powPanel = new JPanel(new BorderLayout());
 
-        JLabel powerLabel = new JLabel("Power:", JLabel.RIGHT);
+        JLabel powerLabel = new JLabel("Power:", JLabel.CENTER);
         powPanel.add(powerLabel, BorderLayout.NORTH);
 
         this.powerSlider = new JSlider(0, 100, 100);
         this.powerSlider.setSnapToTicks(true);
 
+        this.powerSlider.setMajorTickSpacing(25);
+        this.powerSlider.setMinorTickSpacing(5);
+        this.powerSlider.setPaintTicks(true);
+        this.powerSlider.setPaintLabels(true);
+
         powerSlider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                updateCalculus();
+                if (!powerSlider.getValueIsAdjusting()) {
+                    updateCalculus();
+                }
             }
         });
         powPanel.add(this.powerSlider, BorderLayout.CENTER);
@@ -157,22 +161,17 @@ public class CalculateLaserCutPanel extends JPanel {
 
         JPanel cutPanel = new JPanel(new BorderLayout());
 
-        JLabel cutLabel = new JLabel("Cutting Time Limit:", JLabel.RIGHT);
+        JLabel cutLabel = new JLabel("Cutting Time Limit:", JLabel.CENTER);
         cutPanel.add(cutLabel, BorderLayout.NORTH);
 
         this.cutTimeLimitTxt = new DoubleJTextField("", 6);
-        this.cutTimeLimitTxt.getDocument().addDocumentListener(new DocumentListener() {
-            public void changedUpdate(DocumentEvent e) {
-                updateCalculus();
+        this.cutTimeLimitTxt.addFocusListener(new FocusListener() {
+
+            public void focusGained(FocusEvent e) {
+                cutTimeLimitTxt.setText("");
             }
 
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                updateCalculus();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
+            public void focusLost(FocusEvent e) {
                 updateCalculus();
             }
         });
@@ -191,7 +190,7 @@ public class CalculateLaserCutPanel extends JPanel {
 
         JPanel panel = new JPanel(new GridBagLayout());
 
-        this.resultsTable = new JTable(new String[1][9], RESULT_COLUMN_NAMES);
+        this.resultsTable = new JTable(new ResultTableModel(new String[9][2]));
         JScrollPane scroll = new JScrollPane(this.resultsTable);
         panel.add(scroll);
 
@@ -202,18 +201,18 @@ public class CalculateLaserCutPanel extends JPanel {
      * Sets the values of the variables fields.
      */
     private void setValues() {
-        
+
         String txt = String.format("%.2f", this.controller.getExperience().getCuttingTimeLimit());
         this.cutTimeLimitTxt.setPredefiendText(txt);
-        this.resultsTable = new JTable(this.controller.getResults(), RESULT_COLUMN_NAMES);
+        this.resultsTable.setModel(new ResultTableModel(this.controller.getResults()));
     }
-    
+
     /**
      * Updates the calculus.
      */
     private void updateCalculus() {
-        
+
         this.controller.updateExperience((float) this.powerSlider.getValue() / 100, this.cutTimeLimitTxt.getDouble());
-        this.resultsTable = new JTable(this.controller.getResults(), RESULT_COLUMN_NAMES);
+        this.resultsTable.setModel(new ResultTableModel(this.controller.getResults()));
     }
 }

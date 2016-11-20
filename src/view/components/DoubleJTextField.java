@@ -3,8 +3,6 @@
  */
 package view.components;
 
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JTextField;
@@ -68,17 +66,6 @@ public class DoubleJTextField extends JTextField {
                 }
             }
         });
-
-        addFocusListener(new FocusListener() {
-
-            public void focusGained(FocusEvent e) {
-                setText("");
-            }
-
-            public void focusLost(FocusEvent e) {
-                // nothing
-            }
-        });
     }
 
     /**
@@ -127,6 +114,7 @@ public class DoubleJTextField extends JTextField {
 
     public void setPredefiendText(String text) {
         this.predefinedText = text;
+        setText(text);
     }
     
     /**
@@ -139,7 +127,7 @@ public class DoubleJTextField extends JTextField {
         if (super.getText().isEmpty()) {
             super.setText(predefinedText);
         }
-        return Double.parseDouble(super.getText());
+        return Double.parseDouble(super.getText().replace(',', '.'));
     }
 
 }
