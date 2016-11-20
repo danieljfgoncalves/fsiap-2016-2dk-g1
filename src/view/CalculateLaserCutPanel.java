@@ -6,8 +6,6 @@ package view;
 import controller.CalculateLaserCutController;
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -86,10 +84,10 @@ public class CalculateLaserCutPanel extends JPanel {
      * Creates the UI components.
      */
     private void createComponents() {
-        setLayout(new BorderLayout(10, 10));
+        setLayout(new BorderLayout(20, 0));
 
         add(new ImagePanel(), BorderLayout.CENTER);
-	add(createDataPanel(), BorderLayout.EAST);
+        add(createDataPanel(), BorderLayout.EAST);
     }
 
     /**
@@ -99,7 +97,7 @@ public class CalculateLaserCutPanel extends JPanel {
      */
     private JPanel createDataPanel() {
 
-        JPanel dataPanel = new JPanel(new BorderLayout(10,10));
+        JPanel dataPanel = new JPanel(new BorderLayout(10, 10));
 
         dataPanel.add(createVariablesPanel(), BorderLayout.NORTH);
         dataPanel.add(createResultsPanel(), BorderLayout.CENTER);
@@ -114,7 +112,7 @@ public class CalculateLaserCutPanel extends JPanel {
      */
     private JPanel createVariablesPanel() {
 
-        JPanel varPanel = new JPanel(new BorderLayout(10,10));
+        JPanel varPanel = new JPanel(new BorderLayout(10, 10));
 
         varPanel.add(createPowerPanel(), BorderLayout.WEST);
         varPanel.add(createCuttingTimePanel(), BorderLayout.EAST);
@@ -202,17 +200,17 @@ public class CalculateLaserCutPanel extends JPanel {
      * Sets the values of the variables fields.
      */
     private void setValues() {
-        
+
         String txt = String.format("%.2f", this.controller.getExperience().getCuttingTimeLimit());
         this.cutTimeLimitTxt.setPredefiendText(txt);
         this.resultsTable = new JTable(this.controller.getResults(), RESULT_COLUMN_NAMES);
     }
-    
+
     /**
      * Updates the calculus.
      */
     private void updateCalculus() {
-        
+
         this.controller.updateExperience((float) this.powerSlider.getValue() / 100, this.cutTimeLimitTxt.getDouble());
         this.resultsTable = new JTable(this.controller.getResults(), RESULT_COLUMN_NAMES);
     }
