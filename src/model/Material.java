@@ -3,6 +3,8 @@
  */
 package model;
 
+import java.util.Objects;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -40,10 +42,15 @@ public class Material implements Serializable {
      * The material's vaporisation temperature (ºC).
      */
     private Double vaporisationTemperature;
+    
+    /**
+     * The material's fusion temperatura (ºC).
+     */
+    private Double fusionTemperature;
 
     /**
      * Tells if the material can melt. If it does, the field must be true.
-     * Otherwise, the mearial can only evaporise.
+     * Otherwise, the material can only sublimate.
      */
     private boolean meltable;
 
@@ -51,6 +58,14 @@ public class Material implements Serializable {
      * The epsilon value to calculate the error.
      */
     private final static double EPSILON = 0.0001;
+    
+    private final static double DENSITY_BY_DEFAULT = 0.0;
+    private final static double HEAT_CAPACITY_BY_DEFAULT = 0.0;
+    private final static double LATENT_HEAT_BY_DEFAULT = 0.0;
+    private final static boolean MELTABLE_BY_DEFAULT = true;
+    private final static String NAME_BY_DEFAULT = "New Material";
+    private final static double VAPORISATION_TEMPERATURE_BY_DEFAULT = 0.0;
+    private final static double FUSION_TEMPERATURE_BY_DEFAULT = 0.0;
 
     /**
      * Constructs an instance of material receiving their properties.
@@ -62,13 +77,27 @@ public class Material implements Serializable {
      * @param vaporisationTemperature the material's vaporisation temperature
      * @param meltable tells if the material is either meltable or not
      */
-    public Material(String name, Double latentHeat, Double heatCapacity, Double density, Double vaporisationTemperature, boolean meltable) {
+    public Material(String name, Double latentHeat, Double heatCapacity, Double density, Double vaporisationTemperature, Double fusionTemperature, boolean meltable) {
         this.name = name;
         this.latentHeat = latentHeat;
         this.heatCapacity = heatCapacity;
         this.density = density;
         this.vaporisationTemperature = vaporisationTemperature;
+        this.fusionTemperature = fusionTemperature;
         this.meltable = meltable;
+    }
+    
+    /**
+     * Constructs a instance of material using it's parameters by default.
+     */
+    public Material(){
+        this.density = DENSITY_BY_DEFAULT;
+        this.heatCapacity = HEAT_CAPACITY_BY_DEFAULT;
+        this.latentHeat = LATENT_HEAT_BY_DEFAULT;
+        this.meltable = MELTABLE_BY_DEFAULT;
+        this.name = NAME_BY_DEFAULT;
+        this.vaporisationTemperature = VAPORISATION_TEMPERATURE_BY_DEFAULT;
+        this.fusionTemperature = FUSION_TEMPERATURE_BY_DEFAULT;
     }
 
     /**
@@ -160,6 +189,24 @@ public class Material implements Serializable {
     public void setVaporisationTemperature(Double vaporisationTemperature) {
         this.vaporisationTemperature = vaporisationTemperature;
     }
+    
+    /**
+     * Gets the fusion temperature.
+     *
+     * @return the fusionTemperature
+     */
+    public Double getFusionTemperature() {
+        return fusionTemperature;
+    }
+
+    /**
+     * Sets the fusion temperature.
+     *
+     * @param fusionTemperature the fusionTemperature to set
+     */
+    public void setFusionTemperature(Double fusionTemperature) {
+        this.fusionTemperature = fusionTemperature;
+    }
 
     /**
      * Gets the meltable state.
@@ -181,13 +228,14 @@ public class Material implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 23 * hash + Objects.hashCode(this.name);
-        hash = 23 * hash + Objects.hashCode(this.latentHeat);
-        hash = 23 * hash + Objects.hashCode(this.heatCapacity);
-        hash = 23 * hash + Objects.hashCode(this.density);
-        hash = 23 * hash + Objects.hashCode(this.vaporisationTemperature);
-        hash = 23 * hash + (this.meltable ? 1 : 0);
+        int hash = 7;
+        hash = 47 * hash + Objects.hashCode(this.name);
+        hash = 47 * hash + Objects.hashCode(this.latentHeat);
+        hash = 47 * hash + Objects.hashCode(this.heatCapacity);
+        hash = 47 * hash + Objects.hashCode(this.density);
+        hash = 47 * hash + Objects.hashCode(this.vaporisationTemperature);
+        hash = 47 * hash + Objects.hashCode(this.fusionTemperature);
+        hash = 47 * hash + (this.meltable ? 1 : 0);
         return hash;
     }
 
@@ -206,15 +254,16 @@ public class Material implements Serializable {
                 && Math.abs(this.density - other.density) < EPSILON
                 && Math.abs(this.heatCapacity - other.heatCapacity) < EPSILON
                 && Math.abs(this.latentHeat - other.latentHeat) < EPSILON
+                && Math.abs(this.fusionTemperature - other.fusionTemperature) < EPSILON
                 && Math.abs(this.vaporisationTemperature - other.vaporisationTemperature) < EPSILON;
     }
 
     @Override
     public String toString() {
         return String.format("Material{name=%s, meltable=%s, latentHeat=%4f, "
-                + "heatCapacity=%4f, density=%4f, vaporisationTemperature=%4f}",
+                + "heatCapacity=%4f, density=%4f, fusionTemperature=&4f, vaporisationTemperature=%4f}",
                 name, meltable, latentHeat, heatCapacity,
-                density, vaporisationTemperature);
+                density, fusionTemperature, vaporisationTemperature);
     }
 
 }

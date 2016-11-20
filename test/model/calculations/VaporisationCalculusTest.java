@@ -21,7 +21,7 @@ public class VaporisationCalculusTest {
 
     public VaporisationCalculusTest() {
 
-        testMaterial = new Material("Graphit (carbon)", 5.95303E7, 7.20000E2, 2.23000E3, 4200.0, false);
+        testMaterial = new Material("Graphit (carbon)", 5.95303E7, 7.20000E2, 2.23000E3, 4200.0 , null, false);
     }
 
     /**

@@ -86,12 +86,12 @@ public class Laser {
         this.material = material;
         this.materialThickness = materialThickness;
 
+        MaximumPowerCalculus maximumPowerCalculus = new MaximumPowerCalculus(wavelength, focalPointArea);
+        this.maxPower = maximumPowerCalculus.calculate();
+
         this.calculus = (material.isMeltable())
                 ? new MeltingCalculus(maxPower * factor, focalPointArea, material, materialThickness)
                 : new VaporisationCalculus(maxPower * factor, focalPointArea, material);
-
-        MaximumPowerCalculus maximumPowerCalculus = new MaximumPowerCalculus(wavelength, focalPointArea);
-        this.maxPower = maximumPowerCalculus.calculate();
     }
 
     /**
@@ -114,6 +114,7 @@ public class Laser {
 
     /**
      * Obtain selected gas object.
+     *
      * @return the gas
      */
     public Gas getGas() {
@@ -122,6 +123,7 @@ public class Laser {
 
     /**
      * Sets selected gas object.
+     *
      * @param gas the gas to set
      */
     public void setGas(Gas gas) {
@@ -130,6 +132,7 @@ public class Laser {
 
     /**
      * Obtains selected material.
+     *
      * @return the material
      */
     public Material getMaterial() {
@@ -138,6 +141,7 @@ public class Laser {
 
     /**
      * Sets selected material.
+     *
      * @param material the material to set
      */
     public void setMaterial(Material material) {
@@ -146,6 +150,7 @@ public class Laser {
 
     /**
      * Obtains the Material thickness.
+     *
      * @return the materialThickness
      */
     public Double getMaterialThickness() {
@@ -154,6 +159,7 @@ public class Laser {
 
     /**
      * Sets the Material thickness.
+     *
      * @param materialThickness the materialThickness to set
      */
     public void setMaterialThickness(Double materialThickness) {
@@ -207,6 +213,7 @@ public class Laser {
 
     /**
      * Obtains the calculus necessary (depends on the selected material).
+     *
      * @return the calculus
      */
     public Calculable getCalculus() {
@@ -217,7 +224,7 @@ public class Laser {
      * Updates the calculus necessary (depends on the selected material).
      */
     public void updateCalculus() {
-        
+
         this.calculus = (getMaterial().isMeltable())
                 ? new MeltingCalculus(maxPower * factor, focalPointArea, getMaterial(), getMaterialThickness())
                 : new VaporisationCalculus(maxPower * factor, focalPointArea, getMaterial());
