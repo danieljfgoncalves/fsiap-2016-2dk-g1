@@ -29,6 +29,11 @@ public class ShowCuriositiesController {
         this.simulator = simulator;
     }
 
+    /**
+     * Gets the curiosities.
+     *
+     * @return curiosities
+     */
     public Set<Curiosity> getCuriosities() {
         return this.simulator.getCuriosities();
     }
