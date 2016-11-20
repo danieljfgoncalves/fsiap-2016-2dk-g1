@@ -55,6 +55,11 @@ public class GenerateLaserController {
     private Laser laser;
 
     /**
+     * The controller to calculater laser cut.
+     */
+    private CalculateLaserCutController calculateLaserCutController;
+
+    /**
      * Creates a generate laser controller.
      *
      * @param simulator the simulator with all data
@@ -146,7 +151,15 @@ public class GenerateLaserController {
      * Initiates the cut.
      */
     public void initiateCut() {
-        // TODO create the controller to calculate the laser cut.
-        throw new UnsupportedOperationException("Not implemented yet.");
+        calculateLaserCutController = new CalculateLaserCutController(laser);
+    }
+
+    /**
+     * gets the calculate laser cut controller.
+     *
+     * @return calculate laser cut controller
+     */
+    public CalculateLaserCutController getCalculateLaserCutController() {
+        return calculateLaserCutController;
     }
 }
