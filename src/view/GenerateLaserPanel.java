@@ -175,7 +175,7 @@ public class GenerateLaserPanel extends JPanel {
 
         JLabel wavelengthLabel = new JLabel(String.format("Comprimento de onda:   %-5.0f nm", wavelength));
 
-        JSlider wavelengthSlider = new JSlider(200, 20000, 10600);
+        JSlider wavelengthSlider = new JSlider(200, 27000, 10600);
         wavelengthSlider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent ce) {
@@ -387,7 +387,7 @@ public class GenerateLaserPanel extends JPanel {
      */
     public static void main(String[] args) {
         Gas g1 = new Gas("gas1", 200e-9, 12000e-9);
-        Gas g2 = new Gas("gas2", 800e-9, 20000e-9);
+        Gas g2 = new Gas("gas2", 800e-9, 30000e-9);
         Set<Gas> gases = new HashSet<>();
         Material m1 = new Material("Wood", 1e100, 1e100, 1e100, 1e100, true);
         Material m2 = new Material("Iron", 1e200, 1e200, 1e200, 1e200, false);
