@@ -4,7 +4,6 @@
 package view;
 
 import controller.GenerateLaserController;
-import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -12,13 +11,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -378,36 +375,5 @@ public class GenerateLaserPanel extends JPanel {
         gasesComboBox.setRenderer(new GasRenderer());
         gas = (Gas) gasesComboBox.getSelectedItem();
         controller.setGas(gas);
-    }
-
-    /**
-     * Method to test this UI.
-     *
-     * @param args command line arguments
-     */
-    public static void main(String[] args) {
-        Gas g1 = new Gas("gas1", 200e-9, 12000e-9);
-        Gas g2 = new Gas("gas2", 800e-9, 30000e-9);
-        Set<Gas> gases = new HashSet<>();
-        Material m1 = new Material("Wood", 1e100, 1e100, 1e100, 1e100, true);
-        Material m2 = new Material("Iron", 1e200, 1e200, 1e200, 1e200, false);
-        Set<Material> materials = new HashSet<>();
-        materials.add(m1);
-        materials.add(m2);
-        gases.add(g1);
-        gases.add(g2);
-        Simulator simulator = new Simulator();
-        simulator.setGases(gases);
-        simulator.setMaterials(materials);
-
-        JFrame frame = new JFrame();
-        frame.setSize(800, 600);
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("Laser cutting simulator");
-
-        frame.add(new GenerateLaserPanel(simulator), BorderLayout.WEST);
-
-        frame.setVisible(true);
     }
 }
