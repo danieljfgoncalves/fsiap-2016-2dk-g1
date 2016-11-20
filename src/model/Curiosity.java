@@ -3,8 +3,6 @@
  */
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -45,10 +43,11 @@ public class Curiosity {
 
     /**
      * builds up an instance of Curiosity with parameter curiosity
+     *
      * @param curiosity Curiosity's description
      */
-    public Curiosity(String curiosity_description) {
-        this.curiosityDescription = curiosity_description;
+    public Curiosity(String curiosityDescription) {
+        this.curiosityDescription = curiosityDescription;
     }
 
     /**
@@ -72,7 +71,7 @@ public class Curiosity {
      */
     @Override
     public String toString() {
-         return String.format("%nCuriosity: %s %n",
+        return String.format("%nCuriosity: %s %n",
                 this.getCuriosityString());
     }
 
@@ -102,8 +101,5 @@ public class Curiosity {
 
         return this.getCuriosityString().equals(otherCuriosity.getCuriosityString());
     }
-    
-    
-    
-    
+
 }
