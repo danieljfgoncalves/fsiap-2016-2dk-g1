@@ -185,13 +185,13 @@ public class Experience implements Exportable {
 
         // [ Gas | Power | Focal Point Area | Material | Thickness | Cut Method |P Vel | Time Limit | Cuts? ]
         results[1][0] = this.laser.getGas().getName();
-        results[1][1] = String.format("%.2d W", this.laser.getMaxPower() * this.laser.getFactor());
-        results[1][2] = String.format("%.2d m2", this.laser.getFocalPointArea());
+        results[1][1] = String.format("%.2f W", this.laser.getMaxPower() * this.laser.getFactor());
+        results[1][2] = String.format("%.2f m2", this.laser.getFocalPointArea());
         results[1][3] = this.laser.getMaterial().getName();
-        results[1][4] = String.format("%.2d m", this.laser.getMaterialThickness());
+        results[1][4] = String.format("%.2f m", this.laser.getMaterialThickness());
         results[1][5] = (this.laser.getMaterial().isMeltable() ? "Fusion Cutting" : "Vaporisation Cutting");
-        results[1][6] = String.format("%.2d m/s", this.laser.getFocalPointArea());
-        results[1][7] = String.format("%.2d s", this.cuttingTimeLimit);
+        results[1][6] = String.format("%.2f m/s", this.laser.getFocalPointArea());
+        results[1][7] = String.format("%.2f s", this.cuttingTimeLimit);
         results[1][8] = (doesCut() ? "Yes" : "No");
 
         return results;

@@ -37,7 +37,7 @@ public class CalculateLaserCutPanel extends JPanel {
      * Laser Process Diagram.
      */
     private static final ImageIcon LASER_IMG
-            = new ImageIcon(CalculateLaserCutPanel.class.getResource("/view/components/laserImage.jpg"));
+            = new ImageIcon("laserImage.jpg");
 
     /**
      * The controller to calculate the laser cut.
@@ -222,7 +222,7 @@ public class CalculateLaserCutPanel extends JPanel {
      */
     private void setValues() {
         
-        String txt = String.format("%.2d", this.controller.getExperience().getCuttingTimeLimit());
+        String txt = String.format("%.2f", this.controller.getExperience().getCuttingTimeLimit());
         this.cutTimeLimitTxt.setPredefiendText(txt);
         this.resultsTable = new JTable(this.controller.getResults(), RESULT_COLUMN_NAMES);
     }
