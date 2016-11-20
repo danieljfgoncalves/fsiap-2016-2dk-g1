@@ -3,6 +3,7 @@
  */
 package model;
 
+import model.calculations.Calculable;
 import java.util.Objects;
 import model.calculations.MaximumPowerCalculus;
 import model.calculations.VaporisationCalculus;

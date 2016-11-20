@@ -3,8 +3,6 @@
  */
 package model.calculations;
 
-import model.Calculable;
-
 /**
  * Represents a class that calculates the max power that a laser can emit.
  *
