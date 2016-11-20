@@ -14,10 +14,12 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
+import model.Simulator;
+import utils.SimulatorFileLoader;
 
 /**
  * Creates a custom JMenuBar.
- * 
+ *
  * @author Eric Amaral 1141570
  * @author Daniel Gonçalves 1151452
  * @author Ivo Ferro 1151159
@@ -31,20 +33,27 @@ public class CustomMenuBar extends JMenuBar {
     private final JFrame parentFrame;
 
     /**
-     * Creates an instance of the CustomMenuBar.
-     * 
-     * @param parentFrame - the main frame
+     * The simulator with all data.
      */
-    public CustomMenuBar(JFrame parentFrame) {
+    private final Simulator simulator;
+
+    /**
+     * Creates an instance of the CustomMenuBar.
+     *
+     * @param parentFrame the main frame
+     * @param simulator simulator with all data
+     */
+    public CustomMenuBar(JFrame parentFrame, Simulator simulator) {
 
         this.parentFrame = parentFrame;
+        this.simulator = simulator;
 
         add(createMenuOptions());
     }
 
     /**
      * Creates the Options menu
-     * 
+     *
      * @return menu Options
      */
     private JMenu createMenuOptions() {
@@ -58,7 +67,7 @@ public class CustomMenuBar extends JMenuBar {
 
     /**
      * Creates the sub menu list for Export.
-     * 
+     *
      * @return the submenu list
      */
     private JMenu createSubMenuList() {
@@ -70,7 +79,7 @@ public class CustomMenuBar extends JMenuBar {
 
     /**
      * Creates the HTML item.
-     * 
+     *
      * @return item
      */
     private JMenuItem createItemExportHTML() {
@@ -109,7 +118,7 @@ public class CustomMenuBar extends JMenuBar {
 
     /**
      * Creates the Exit item.
-     * 
+     *
      * @return Exit item
      */
     private JMenuItem createItemExit() {
@@ -128,7 +137,7 @@ public class CustomMenuBar extends JMenuBar {
 
     /**
      * Creates the Curiosities item.
-     * 
+     *
      * @return Curiosities item
      */
     private JMenuItem createItemCuriosities() {
@@ -142,11 +151,17 @@ public class CustomMenuBar extends JMenuBar {
         });
         return item;
     }
-    
+
     /**
      * Closes the program.
      */
-    private void exit() {
-        //TODO
+    public void exit() {
+        boolean isSaved = SimulatorFileLoader.save(SimulatorFileLoader.DEFAULT_FILE_NAME, this.simulator);
+
+        if (isSaved) {
+            System.exit(0);
+        } else {
+            System.exit(1);
+        }
     }
 }

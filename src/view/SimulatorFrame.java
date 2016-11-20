@@ -6,8 +6,9 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
-import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import model.Simulator;
 
@@ -48,9 +49,16 @@ public class SimulatorFrame extends JFrame {
         this.simulator = simulator;
 
         createComponents();
-        CustomMenuBar mb = new CustomMenuBar(this);
+        CustomMenuBar mb = new CustomMenuBar(this, this.simulator);
         setJMenuBar(mb);
-        // TODO save on binary file on close
+
+        // calls exit method from menu bar to save simulator in binary file
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                mb.exit();
+            }
+        });
 
         pack();
         setSize(WINDOW_DIMENSION);
