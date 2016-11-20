@@ -6,6 +6,7 @@ package model;
 import model.calculations.Calculable;
 import java.util.Objects;
 import model.calculations.MaximumPowerCalculus;
+import model.calculations.MeltingCalculus;
 import model.calculations.VaporisationCalculus;
 
 /**
@@ -85,13 +86,12 @@ public class Laser {
         this.material = material;
         this.materialThickness = materialThickness;
 
-        // TODO: replace null when both calculus are implemented.
-        this.calculus = (material.isMeltable())
-                ? null
-                : new VaporisationCalculus(maxPower * factor, focalPointArea, material);
-
         MaximumPowerCalculus maximumPowerCalculus = new MaximumPowerCalculus(wavelength, focalPointArea);
         this.maxPower = maximumPowerCalculus.calculate();
+
+        this.calculus = (material.isMeltable())
+                ? new MeltingCalculus(maxPower * factor, focalPointArea, material, materialThickness)
+                : new VaporisationCalculus(maxPower * factor, focalPointArea, material);
     }
 
     /**
@@ -110,6 +110,60 @@ public class Laser {
      */
     public void setWavelength(Double wavelength) {
         this.wavelength = wavelength;
+    }
+
+    /**
+     * Obtain selected gas object.
+     *
+     * @return the gas
+     */
+    public Gas getGas() {
+        return gas;
+    }
+
+    /**
+     * Sets selected gas object.
+     *
+     * @param gas the gas to set
+     */
+    public void setGas(Gas gas) {
+        this.gas = gas;
+    }
+
+    /**
+     * Obtains selected material.
+     *
+     * @return the material
+     */
+    public Material getMaterial() {
+        return material;
+    }
+
+    /**
+     * Sets selected material.
+     *
+     * @param material the material to set
+     */
+    public void setMaterial(Material material) {
+        this.material = material;
+    }
+
+    /**
+     * Obtains the Material thickness.
+     *
+     * @return the materialThickness
+     */
+    public Double getMaterialThickness() {
+        return materialThickness;
+    }
+
+    /**
+     * Sets the Material thickness.
+     *
+     * @param materialThickness the materialThickness to set
+     */
+    public void setMaterialThickness(Double materialThickness) {
+        this.materialThickness = materialThickness;
     }
 
     /**
@@ -157,11 +211,30 @@ public class Laser {
         this.factor = factor;
     }
 
+    /**
+     * Obtains the calculus necessary (depends on the selected material).
+     *
+     * @return the calculus
+     */
+    public Calculable getCalculus() {
+        return calculus;
+    }
+
+    /**
+     * Updates the calculus necessary (depends on the selected material).
+     */
+    public void updateCalculus() {
+
+        this.calculus = (getMaterial().isMeltable())
+                ? new MeltingCalculus(maxPower * factor, focalPointArea, getMaterial(), getMaterialThickness())
+                : new VaporisationCalculus(maxPower * factor, focalPointArea, getMaterial());
+    }
+
     @Override
     public int hashCode() {
         int hash = 5;
         hash = 97 * hash + Objects.hashCode(this.wavelength);
-        hash = 97 * hash + Objects.hashCode(this.gas);
+        hash = 97 * hash + Objects.hashCode(this.getGas());
         hash = 97 * hash + Objects.hashCode(this.focalPointArea);
         return hash;
     }
@@ -180,12 +253,12 @@ public class Laser {
 
         return Math.abs(this.wavelength - other.wavelength) < EPSILON
                 && Math.abs(this.focalPointArea - other.focalPointArea) < EPSILON
-                && this.gas.equals(other.gas);
+                && this.getGas().equals(other.getGas());
     }
 
     @Override
     public String toString() {
         return String.format("Laser{" + "wavelength=%d, gas=%s, focalPointArea=%.2f}",
-                this.wavelength, this.gas, this.focalPointArea);
+                this.wavelength, this.getGas(), this.focalPointArea);
     }
 }

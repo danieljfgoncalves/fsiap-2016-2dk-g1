@@ -5,6 +5,9 @@ package model;
 
 import java.util.Objects;
 
+import java.io.Serializable;
+import java.util.Objects;
+
 /**
  * Represents a solid material.
  *
@@ -13,7 +16,7 @@ import java.util.Objects;
  * @author Ivo Ferro 1151159
  * @author Tiago Correia 1151031
  */
-public class Material {
+public class Material implements Serializable {
 
     /**
      * Material name.

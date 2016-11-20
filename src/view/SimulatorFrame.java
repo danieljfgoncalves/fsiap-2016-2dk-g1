@@ -6,6 +6,8 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import model.Simulator;
@@ -47,8 +49,16 @@ public class SimulatorFrame extends JFrame {
         this.simulator = simulator;
 
         createComponents();
-        // TODO set the menu bar
-        // TODO save on binary file on close
+        CustomMenuBar mb = new CustomMenuBar(this, this.simulator);
+        setJMenuBar(mb);
+
+        // calls exit method from menu bar to save simulator in binary file
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                mb.exit();
+            }
+        });
 
         pack();
         setSize(WINDOW_DIMENSION);
@@ -61,10 +71,10 @@ public class SimulatorFrame extends JFrame {
      */
     private void createComponents() {
         setLayout(new BorderLayout(10, 10));
-        
+
         JPanel laserCutPanelPlaceholder = new JPanel();
         laserCutPanelPlaceholder.setBackground(Color.GRAY);
-        
+
         add(new GenerateLaserPanel(simulator), BorderLayout.WEST);
         add(laserCutPanelPlaceholder, BorderLayout.CENTER);
     }

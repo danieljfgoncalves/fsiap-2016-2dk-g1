@@ -3,7 +3,11 @@
  */
 package model;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.Objects;
+import utils.HTMLPage;
 
 /**
  * Represents an experience class.
@@ -13,7 +17,7 @@ import java.util.Objects;
  * @author Ivo Ferro 1151159
  * @author Tiago Correia 1151031
  */
-public class Experience {
+public class Experience implements Exportable {
 
     /**
      * time limit to cut material (in seconds).
@@ -24,12 +28,12 @@ public class Experience {
      * Laser used for the experience.
      */
     private Laser laser;
-    
+
     /**
      * True if material is cutted, false otherwise.
      */
     private boolean cut;
-    
+
     /**
      * Penetration Velocity (in m/s).
      */
@@ -38,13 +42,17 @@ public class Experience {
     /**
      * Default time limit to cut material (in seconds).
      */
-    private final static double DEFAULT_CUTTING_TIME_LIMIT = 30.0; 
-    
+    private final static double DEFAULT_CUTTING_TIME_LIMIT = 30.0;
+
     /**
      * Default penetration velocity (not calculated).
      */
     private final static double DEFAULT_PENETRATION_VELOCITY = 0.0;
-    
+
+    private final static String[] DEFAULT_RESULTS_TITLES
+            = {"Laser Gas", "Laser Power", "Affected Area", "Material", "Material Thickness",
+                "Cutting Method", "Penetration Velocity", "Cutting Time Limit", "Does it Cut?"};
+
     /**
      * Error margin for comparisons.
      */
@@ -99,6 +107,7 @@ public class Experience {
 
     /**
      * Obtains Penetration Velocity (in m/s).
+     *
      * @return the penetrationVelocity
      */
     public Double getPenetrationVelocity() {
@@ -107,6 +116,7 @@ public class Experience {
 
     /**
      * Sets Penetration Velocity (in m/s).
+     *
      * @param penetrationVelocity the penetrationVelocity to set
      */
     public void setPenetrationVelocity(Double penetrationVelocity) {
@@ -129,6 +139,84 @@ public class Experience {
      */
     public void setLaser(Laser laser) {
         this.laser = laser;
+    }
+
+    /**
+     * Calculates and stores the penetration velocity of the laser.
+     */
+    public void calculatePenetrationVelocity() {
+
+        this.penetrationVelocity = this.laser.getCalculus().calculate();
+    }
+
+    /**
+     * Calculates and stores the penetration velocity of the laser (with the new
+     * factor).
+     *
+     * @param factor the power factor
+     */
+    public void calculatePenetrationVelocity(Float factor) {
+
+        this.laser.setFactor(factor);
+        this.laser.updateCalculus();
+        Experience.this.calculatePenetrationVelocity();
+    }
+
+    /**
+     * Verifies if the laser cuts the material in the selected limit (cutting
+     * time)
+     *
+     * @return true if it cuts, false otherwise
+     */
+    private boolean doesCut() {
+
+        Double cuttingTime = (this.laser.getMaterialThickness() / this.penetrationVelocity);
+
+        return cuttingTime < this.cuttingTimeLimit;
+    }
+
+    /**
+     * Obtains the result table of the laser cut.
+     *
+     * @return a table with the results.
+     */
+    public String[][] generateResults() {
+        String[][] results = new String[2][DEFAULT_RESULTS_TITLES.length];
+
+        // [ Gas | Power | Focal Point Area | Material | Thickness | Cut Method |P Vel | Time Limit | Cuts? ]
+        results[1][0] = this.laser.getGas().getName();
+        results[1][1] = String.format("%.2d W", this.laser.getMaxPower() * this.laser.getFactor());
+        results[1][2] = String.format("%.2d m2", this.laser.getFocalPointArea());
+        results[1][3] = this.laser.getMaterial().getName();
+        results[1][4] = String.format("%.2d m", this.laser.getMaterialThickness());
+        results[1][5] = (this.laser.getMaterial().isMeltable() ? "Fusion Cutting" : "Vaporisation Cutting");
+        results[1][6] = String.format("%.2d m/s", this.laser.getFocalPointArea());
+        results[1][7] = String.format("%.2d s", this.cuttingTimeLimit);
+        results[1][8] = (doesCut() ? "Yes" : "No");
+
+        return results;
+    }
+
+    /**
+     * Creates the structure of the exported HTML file.
+     */
+    @Override
+    public void exportHTML(String url) {
+        StringBuffer page = new StringBuffer();
+        HTMLPage.pageStart(page, "Experience Results");
+        HTMLPage.insertTableStyle(page);
+        HTMLPage.header(page, "Experience Results:\n");
+        HTMLPage.createTableWithoutHeaders(page, generateResults(), generateResults().length);
+        HTMLPage.pageCloseWithDate(page);
+         try {
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(url));
+            try {
+                out.writeObject(page);
+            } finally {
+                out.close();
+            }
+        } catch (IOException ex) {
+        }
     }
 
     @Override
