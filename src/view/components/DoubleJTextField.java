@@ -28,7 +28,7 @@ public class DoubleJTextField extends JTextField {
             public void keyTyped(KeyEvent e) {
                 char ch = e.getKeyChar();
 
-                if (!isNumber(ch) && !isValidSignal(ch) && !validatePoint(ch) && ch != '\b') {
+                if (!isNumber(ch) && !validatePoint(ch) && ch != '\b') {
                     e.consume();
                 }
             }

@@ -43,7 +43,7 @@ public class GenerateLaserController {
      * Material thickness.
      */
     private Double materialThickness;
-    
+
     /**
      * The selected focal point area.
      */
@@ -107,11 +107,11 @@ public class GenerateLaserController {
     public void setMaterial(Material material) {
         this.material = material;
     }
-    
+
     /**
      * Sets the matrial's thickness to use.
      *
-     * @param materialThickness  the selected material thickness
+     * @param materialThickness the selected material thickness
      */
     public void setMaterialThickness(Double materialThickness) {
         this.materialThickness = materialThickness;
@@ -133,6 +133,18 @@ public class GenerateLaserController {
         laser = simulator.newLaser(wavelength, gas, focalPointArea, material, materialThickness);
     }
 
+    /**
+     * Gets the laser maximum power.
+     *
+     * @return laser maximum power
+     */
+    public Double getMaxPower() {
+        return laser.getMaxPower();
+    }
+
+    /**
+     * Initiates the cut.
+     */
     public void initiateCut() {
         // TODO create the controller to calculate the laser cut.
         throw new UnsupportedOperationException("Not implemented yet.");

@@ -126,6 +126,16 @@ public class GenerateLaserPanel extends JPanel {
     private JButton calculateMaxPowerButton;
 
     /**
+     * The max power.
+     */
+    private Double maxPower;
+    
+    /**
+     * The label with maximum power.
+     */
+    private JLabel maxPowerLabel;
+
+    /**
      * Creates an instance of GenerateLaserPanel.
      *
      * @param simulator the simulator with all data
@@ -277,9 +287,17 @@ public class GenerateLaserPanel extends JPanel {
             @Override
             public void keyTyped(KeyEvent e) {
                 try {
-                    Double.parseDouble(materialThicknessTextField.getText() + e.getKeyChar());
-                    calculateMaxPowerButton.setEnabled(true);
-                } catch (Exception exception) {
+                    double testValue = Double.parseDouble(materialThicknessTextField.getText() + e.getKeyChar());
+                    if (testValue != 0) {
+                        materialThickness = testValue;
+                        controller.setMaterialThickness(materialThickness);
+                        controller.newLaser();
+                        calculateMaxPowerButton.setEnabled(true);
+                    }
+                    else {
+                        calculateMaxPowerButton.setEnabled(false);
+                    }
+                } catch (NumberFormatException exception) {
                     calculateMaxPowerButton.setEnabled(false);
                 }
             }
@@ -302,6 +320,15 @@ public class GenerateLaserPanel extends JPanel {
 
         calculateMaxPowerButton = new JButton("Calcular poder máximo");
         calculateMaxPowerButton.setEnabled(false);
+        calculateMaxPowerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                // TODO
+                //controller.initiateCut();
+                maxPower = controller.getMaxPower();
+                maxPowerLabel.setText(String.format("Poder máximo:   %.4e W", maxPower));
+            }
+        });
 
         buttonPanel.add(calculateMaxPowerButton);
 
@@ -316,7 +343,9 @@ public class GenerateLaserPanel extends JPanel {
     private JPanel createMaxPowerPanel() {
         JPanel maxPowerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
 
-        maxPowerPanel.add(new JLabel("Poder máximo:"));
+        maxPowerLabel = new JLabel("Poder máximo:");
+
+        maxPowerPanel.add(maxPowerLabel);
 
         return maxPowerPanel;
     }
