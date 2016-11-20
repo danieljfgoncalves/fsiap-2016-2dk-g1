@@ -39,13 +39,13 @@ public class Gas {
      * Creates an instance of gas.
      *
      * @param name name of the gas
-     * @param maxWavelength the maximum wave length
      * @param minWavelength the minimum wave length
+     * @param maxWavelength the maximum wave length
      */
-    public Gas(String name, Double maxWavelength, Double minWavelength) {
+    public Gas(String name, Double minWavelength, Double maxWavelength) {
         this.name = name;
-        this.maxWavelength = maxWavelength;
         this.minWavelength = minWavelength;
+        this.maxWavelength = maxWavelength;
     }
 
     /**
@@ -140,7 +140,7 @@ public class Gas {
 
     @Override
     public String toString() {
-        return String.format("Gas{name=%s, maxWavelength=%d, minWavelength=%d}",
+        return String.format("Gas{name=%s, maxWavelength=%f, minWavelength=%f}",
                 name, maxWavelength, minWavelength);
     }
 

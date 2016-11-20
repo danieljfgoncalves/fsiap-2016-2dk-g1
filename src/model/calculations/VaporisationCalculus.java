@@ -3,7 +3,6 @@
  */
 package model.calculations;
 
-import model.Calculable;
 import model.Material;
 
 /**
@@ -64,8 +63,8 @@ public class VaporisationCalculus implements Calculable {
      *
      * @param powerDensity the powerDensity to set
      */
-    public void setPowerDensity(Double powerDensity) {
-        this.powerDensity = powerDensity;
+    public void setPowerDensity(Double power, Double focalPoint) {
+        this.powerDensity = power / focalPoint;
     }
 
     /**
@@ -112,6 +111,9 @@ public class VaporisationCalculus implements Calculable {
     @Override
     public double calculate() {
 
+        /*
+        * V = P / {∂[ L + C * (Tv - T0)]} (m/s)
+        */
         return powerDensity
                 / (material.getDensity()
                 * (material.getLatentHeat() + material.getHeatCapacity()
