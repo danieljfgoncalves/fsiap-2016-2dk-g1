@@ -92,7 +92,7 @@ public class CalculateLaserCutPanel extends JPanel {
     private void createComponents() {
         setLayout(new BorderLayout());
 
-        add(createImagePanel(), BorderLayout.CENTER);
+        add(createImagePanel(), BorderLayout.EAST);
         add(createDataPanel(), BorderLayout.WEST);
     }
 
@@ -210,7 +210,7 @@ public class CalculateLaserCutPanel extends JPanel {
 
         JPanel panel = new JPanel(new GridBagLayout());
 
-        this.resultsTable = new JTable(new String[1][1], RESULT_COLUMN_NAMES);
+        this.resultsTable = new JTable(new String[1][9], RESULT_COLUMN_NAMES);
         JScrollPane scroll = new JScrollPane(this.resultsTable);
         panel.add(scroll);
 
