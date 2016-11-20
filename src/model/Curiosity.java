@@ -20,7 +20,7 @@ public class Curiosity {
     /**
      * Curiosity's description
      */
-    private String curiosity_description;
+    private String curiosityDescription;
 
     /**
      * Curiosity's description by default
@@ -31,7 +31,7 @@ public class Curiosity {
      * builds up an instance of Curiosity with parameters by default
      */
     public Curiosity() {
-        this.curiosity_description = DEFAULT_CURIOSITY;
+        this.curiosityDescription = DEFAULT_CURIOSITY;
     }
 
     /**
@@ -40,7 +40,7 @@ public class Curiosity {
      * @param otherCity City to copy
      */
     public Curiosity(Curiosity otherCuriosity) {
-        this.curiosity_description = otherCuriosity.curiosity_description;
+        this.curiosityDescription = otherCuriosity.curiosityDescription;
     }
 
     /**
@@ -48,21 +48,21 @@ public class Curiosity {
      * @param curiosity Curiosity's description
      */
     public Curiosity(String curiosity_description) {
-        this.curiosity_description = curiosity_description;
+        this.curiosityDescription = curiosity_description;
     }
 
     /**
      * @return the curiosity
      */
-    public String getCuriosity() {
-        return curiosity_description;
+    public String getCuriosityString() {
+        return curiosityDescription;
     }
 
     /**
      * @param curiosity the curiosity to set
      */
     public void setCuriosity(String curiosity_description) {
-        this.curiosity_description = curiosity_description;
+        this.curiosityDescription = curiosity_description;
     }
 
     /**
@@ -72,14 +72,14 @@ public class Curiosity {
      */
     @Override
     public String toString() {
-         return String.format("%nCuriosity's: %s %n",
-                this.getCuriosity());
+         return String.format("%nCuriosity: %s %n",
+                this.getCuriosityString());
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 47 * hash + Objects.hashCode(this.curiosity_description);
+        hash = 47 * hash + Objects.hashCode(this.curiosityDescription);
         return hash;
     }
 
@@ -100,7 +100,7 @@ public class Curiosity {
 
         final Curiosity otherCuriosity = (Curiosity) otherObject;
 
-        return this.getCuriosity().equals(otherCuriosity.getCuriosity());
+        return this.getCuriosityString().equals(otherCuriosity.getCuriosityString());
     }
     
     
