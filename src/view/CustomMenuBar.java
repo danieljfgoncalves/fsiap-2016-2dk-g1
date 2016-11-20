@@ -14,6 +14,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
+import model.Experience;
 import model.Simulator;
 import utils.SimulatorFileLoader;
 
@@ -47,7 +48,7 @@ public class CustomMenuBar extends JMenuBar {
 
         this.parentFrame = parentFrame;
         this.simulator = simulator;
-
+        
         add(createMenuOptions());
     }
 
@@ -97,18 +98,7 @@ public class CustomMenuBar extends JMenuBar {
                     if (!file.getName().endsWith(".html")) {
                         file = new File(file.getPath().trim() + ".html");
                     }
-                    if (!true) {
-                        JOptionPane.showMessageDialog(CustomMenuBar.this,
-                                "Impossível gravar o ficheiro: "
-                                + file.getPath() + " !",
-                                "Exportar",
-                                JOptionPane.ERROR_MESSAGE);
-                    } else {
-                        JOptionPane.showMessageDialog(CustomMenuBar.this,
-                                "Ficheiro gravado com sucesso.",
-                                "Exportar",
-                                JOptionPane.INFORMATION_MESSAGE);
-                    }
+                    //experience.exportHTML(file.getPath());
                 }
             }
         });
