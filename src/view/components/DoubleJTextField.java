@@ -54,7 +54,7 @@ public class DoubleJTextField extends JTextField {
      */
     public DoubleJTextField(String text, int columns) {
 
-        super(text, columns);
+        super("", columns);
 
         predefinedText = text;
 
@@ -132,12 +132,10 @@ public class DoubleJTextField extends JTextField {
      */
     public Double getDouble() {
 
-        String str = super.getText();
-
-        if (str.isEmpty()) {
-            str = predefinedText;
+        if (super.getText().isEmpty()) {
+            super.setText(predefinedText);
         }
-        return Double.parseDouble(str);
+        return Double.parseDouble(super.getText());
     }
 
 }

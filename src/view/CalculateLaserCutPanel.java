@@ -28,6 +28,14 @@ import view.components.DoubleJTextField;
  */
 public class CalculateLaserCutPanel extends JPanel {
 
+    /**
+     * The simulator frame (Parent Frame).
+     */
+    private final SimulatorFrame simulatorFrame;
+
+    /**
+     * Laser Process Diagram.
+     */
     private static final ImageIcon LASER_IMG
             = new ImageIcon(CalculateLaserCutPanel.class.getResource("/view/components/laserImage.jpg"));
 
@@ -56,10 +64,15 @@ public class CalculateLaserCutPanel extends JPanel {
     /**
      * Creates an instance of Calculate Laser Cut Panel.
      *
+     * @param simulatorFrame parent frame
      */
-    public CalculateLaserCutPanel() {
+    public CalculateLaserCutPanel(SimulatorFrame simulatorFrame) {
         super();
+        this.simulatorFrame = simulatorFrame;
         this.controller = null;
+
+        createComponents();
+        setVisible(false);
     }
 
     /**
@@ -69,7 +82,7 @@ public class CalculateLaserCutPanel extends JPanel {
      */
     public void setController(CalculateLaserCutController controller) {
         this.controller = controller;
-        createComponents();
+        updateCalculus();
     }
 
     /**
@@ -165,8 +178,7 @@ public class CalculateLaserCutPanel extends JPanel {
         JLabel cutLabel = new JLabel("Cutting Time Limit:", JLabel.RIGHT);
         cutPanel.add(cutLabel, BorderLayout.NORTH);
 
-        String limitStr = String.format("%.2d", this.controller.getExperience().getCuttingTimeLimit());
-        this.cutTimeLimitTxt = new DoubleJTextField(limitStr, 6);
+        this.cutTimeLimitTxt = new DoubleJTextField("", 6);
         this.cutTimeLimitTxt.getDocument().addDocumentListener(new DocumentListener() {
             public void changedUpdate(DocumentEvent e) {
                 updateCalculus();
@@ -197,7 +209,7 @@ public class CalculateLaserCutPanel extends JPanel {
 
         JPanel panel = new JPanel(new GridBagLayout());
 
-        this.resultsTable = new JTable(this.controller.getResults(), RESULT_COLUMN_NAMES);
+        this.resultsTable = new JTable(new String[1][1], RESULT_COLUMN_NAMES);
         JScrollPane scroll = new JScrollPane(this.resultsTable);
         panel.add(scroll);
 
@@ -208,7 +220,7 @@ public class CalculateLaserCutPanel extends JPanel {
      * Updates the calculus.
      */
     private void updateCalculus() {
-
+        
         this.controller.updateExperience((float) this.powerSlider.getValue() / 100, this.cutTimeLimitTxt.getDouble());
         this.resultsTable = new JTable(this.controller.getResults(), RESULT_COLUMN_NAMES);
     }

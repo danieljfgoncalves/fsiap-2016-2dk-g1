@@ -76,6 +76,6 @@ public class SimulatorFrame extends JFrame {
         laserCutPanelPlaceholder.setBackground(Color.GRAY);
 
         add(new GenerateLaserPanel(simulator), BorderLayout.WEST);
-        add(laserCutPanelPlaceholder, BorderLayout.CENTER);
+        add(new CalculateLaserCutPanel(this), BorderLayout.CENTER);
     }
 }
