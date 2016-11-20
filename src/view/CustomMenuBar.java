@@ -30,29 +30,23 @@ public class CustomMenuBar extends JMenuBar {
      */
     private final JFrame parentFrame;
 
+    /**
+     * Creates an instance of the CustomMenuBar.
+     * 
+     * @param parentFrame - the main frame
+     */
     public CustomMenuBar(JFrame parentFrame) {
 
         this.parentFrame = parentFrame;
 
-        JMenu menu = new JMenu("Options");
-        menu.setMnemonic(KeyEvent.VK_O);
-        menu.add(createItemCuriosities());
-        menu.add(createSubMenuList());
-        menu.add(createItemExit());
-        add(menu);
+        add(createMenuOptions());
     }
 
-    private void createComponents() {
-        JMenuBar menuBar = createMenuBar();
-    }
-
-    private JMenuBar createMenuBar() {
-        JMenuBar menuBar = new JMenuBar();
-        menuBar.add(createMenuOptions());
-
-        return menuBar;
-    }
-
+    /**
+     * Creates the Options menu
+     * 
+     * @return menu Options
+     */
     private JMenu createMenuOptions() {
         JMenu menu = new JMenu("Options");
         menu.setMnemonic(KeyEvent.VK_O);
@@ -62,6 +56,11 @@ public class CustomMenuBar extends JMenuBar {
         return menu;
     }
 
+    /**
+     * Creates the sub menu list for Export.
+     * 
+     * @return the submenu list
+     */
     private JMenu createSubMenuList() {
         JMenu menu = new JMenu("Export");
         menu.setMnemonic(KeyEvent.VK_E);
@@ -69,6 +68,11 @@ public class CustomMenuBar extends JMenuBar {
         return menu;
     }
 
+    /**
+     * Creates the HTML item.
+     * 
+     * @return item
+     */
     private JMenuItem createItemExportHTML() {
         JMenuItem item = new JMenuItem("HTML", 'H');
         item.setAccelerator(KeyStroke.getKeyStroke("ctrl H"));
@@ -103,6 +107,11 @@ public class CustomMenuBar extends JMenuBar {
         return item;
     }
 
+    /**
+     * Creates the Exit item.
+     * 
+     * @return Exit item
+     */
     private JMenuItem createItemExit() {
         JMenuItem item = new JMenuItem("Exit", 'x');
         item.setAccelerator(KeyStroke.getKeyStroke("ctrl X"));
@@ -117,6 +126,11 @@ public class CustomMenuBar extends JMenuBar {
         return item;
     }
 
+    /**
+     * Creates the Curiosities item.
+     * 
+     * @return Curiosities item
+     */
     private JMenuItem createItemCuriosities() {
         JMenuItem item = new JMenuItem("Curiosities", 'C');
         item.setAccelerator(KeyStroke.getKeyStroke("ctrl C"));
@@ -128,6 +142,11 @@ public class CustomMenuBar extends JMenuBar {
         });
         return item;
     }
+    
+    /**
+     * Closes the program.
+     */
     private void exit() {
+        //TODO
     }
 }
