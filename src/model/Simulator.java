@@ -3,6 +3,7 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -15,7 +16,7 @@ import java.util.Set;
  * @author Ivo Ferro 1151159
  * @author Tiago Correia 1151031
  */
-public class Simulator {
+public class Simulator implements Serializable {
 
     /**
      * The materials.
