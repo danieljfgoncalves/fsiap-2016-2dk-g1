@@ -6,6 +6,7 @@ package view;
 import controller.CalculateLaserCutController;
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -17,6 +18,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import view.components.DoubleJTextField;
+import view.components.ImagePanel;
 
 /**
  * Represents a panel with the laser cut results.
@@ -32,12 +34,6 @@ public class CalculateLaserCutPanel extends JPanel {
      * The simulator frame (Parent Frame).
      */
     private final SimulatorFrame simulatorFrame;
-
-    /**
-     * Laser Process Diagram.
-     */
-    private static final ImageIcon LASER_IMG
-            = new ImageIcon("laserImage.jpg");
 
     /**
      * The controller to calculate the laser cut.
@@ -90,25 +86,10 @@ public class CalculateLaserCutPanel extends JPanel {
      * Creates the UI components.
      */
     private void createComponents() {
-        setLayout(new BorderLayout());
+        setLayout(new BorderLayout(10, 10));
 
-        add(createImagePanel(), BorderLayout.EAST);
-        add(createDataPanel(), BorderLayout.WEST);
-    }
-
-    /**
-     * Creates a panel with the laser image.
-     *
-     * @return the image panel
-     */
-    private JPanel createImagePanel() {
-
-        JPanel imagePanel = new JPanel(new GridBagLayout());
-
-        JLabel img = new JLabel(LASER_IMG, JLabel.CENTER);
-        imagePanel.add(img);
-
-        return imagePanel;
+        add(new ImagePanel(), BorderLayout.CENTER);
+	add(createDataPanel(), BorderLayout.EAST);
     }
 
     /**
@@ -118,7 +99,7 @@ public class CalculateLaserCutPanel extends JPanel {
      */
     private JPanel createDataPanel() {
 
-        JPanel dataPanel = new JPanel(new BorderLayout());
+        JPanel dataPanel = new JPanel(new BorderLayout(10,10));
 
         dataPanel.add(createVariablesPanel(), BorderLayout.NORTH);
         dataPanel.add(createResultsPanel(), BorderLayout.CENTER);
@@ -133,10 +114,10 @@ public class CalculateLaserCutPanel extends JPanel {
      */
     private JPanel createVariablesPanel() {
 
-        JPanel varPanel = new JPanel(new BorderLayout());
+        JPanel varPanel = new JPanel(new BorderLayout(10,10));
 
-        varPanel.add(createPowerPanel(), BorderLayout.EAST);
-        varPanel.add(createCuttingTimePanel(), BorderLayout.WEST);
+        varPanel.add(createPowerPanel(), BorderLayout.WEST);
+        varPanel.add(createCuttingTimePanel(), BorderLayout.EAST);
 
         return varPanel;
     }
