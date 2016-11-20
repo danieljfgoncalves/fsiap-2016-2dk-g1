@@ -3,6 +3,7 @@
  */
 package view;
 
+import controller.CalculateLaserCutController;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -75,7 +76,16 @@ public class SimulatorFrame extends JFrame {
         JPanel laserCutPanelPlaceholder = new JPanel();
         laserCutPanelPlaceholder.setBackground(Color.GRAY);
 
-        add(new GenerateLaserPanel(simulator), BorderLayout.WEST);
+        add(new GenerateLaserPanel(this, simulator), BorderLayout.WEST);
         add(laserCutPanelPlaceholder, BorderLayout.CENTER);
+    }
+
+    /**
+     * Initiate the laser cut panel.
+     *
+     * @param calculateLaserCutController calculate laser cut controller
+     */
+    public void initiateCutPanel(CalculateLaserCutController calculateLaserCutController) {
+        // TODO set controller and initiate the cut panel.
     }
 }

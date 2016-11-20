@@ -133,13 +133,20 @@ public class GenerateLaserPanel extends JPanel {
     private JLabel maxPowerLabel;
 
     /**
+     * The parent simulator frame.
+     */
+    private final SimulatorFrame simulatorFrame;
+
+    /**
      * Creates an instance of GenerateLaserPanel.
      *
+     * @param simulatorFrame the parent simulator frame
      * @param simulator the simulator with all data
      */
-    public GenerateLaserPanel(Simulator simulator) {
+    public GenerateLaserPanel(SimulatorFrame simulatorFrame, Simulator simulator) {
         super();
 
+        this.simulatorFrame = simulatorFrame;
         this.simulator = simulator;
         this.controller = new GenerateLaserController(simulator);
         setDefaultValues();
@@ -318,8 +325,8 @@ public class GenerateLaserPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 controller.newLaser();
-                // TODO
-                //controller.initiateCut();
+                controller.initiateCut();
+                simulatorFrame.initiateCutPanel(controller.getCalculateLaserCutController());
                 maxPower = controller.getMaxPower();
                 maxPowerLabel.setText(String.format("Poder máximo:   %.4e W", maxPower));
             }
