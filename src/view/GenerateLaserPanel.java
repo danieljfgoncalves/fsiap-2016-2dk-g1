@@ -129,7 +129,7 @@ public class GenerateLaserPanel extends JPanel {
      * The max power.
      */
     private Double maxPower;
-    
+
     /**
      * The label with maximum power.
      */
@@ -236,6 +236,7 @@ public class GenerateLaserPanel extends JPanel {
             @Override
             public void stateChanged(ChangeEvent ce) {
                 focalPointDiameter = (double) focalPointSlider.getValue();
+                controller.setFocalPointArea(focalPointDiameter);
                 focalPointLabel.setText(String.format("Diâmetro do corte:   %.0f mm", focalPointDiameter));
             }
         });
@@ -288,13 +289,11 @@ public class GenerateLaserPanel extends JPanel {
             public void keyTyped(KeyEvent e) {
                 try {
                     double testValue = Double.parseDouble(materialThicknessTextField.getText() + e.getKeyChar());
-                    if (testValue != 0) {
+                    if (testValue > 0) {
                         materialThickness = testValue;
                         controller.setMaterialThickness(materialThickness);
-                        controller.newLaser();
                         calculateMaxPowerButton.setEnabled(true);
-                    }
-                    else {
+                    } else {
                         calculateMaxPowerButton.setEnabled(false);
                     }
                 } catch (NumberFormatException exception) {
@@ -323,6 +322,7 @@ public class GenerateLaserPanel extends JPanel {
         calculateMaxPowerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
+                controller.newLaser();
                 // TODO
                 //controller.initiateCut();
                 maxPower = controller.getMaxPower();
