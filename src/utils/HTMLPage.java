@@ -97,7 +97,7 @@ public class HTMLPage {
      * Inserts a line of headers in the table.
      *
      * @param page - page file
-     * @param info - headers of the table
+     * @param headers - headers of the table
      */
     public static void insertTableHeaders(StringBuffer page, String[] headers) {
         page.append("<tr>");
