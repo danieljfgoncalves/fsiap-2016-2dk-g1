@@ -129,6 +129,23 @@ public class Simulator {
     public Laser newLaser(Double wavelength, Gas gas, Double focalPointArea, Material material, Double materialThickness) {
         return new Laser(wavelength, gas, focalPointArea, material, materialThickness);
     }
+    
+    /**
+     * Constructs new material.
+     * @return the new material.
+     */
+    public Material newMaterial(){
+        return new Material();
+    }
+    
+    /**
+     * Register the new material in the set of materials
+     * @param material the new material
+     * @return true if new material is added to the set of material, false otherwise.
+     */
+    public boolean registerMaterial(Material material){
+        return this.materials.add(material);
+    }
 
     @Override
     public int hashCode() {
