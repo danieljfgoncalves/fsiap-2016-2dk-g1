@@ -1,7 +1,7 @@
 /*
  * Package location for Application model concepts.
  */
-package model;
+package model.calculations;
 
 /**
  * Interface for calculations.

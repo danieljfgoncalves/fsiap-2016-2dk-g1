@@ -3,7 +3,6 @@
  */
 package model.calculations;
 
-import model.Calculable;
 import model.Material;
 
 /**
@@ -112,6 +111,9 @@ public class VaporisationCalculus implements Calculable {
     @Override
     public double calculate() {
 
+        /*
+        * V = P / {∂[ L + C * (Tv - T0)]} (m/s)
+        */
         return powerDensity
                 / (material.getDensity()
                 * (material.getLatentHeat() + material.getHeatCapacity()
