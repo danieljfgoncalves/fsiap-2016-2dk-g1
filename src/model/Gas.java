@@ -3,6 +3,7 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -13,7 +14,7 @@ import java.util.Objects;
  * @author Ivo Ferro 1151159
  * @author Tiago Correia 1151031
  */
-public class Gas {
+public class Gas implements Serializable {
 
     /**
      * The name of the gas.

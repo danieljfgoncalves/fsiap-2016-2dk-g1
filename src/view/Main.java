@@ -36,7 +36,7 @@ public class Main {
     
     private static Simulator getMokcupDataForTesting() {
         Gas g1 = new Gas("gas1", 200e-9, 12000e-9);
-        Gas g2 = new Gas("gas2", 800e-9, 20000e-9);
+        Gas g2 = new Gas("gas2", 800e-9, 30000e-9);
         Set<Gas> gases = new HashSet<>();
         Material m1 = new Material("Wood", 1e100, 1e100, 1e100, 1e100, true);
         Material m2 = new Material("Iron", 1e200, 1e200, 1e200, 1e200, false);
