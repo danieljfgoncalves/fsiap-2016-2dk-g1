@@ -22,7 +22,7 @@ public class DoubleJTextField extends JTextField {
     /**
      * Predefined text.
      */
-    private final String predefinedText;
+    private String predefinedText;
 
     /**
      * Creates an instance for DoubleJTextField.
@@ -54,7 +54,7 @@ public class DoubleJTextField extends JTextField {
      */
     public DoubleJTextField(String text, int columns) {
 
-        super("", columns);
+        super(text, columns);
 
         predefinedText = text;
 
@@ -125,6 +125,10 @@ public class DoubleJTextField extends JTextField {
         return true;
     }
 
+    public void setPredefiendText(String text) {
+        this.predefinedText = text;
+    }
+    
     /**
      * Obtains the Double value.
      *

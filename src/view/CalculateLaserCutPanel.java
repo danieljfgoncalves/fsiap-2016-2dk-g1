@@ -82,7 +82,8 @@ public class CalculateLaserCutPanel extends JPanel {
      */
     public void setController(CalculateLaserCutController controller) {
         this.controller = controller;
-        updateCalculus();
+        setValues();
+        setVisible(true);
     }
 
     /**
@@ -216,6 +217,16 @@ public class CalculateLaserCutPanel extends JPanel {
         return panel;
     }
 
+    /**
+     * Sets the values of the variables fields.
+     */
+    private void setValues() {
+        
+        String txt = String.format("%.2d", this.controller.getExperience().getCuttingTimeLimit());
+        this.cutTimeLimitTxt.setPredefiendText(txt);
+        this.resultsTable = new JTable(this.controller.getResults(), RESULT_COLUMN_NAMES);
+    }
+    
     /**
      * Updates the calculus.
      */

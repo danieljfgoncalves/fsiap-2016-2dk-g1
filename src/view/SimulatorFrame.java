@@ -27,6 +27,11 @@ public class SimulatorFrame extends JFrame {
      * The simulator with all data.
      */
     private final Simulator simulator;
+    
+    /**
+     * Panel that represents the calculate laser cut.
+     */
+    private CalculateLaserCutPanel calculateCutPanel;
 
     /**
      * Title for the frame.
@@ -77,7 +82,9 @@ public class SimulatorFrame extends JFrame {
         laserCutPanelPlaceholder.setBackground(Color.GRAY);
 
         add(new GenerateLaserPanel(this, simulator), BorderLayout.WEST);
-        add(new CalculateLaserCutPanel(this), BorderLayout.CENTER);
+        
+        this.calculateCutPanel = new CalculateLaserCutPanel(this);
+        add(this.calculateCutPanel, BorderLayout.CENTER);
     }
 
     /**
@@ -86,6 +93,7 @@ public class SimulatorFrame extends JFrame {
      * @param calculateLaserCutController calculate laser cut controller
      */
     public void initiateCutPanel(CalculateLaserCutController calculateLaserCutController) {
-        // TODO set controller and initiate the cut panel.
+        
+        calculateCutPanel.setController(calculateLaserCutController);
     }
 }
