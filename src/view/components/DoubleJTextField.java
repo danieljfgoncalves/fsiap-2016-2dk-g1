@@ -3,6 +3,8 @@
  */
 package view.components;
 
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JTextField;
@@ -18,11 +20,19 @@ import javax.swing.JTextField;
 public class DoubleJTextField extends JTextField {
 
     /**
+     * Predefined text.
+     */
+    private final String predefinedText;
+
+    /**
      * Creates an instance for DoubleJTextField.
      *
      * @param columns number of columns to display
      */
     public DoubleJTextField(int columns) {
+
+        predefinedText = "";
+
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -34,6 +44,41 @@ public class DoubleJTextField extends JTextField {
             }
         });
         setColumns(columns);
+    }
+
+    /**
+     * Creates an instance for DoubleJTextField.
+     *
+     * @param text preset text
+     * @param columns number of columns to display
+     */
+    public DoubleJTextField(String text, int columns) {
+
+        super(text, columns);
+
+        predefinedText = text;
+
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char ch = e.getKeyChar();
+
+                if (!isNumber(ch) && !validatePoint(ch) && ch != '\b') {
+                    e.consume();
+                }
+            }
+        });
+
+        addFocusListener(new FocusListener() {
+
+            public void focusGained(FocusEvent e) {
+                setText("");
+            }
+
+            public void focusLost(FocusEvent e) {
+                // nothing
+            }
+        });
     }
 
     /**
@@ -79,4 +124,20 @@ public class DoubleJTextField extends JTextField {
 
         return true;
     }
+
+    /**
+     * Obtains the Double value.
+     *
+     * @return value
+     */
+    public Double getDouble() {
+
+        String str = super.getText();
+
+        if (str.isEmpty()) {
+            str = predefinedText;
+        }
+        return Double.parseDouble(str);
+    }
+
 }
