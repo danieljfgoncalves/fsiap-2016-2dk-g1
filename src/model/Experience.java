@@ -4,6 +4,7 @@
 package model;
 
 import java.util.Objects;
+import utils.HTMLPage;
 
 /**
  * Represents an experience class.
@@ -13,7 +14,7 @@ import java.util.Objects;
  * @author Ivo Ferro 1151159
  * @author Tiago Correia 1151031
  */
-public class Experience {
+public class Experience implements Exportable {
 
     /**
      * time limit to cut material (in seconds).
@@ -159,25 +160,26 @@ public class Experience {
     }
 
     /**
-     * Verifies if the laser cuts the material in the selected limit (cutting time)
-     * 
+     * Verifies if the laser cuts the material in the selected limit (cutting
+     * time)
+     *
      * @return true if it cuts, false otherwise
      */
     private boolean doesCut() {
-        
+
         Double cuttingTime = (this.laser.getMaterialThickness() / this.penetrationVelocity);
-        
+
         return cuttingTime < this.cuttingTimeLimit;
     }
-    
+
     /**
      * Obtains the result table of the laser cut.
-     * 
+     *
      * @return a table with the results.
      */
     public String[][] generateResults() {
         String[][] results = new String[2][DEFAULT_RESULTS_TITLES.length];
-        
+
         // [ Gas | Power | Focal Point Area | Material | Thickness | Cut Method |P Vel | Time Limit | Cuts? ]
         results[1][0] = this.laser.getGas().getName();
         results[1][1] = String.format("%.2d W", this.laser.getMaxPower() * this.laser.getFactor());
@@ -190,6 +192,19 @@ public class Experience {
         results[1][8] = (doesCut() ? "Yes" : "No");
 
         return results;
+    }
+
+    /**
+     * Creates the structure of the exported HTML file.
+     */
+    @Override
+    public void exportHTML() {
+        StringBuffer page = new StringBuffer();
+        HTMLPage.pageStart(page, "Experience Results");
+        HTMLPage.insertTableStyle(page);
+        HTMLPage.header(page, "Experience Results:\n");
+        HTMLPage.createTableWithoutHeaders(page, generateResults(), generateResults().length);
+        HTMLPage.pageCloseWithDate(page);
     }
 
     @Override

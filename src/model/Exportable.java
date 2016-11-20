@@ -16,6 +16,6 @@ public interface Exportable {
     /**
      * Exports data.
      */
-    public abstract void export();
+    public abstract void exportHTML();
     
 }
