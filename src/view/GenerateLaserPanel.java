@@ -34,8 +34,8 @@ import view.components.DoubleJTextField;
 /**
  * Represents a panel with the fields to generate the laser.
  *
- * @author Eric Amaral 1141570
  * @author Daniel Gonçalves 1151452
+ * @author Eric Amaral 1141570
  * @author Ivo Ferro 1151159
  * @author Tiago Correia 1151031
  */
@@ -173,8 +173,6 @@ public class GenerateLaserPanel extends JPanel {
     private JPanel createWavelengthPanel() {
         JPanel wavelengthPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
 
-        this.wavelength = 10600d;
-        this.controller.setWavelength(wavelength * 1e-9);
         JLabel wavelengthLabel = new JLabel(String.format("Comprimento de onda:   %-5.0f nm", wavelength));
 
         JSlider wavelengthSlider = new JSlider(200, 20000, 10600);
@@ -190,7 +188,7 @@ public class GenerateLaserPanel extends JPanel {
         });
 
         wavelengthPanel.add(wavelengthLabel);
-        wavelengthPanel.add(wavelengthSlider); //nm
+        wavelengthPanel.add(wavelengthSlider);
 
         return wavelengthPanel;
     }
@@ -317,7 +315,7 @@ public class GenerateLaserPanel extends JPanel {
     private JPanel createCalculateButtonPanel() {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
 
-        calculateMaxPowerButton = new JButton("Calcular poder máximo");
+        calculateMaxPowerButton = new JButton("Calcular corte");
         calculateMaxPowerButton.setEnabled(false);
         calculateMaxPowerButton.addActionListener(new ActionListener() {
             @Override
