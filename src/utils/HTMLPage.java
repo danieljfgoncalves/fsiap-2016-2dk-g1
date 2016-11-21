@@ -19,102 +19,106 @@ public class HTMLPage {
     /**
      * Starts the HTML page.
      *
-     * @param page - page file
      * @param title - title of the page
      */
-    public static void pageStart(StringBuffer page, String title) {
+    public static String pageStart(String title) {
+
+        StringBuilder page = new StringBuilder();
+
         page.append("<!DOCTYPE html>\n");
         page.append("<html>\n");
         page.append("<head>\n");
         page.append("<meta charset='utf-8'>\n");
         page.append(String.format("<title>%s</title>\n", title));
+        page.append(insertTableStyle());
         page.append("</head>\n");
         page.append("<body>\n");
+
+        return page.toString();
     }
 
     /**
      * Closes the page.
      *
-     * @param page - page file
      */
-    public static void pageClose(StringBuffer page) {
-        page.append("</body>\n</html>");
+    public static String pageClose() {
+        return "</body>\n</html>";
     }
 
     /**
      * Closes the page adding a final paragraph with current date.
      *
-     * @param page - page file
      */
-    public static void pageCloseWithDate(StringBuffer page) {
+    public static String pageCloseWithDate() {
         Calendar today = Calendar.getInstance();
         int day = today.get(Calendar.DAY_OF_MONTH);
         int month = today.get(Calendar.MONTH) + 1;
         int year = today.get(Calendar.YEAR);
-        paragraph(page, "Date: " + day + "/" + month + "/" + year);
-        page.append("</body>\n</html>");
+        return paragraph("Date: " + day + "/" + month + "/" + year) + "</body>\n</html>";
     }
 
     /**
      * Creates a paragraph in the page.
      *
-     * @param page - page file
      * @param content - paragraph's content
      */
-    public static void paragraph(StringBuffer page, String content) {
-        page.append(String.format("<p>%s</p>\n", content));
+    public static String paragraph(String content) {
+        return String.format("<p>%s</p>\n", content);
     }
 
     /**
      * Creates a main header in the page.
-     * 
-     * @param page - page file
+     *
      * @param content - header content
      */
-    public static void header(StringBuffer page, String content) {
-        page.append(String.format("<h1>%s</h1>\n", content));
+    public static String header(String content) {
+        return String.format("<h1>%s</h1>\n", content);
     }
 
     /**
      * Starts the creation of a table.
      *
-     * @param page - page file
      */
-    public static void startTable(StringBuffer page) {
-        page.append("<table>\n");
+    public static String startTable() {
+        return "<table>\n";
     }
 
     /**
      * Closes a created table.
      *
-     * @param page
      */
-    public static void closeTable(StringBuffer page) {
-        page.append("</table>\n");
+    public static String closeTable() {
+        return "</table>\n";
     }
 
     /**
      * Inserts a line of headers in the table.
      *
-     * @param page - page file
      * @param headers - headers of the table
      */
-    public static void insertTableHeaders(StringBuffer page, String[] headers) {
+    public static String insertTableHeaders(String[] headers) {
+
+        StringBuilder page = new StringBuilder();
+
         page.append("<tr>");
         for (int i = 0; i < headers.length; i++) {
             page.append(String.format("<th>%s</th>", headers[i]));
         }
         page.append("</tr>\n");
+
+        return page.toString();
     }
 
     /**
      * Inserts multiple lines with content in the table.
      *
-     * @param page - page file
      * @param info - table content matrix
      * @param numLines - number of information lines in the table
      */
-    public static void insertTableBody(StringBuffer page, String[][] info, int numLines) {
+    public static String insertTableBody(String[][] info, int numLines) {
+
+        StringBuilder page = new StringBuilder();
+
         for (int i = 0; i < numLines; i++) {
             page.append("<tr>");
             for (int j = 0; j < info[i].length; j++) {
@@ -122,43 +126,45 @@ public class HTMLPage {
             }
             page.append("</tr>\n");
         }
+
+        return page.toString();
     }
 
     /**
      * Creates a table without header titles.
      *
-     * @param page - page file
      * @param info - table content matrix
      * @param numLines - number of lines in the table
      */
-    public static void createTableWithoutHeaders(StringBuffer page, String[][] info, int numLines) {
-        startTable(page);
-        insertTableBody(page, info, numLines);
-        closeTable(page);
+    public static String createTableWithoutHeaders(String[][] info, int numLines) {
+
+        return startTable()
+                + insertTableBody(info, numLines)
+                + closeTable();
+
     }
 
     /**
      * Creates a table with header titles.
      *
-     * @param page - page file
      * @param headers - titles of the table
      * @param info - table content matrix
      * @param numLines - number of lines in the table
      */
-    public static void createTableWithHeaders(StringBuffer page, String[] headers, String[][] info, int numLines) {
-        startTable(page);
-        insertTableHeaders(page, headers);
-        insertTableBody(page, info, numLines);
-        closeTable(page);
+    public static String createTableWithHeaders(String[] headers, String[][] info, int numLines) {
+        
+        return startTable()
+                + insertTableHeaders(headers)
+                + insertTableBody(info, numLines)
+                + closeTable();
     }
 
     /**
      * Adds layouts to the content of the page.
-     * 
-     * @param page - page file
+     *
      */
-    public static void insertTableStyle(StringBuffer page) {
-        page.append("<style>\ntable, p {\n  "
+    private static String insertTableStyle() {
+        return "<style>\ntable, p {\n  "
                 + "font-family: arial, sans-serif;\n"
                 + "     border-collapse: collapse;\n"
                 + "     width: 100%;}\n"
@@ -172,6 +178,6 @@ public class HTMLPage {
                 + "font-size:x-small;"
                 + "text-align: left;"
                 + "}\n"
-                + "</style>\n");
+                + "</style>\n";
     }
 }
