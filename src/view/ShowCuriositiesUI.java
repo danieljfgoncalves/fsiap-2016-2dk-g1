@@ -59,7 +59,7 @@ public class ShowCuriositiesUI extends JDialog {
     /**
      * Window title.
      */
-    private static final String WINDOW_TITLE = "CURIOSITIES";
+    private static final String WINDOW_TITLE = "Curiosities";
 
     /**
      * Padding border.
