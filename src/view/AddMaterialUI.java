@@ -21,7 +21,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import model.Simulator;
-import utils.DefaultInstantiator;
 
 /**
  * The UI to add material.
@@ -335,12 +334,4 @@ public class AddMaterialUI extends JDialog {
         return confirmDataButton;
 
     }
-
-    public static void main(String[] args) {
-        DefaultInstantiator di = new DefaultInstantiator();
-        Simulator simulator = di.createSimulator();
-
-        new AddMaterialUI(simulator, null);
-    }
-
 }
