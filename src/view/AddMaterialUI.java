@@ -10,16 +10,17 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import model.Simulator;
-import utils.DefaultInstantiator;
 
 /**
  * The UI to add material.
@@ -45,36 +46,46 @@ public class AddMaterialUI extends JDialog {
      * The text field for name
      */
     private JTextField jtfName;
-    
+
     /**
      * The text field for latent heat
      */
     private JTextField jtfLatentHeat;
-    
+
     /**
      * The text field for heat capacity
      */
     private JTextField jtfHeatCapacity;
-    
+
     /**
      * The text field for density
      */
     private JTextField jtfDensity;
-    
+
     /**
      * The text field for vaporization temperature
      */
     private JTextField jtfVaporizationTemperature;
-    
+
     /**
      * The text field for fusion temperature
      */
     private JTextField jtfFusionTemperature;
-    
+
     /**
-     * The text field for meltable
+     * The radio button for is meltable
      */
-    private JTextField jtfMeltable;
+    private JRadioButton jrbIsMeltable;
+
+    /**
+     * The radio button for not meltable
+     */
+    private JRadioButton jrbNotMeltable;
+
+    /**
+     * The meltable boolean
+     */
+    private boolean isMeltable;
 
     /**
      * The add material controller
@@ -141,6 +152,11 @@ public class AddMaterialUI extends JDialog {
         return setMaterialPanel;
     }
 
+    /**
+     * Create the labels Panel.
+     *
+     * @return the Labels Panel.
+     */
     private JPanel labelsPanel() {
         JPanel labelPanel = new JPanel(new GridLayout(0, 1));
         JTextArea jta1 = new JTextArea("Name");
@@ -168,6 +184,11 @@ public class AddMaterialUI extends JDialog {
         return labelPanel;
     }
 
+    /**
+     * Creates the fields Panel.
+     *
+     * @return the fields Panel.
+     */
     private JPanel fieldsPanel() {
         final int FIELD_WIDTH = 20;
         JPanel fieldPanel = new JPanel(new GridLayout(0, 1));
@@ -177,16 +198,59 @@ public class AddMaterialUI extends JDialog {
         jtfDensity = new JTextField(FIELD_WIDTH);
         jtfVaporizationTemperature = new JTextField(FIELD_WIDTH);
         jtfFusionTemperature = new JTextField(FIELD_WIDTH);
-        jtfMeltable = new JTextField(FIELD_WIDTH);
+
         fieldPanel.add(jtfName);
         fieldPanel.add(jtfLatentHeat);
         fieldPanel.add(jtfHeatCapacity);
         fieldPanel.add(jtfDensity);
         fieldPanel.add(jtfVaporizationTemperature);
         fieldPanel.add(jtfFusionTemperature);
-        fieldPanel.add(jtfMeltable);
+        fieldPanel.add(createRbPanel());
 
         return fieldPanel;
+    }
+
+    /**
+     * Creates the radio button panel.
+     *
+     * @return radio button panel
+     */
+    private JPanel createRbPanel() {
+        JPanel rbPanel = new JPanel(new GridLayout(0, 2));
+        jrbIsMeltable = new JRadioButton("Yes");
+        jrbNotMeltable = new JRadioButton("No");
+        ButtonGroup bG = new ButtonGroup();
+        bG.add(jrbIsMeltable);
+        bG.add(jrbNotMeltable);
+
+        jrbIsMeltable.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (jrbIsMeltable.isSelected()) {
+                    isMeltable = true;
+                } else {
+                    isMeltable = false;
+                }
+            }
+        });
+
+        jrbNotMeltable.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (jrbNotMeltable.isSelected()) {
+                    isMeltable = false;
+                } else {
+                    isMeltable = true;
+                }
+            }
+        });
+
+        rbPanel.add(jrbIsMeltable);
+        rbPanel.add(jrbNotMeltable);
+
+        return rbPanel;
     }
 
     /**
@@ -232,15 +296,16 @@ public class AddMaterialUI extends JDialog {
         this.confirmDataButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.addNewMaterial();
-                controller.setMaterialData(jtfName.getText(), Double.parseDouble(jtfLatentHeat.getText()), Double.parseDouble(jtfHeatCapacity.getText()), Double.parseDouble(jtfDensity.getText()), Double.parseDouble(jtfVaporizationTemperature.getText()),
-                        Double.parseDouble(jtfFusionTemperature.getText()), Boolean.parseBoolean(jtfMeltable.getText()));
 
                 try {
-                    String designation = jtfName.getText();
-                    if (designation.length() < 1) {
+                    if (jtfName.getText().length() < 1 || jtfLatentHeat.getText().length() < 1 || jtfHeatCapacity.getText().length() < 1
+                            || jtfDensity.getText().length() < 1 || jtfVaporizationTemperature.getText().length() < 1 || jtfFusionTemperature.getText().length() < 1) {
                         throw new IllegalArgumentException("Empty field! . Try again.");
                     }
+                    
+                    controller.addNewMaterial();
+                    controller.setMaterialData(jtfName.getText(), Double.parseDouble(jtfLatentHeat.getText()), Double.parseDouble(jtfHeatCapacity.getText()), Double.parseDouble(jtfDensity.getText()), Double.parseDouble(jtfVaporizationTemperature.getText()),
+                            Double.parseDouble(jtfFusionTemperature.getText()), isMeltable);
 
                     boolean addedMaterial;
                     addedMaterial = controller.registerMaterial();
@@ -269,6 +334,4 @@ public class AddMaterialUI extends JDialog {
         return confirmDataButton;
 
     }
-
-
 }

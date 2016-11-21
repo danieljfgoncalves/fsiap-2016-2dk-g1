@@ -93,7 +93,7 @@ public class CustomMenuBar extends JMenuBar {
         item.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO
+                new AddMaterialUI(simulator, parentFrame);
             }
         });
         return item;
@@ -155,7 +155,7 @@ public class CustomMenuBar extends JMenuBar {
         item.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO
+                new ShowCuriositiesUI(simulator, parentFrame);
             }
         });
         return item;
