@@ -5,6 +5,7 @@ package view;
 
 import controller.GenerateLaserController;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -178,7 +179,8 @@ public class GenerateLaserPanel extends JPanel {
         JPanel wavelengthPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         JLabel wavelengthLabel = new JLabel(String.format("Comprimento de onda:   %-5.0f nm", wavelength));
-
+        wavelengthLabel.setPreferredSize(new Dimension(195, 20));
+        
         JSlider wavelengthSlider = new JSlider(200, 27000, 10600);
         wavelengthSlider.addChangeListener(new ChangeListener() {
             @Override
@@ -206,6 +208,7 @@ public class GenerateLaserPanel extends JPanel {
         JPanel gasPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         gasesComboBox = new JComboBox<>();
+        gasesComboBox.setPreferredSize(new Dimension(150, 20));
         updateGasComboBox();
 
         gasesComboBox.addActionListener(new ActionListener() {
@@ -258,6 +261,7 @@ public class GenerateLaserPanel extends JPanel {
         JPanel materialPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         JComboBox<Material> materialComboBox = new JComboBox<>();
+        materialComboBox.setPreferredSize(new Dimension(150, 20));
         materials.stream().forEach((material) -> {
             materialComboBox.addItem(material);
         });

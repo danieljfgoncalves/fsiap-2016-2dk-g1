@@ -16,7 +16,7 @@ import java.util.Objects;
  * @author Ivo Ferro 1151159
  * @author Tiago Correia 1151031
  */
-public class Material implements Serializable {
+public class Material implements Serializable, Comparable<Material> {
 
     /**
      * Material name.
@@ -264,6 +264,11 @@ public class Material implements Serializable {
                 + "heatCapacity=%4f, density=%4f, fusionTemperature=&4f, vaporisationTemperature=%4f}",
                 name, meltable, latentHeat, heatCapacity,
                 density, fusionTemperature, vaporisationTemperature);
+    }
+
+    @Override
+    public int compareTo(Material otherMaterial) {
+        return this.name.compareTo(otherMaterial.name);
     }
 
 }
