@@ -52,6 +52,7 @@ public class Main {
         Simulator simulator = new Simulator();
         simulator.setGases(gases);
         simulator.setMaterials(materials);
+        
         return simulator;
     }
 }
