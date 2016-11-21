@@ -175,8 +175,6 @@ public class CustomMenuBar extends JMenuBar {
     }
 
     public void enableExportMenu() {
-        if (this.parentFrame.getExperience() != null) {
-            menuExport.setEnabled(true);
-        }
+        menuExport.setEnabled(true);
     }
 }

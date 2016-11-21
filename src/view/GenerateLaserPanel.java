@@ -334,6 +334,7 @@ public class GenerateLaserPanel extends JPanel {
                 maxPower = controller.getMaxPower();
                 maxPowerLabel.setText(String.format("Poder máximo:   %.4e W", maxPower));
                 simulatorFrame.getExperience();
+                simulatorFrame.enableExport();
             }
         });
 

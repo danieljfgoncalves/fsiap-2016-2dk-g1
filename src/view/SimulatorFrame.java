@@ -120,7 +120,13 @@ public class SimulatorFrame extends JFrame {
     public Experience getExperience() {
         
         Experience experience = this.calculateCutPanel.getExperience();
-        this.mb.enableExportMenu();
         return experience;
+    }
+    
+    /**
+     * Eanbles export.
+     */
+    public void enableExport() {
+        this.mb.enableExportMenu();
     }
 }
