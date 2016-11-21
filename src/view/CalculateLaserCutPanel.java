@@ -15,6 +15,7 @@ import javax.swing.JSlider;
 import javax.swing.JTable;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import model.Experience;
 import view.components.DoubleJTextField;
 import view.components.ImagePanel;
 import view.components.ResultTableModel;
@@ -77,6 +78,19 @@ public class CalculateLaserCutPanel extends JPanel {
         this.controller = controller;
         setValues();
         setVisible(true);
+    }
+
+    /**
+     * Obtains the current experience.
+     *
+     * @return the current experience
+     */
+    public Experience getExperience() {
+
+        if (this.controller == null) {
+            return null;
+        }
+        return this.controller.getExperience();
     }
 
     /**

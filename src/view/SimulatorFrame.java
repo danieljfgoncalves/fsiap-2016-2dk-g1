@@ -11,6 +11,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import model.Experience;
 import model.Simulator;
 
 /**
@@ -94,6 +95,18 @@ public class SimulatorFrame extends JFrame {
      */
     public void initiateCutPanel(CalculateLaserCutController calculateLaserCutController) {
         
-        calculateCutPanel.setController(calculateLaserCutController);
+        this.calculateCutPanel.setController(calculateLaserCutController);
+    }
+    
+    /**
+     * Obtains the current experience.
+     * 
+     * @return the current experience
+     */
+    public Experience getExperience() {
+        
+        Experience experience = this.calculateCutPanel.getExperience();
+        
+        return experience;
     }
 }

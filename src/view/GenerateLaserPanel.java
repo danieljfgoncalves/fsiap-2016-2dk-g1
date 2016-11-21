@@ -329,6 +329,8 @@ public class GenerateLaserPanel extends JPanel {
                 simulatorFrame.initiateCutPanel(controller.getCalculateLaserCutController());
                 maxPower = controller.getMaxPower();
                 maxPowerLabel.setText(String.format("Poder máximo:   %.4e W", maxPower));
+                simulatorFrame.getExperience();
+                // TODO: Activate Menu Item
             }
         });
 
