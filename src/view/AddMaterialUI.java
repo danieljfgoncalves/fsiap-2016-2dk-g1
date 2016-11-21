@@ -19,6 +19,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import model.Simulator;
+import utils.DefaultInstantiator;
 
 /**
  * The UI to add material.
@@ -40,16 +41,49 @@ public class AddMaterialUI extends JDialog {
      */
     private JButton cancelAddMaterial;
 
-    private JTextField jtf1;
-    private JTextField jtf2;
-    private JTextField jtf3;
-    private JTextField jtf4;
-    private JTextField jtf5;
-    private JTextField jtf6;
-    private JTextField jtf7;
+    /**
+     * The text field for name
+     */
+    private JTextField jtfName;
+    
+    /**
+     * The text field for latent heat
+     */
+    private JTextField jtfLatentHeat;
+    
+    /**
+     * The text field for heat capacity
+     */
+    private JTextField jtfHeatCapacity;
+    
+    /**
+     * The text field for density
+     */
+    private JTextField jtfDensity;
+    
+    /**
+     * The text field for vaporization temperature
+     */
+    private JTextField jtfVaporizationTemperature;
+    
+    /**
+     * The text field for fusion temperature
+     */
+    private JTextField jtfFusionTemperature;
+    
+    /**
+     * The text field for meltable
+     */
+    private JTextField jtfMeltable;
 
+    /**
+     * The add material controller
+     */
     private AddMaterialController controller;
 
+    /**
+     * The parent frame
+     */
     private SimulatorFrame parentFrame;
 
     /**
@@ -137,20 +171,20 @@ public class AddMaterialUI extends JDialog {
     private JPanel fieldsPanel() {
         final int FIELD_WIDTH = 20;
         JPanel fieldPanel = new JPanel(new GridLayout(0, 1));
-        jtf1 = new JTextField(FIELD_WIDTH);
-        jtf2 = new JTextField(FIELD_WIDTH);
-        jtf3 = new JTextField(FIELD_WIDTH);
-        jtf4 = new JTextField(FIELD_WIDTH);
-        jtf5 = new JTextField(FIELD_WIDTH);
-        jtf6 = new JTextField(FIELD_WIDTH);
-        jtf7 = new JTextField(FIELD_WIDTH);
-        fieldPanel.add(jtf1);
-        fieldPanel.add(jtf2);
-        fieldPanel.add(jtf3);
-        fieldPanel.add(jtf4);
-        fieldPanel.add(jtf5);
-        fieldPanel.add(jtf6);
-        fieldPanel.add(jtf7);
+        jtfName = new JTextField(FIELD_WIDTH);
+        jtfLatentHeat = new JTextField(FIELD_WIDTH);
+        jtfHeatCapacity = new JTextField(FIELD_WIDTH);
+        jtfDensity = new JTextField(FIELD_WIDTH);
+        jtfVaporizationTemperature = new JTextField(FIELD_WIDTH);
+        jtfFusionTemperature = new JTextField(FIELD_WIDTH);
+        jtfMeltable = new JTextField(FIELD_WIDTH);
+        fieldPanel.add(jtfName);
+        fieldPanel.add(jtfLatentHeat);
+        fieldPanel.add(jtfHeatCapacity);
+        fieldPanel.add(jtfDensity);
+        fieldPanel.add(jtfVaporizationTemperature);
+        fieldPanel.add(jtfFusionTemperature);
+        fieldPanel.add(jtfMeltable);
 
         return fieldPanel;
     }
@@ -199,11 +233,11 @@ public class AddMaterialUI extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controller.addNewMaterial();
-                controller.setMaterialData(jtf1.getText(), Double.parseDouble(jtf2.getText()), Double.parseDouble(jtf3.getText()), Double.parseDouble(jtf4.getText()), Double.parseDouble(jtf5.getText()),
-                        Double.parseDouble(jtf6.getText()), Boolean.parseBoolean(jtf7.getText()));
+                controller.setMaterialData(jtfName.getText(), Double.parseDouble(jtfLatentHeat.getText()), Double.parseDouble(jtfHeatCapacity.getText()), Double.parseDouble(jtfDensity.getText()), Double.parseDouble(jtfVaporizationTemperature.getText()),
+                        Double.parseDouble(jtfFusionTemperature.getText()), Boolean.parseBoolean(jtfMeltable.getText()));
 
                 try {
-                    String designation = jtf1.getText();
+                    String designation = jtfName.getText();
                     if (designation.length() < 1) {
                         throw new IllegalArgumentException("Empty field! . Try again.");
                     }
@@ -236,8 +270,5 @@ public class AddMaterialUI extends JDialog {
 
     }
 
-    public static void main(String[] args) {
-        new AddMaterialUI(null, null);
-    }
 
 }
