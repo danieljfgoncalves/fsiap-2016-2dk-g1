@@ -190,12 +190,12 @@ public class Experience implements Exportable {
 
         // [ Gas | Power | Focal Point Area | Material | Thickness | Cut Method |P Vel | Time Limit | Cuts? ]
         results[0][1] = this.laser.getGas().getName();
-        results[1][1] = String.format("%.2f W", this.laser.getMaxPower() * this.laser.getFactor());
-        results[2][1] = String.format("%.2f m2", this.laser.getFocalPointArea());
+        results[1][1] = String.format("%.4E W", this.laser.getMaxPower() * this.laser.getFactor());
+        results[2][1] = String.format("%.4E mm2", (this.laser.getFocalPointArea() * 1E6));
         results[3][1] = this.laser.getMaterial().getName();
-        results[4][1] = String.format("%.2f m", this.laser.getMaterialThickness());
+        results[4][1] = String.format("%.4E mm", (this.laser.getMaterialThickness() * 1E3));
         results[5][1] = (this.laser.getMaterial().isMeltable() ? "Fusion Cutting" : "Vaporisation Cutting");
-        results[6][1] = String.format("%.2f m/s", this.laser.getFocalPointArea());
+        results[6][1] = String.format("%.4E mm/s", (this.penetrationVelocity * 1E3));
         results[7][1] = String.format("%.2f s", this.cuttingTimeLimit);
         results[8][1] = (doesCut() ? "Yes" : "No");
 
@@ -216,7 +216,7 @@ public class Experience implements Exportable {
 
         try {
             try (BufferedWriter out = new BufferedWriter(new FileWriter(file))) {
-                
+
                 out.write(String.format("%s", page));
             }
         } catch (IOException ex) {
