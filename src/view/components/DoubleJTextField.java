@@ -18,11 +18,19 @@ import javax.swing.JTextField;
 public class DoubleJTextField extends JTextField {
 
     /**
+     * Predefined text.
+     */
+    private String predefinedText;
+
+    /**
      * Creates an instance for DoubleJTextField.
      *
      * @param columns number of columns to display
      */
     public DoubleJTextField(int columns) {
+
+        predefinedText = "";
+
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -34,6 +42,30 @@ public class DoubleJTextField extends JTextField {
             }
         });
         setColumns(columns);
+    }
+
+    /**
+     * Creates an instance for DoubleJTextField.
+     *
+     * @param text preset text
+     * @param columns number of columns to display
+     */
+    public DoubleJTextField(String text, int columns) {
+
+        super(text, columns);
+
+        predefinedText = text;
+
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char ch = e.getKeyChar();
+
+                if (!isNumber(ch) && !validatePoint(ch) && ch != '\b') {
+                    e.consume();
+                }
+            }
+        });
     }
 
     /**
@@ -79,4 +111,23 @@ public class DoubleJTextField extends JTextField {
 
         return true;
     }
+
+    public void setPredefiendText(String text) {
+        this.predefinedText = text;
+        setText(text);
+    }
+    
+    /**
+     * Obtains the Double value.
+     *
+     * @return value
+     */
+    public Double getDouble() {
+
+        if (super.getText().isEmpty()) {
+            super.setText(predefinedText);
+        }
+        return Double.parseDouble(super.getText().replace(',', '.'));
+    }
+
 }

@@ -177,7 +177,7 @@ public class MeltingCalculus implements Calculable {
 
         // TODO: change vaporisation temperature to changeFaseTemperature.
         // Q = mc∆T (J)
-        Double heat = mass * material.getHeatCapacity() * (this.material.getVaporisationTemperature() - this.inicialTemp);
+        Double heat = mass * material.getHeatCapacity() * (this.material.getFusionTemperature() - this.inicialTemp);
 
         // Q = mL (J)
         Double latentHeat = mass * this.material.getLatentHeat();

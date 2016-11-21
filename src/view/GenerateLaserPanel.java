@@ -5,6 +5,7 @@ package view;
 
 import controller.GenerateLaserController;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -133,13 +134,20 @@ public class GenerateLaserPanel extends JPanel {
     private JLabel maxPowerLabel;
 
     /**
+     * The parent simulator frame.
+     */
+    private final SimulatorFrame simulatorFrame;
+
+    /**
      * Creates an instance of GenerateLaserPanel.
      *
+     * @param simulatorFrame the parent simulator frame
      * @param simulator the simulator with all data
      */
-    public GenerateLaserPanel(Simulator simulator) {
+    public GenerateLaserPanel(SimulatorFrame simulatorFrame, Simulator simulator) {
         super();
 
+        this.simulatorFrame = simulatorFrame;
         this.simulator = simulator;
         this.controller = new GenerateLaserController(simulator);
         setDefaultValues();
@@ -151,7 +159,7 @@ public class GenerateLaserPanel extends JPanel {
      * Creates the UI components.
      */
     private void createComponents() {
-        setLayout(new GridLayout(7, 1, 0, 10));
+        setLayout(new GridLayout(7, 1, 0, 0));
 
         add(createWavelengthPanel());
         add(createGasPanel());
@@ -168,10 +176,11 @@ public class GenerateLaserPanel extends JPanel {
      * @return wavelength panel
      */
     private JPanel createWavelengthPanel() {
-        JPanel wavelengthPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        JPanel wavelengthPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         JLabel wavelengthLabel = new JLabel(String.format("Comprimento de onda:   %-5.0f nm", wavelength));
-
+        wavelengthLabel.setPreferredSize(new Dimension(195, 20));
+        
         JSlider wavelengthSlider = new JSlider(200, 27000, 10600);
         wavelengthSlider.addChangeListener(new ChangeListener() {
             @Override
@@ -196,9 +205,10 @@ public class GenerateLaserPanel extends JPanel {
      * @return gas panel
      */
     private JPanel createGasPanel() {
-        JPanel gasPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        JPanel gasPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         gasesComboBox = new JComboBox<>();
+        gasesComboBox.setPreferredSize(new Dimension(150, 20));
         updateGasComboBox();
 
         gasesComboBox.addActionListener(new ActionListener() {
@@ -221,7 +231,7 @@ public class GenerateLaserPanel extends JPanel {
      * @return focal point panel
      */
     private JPanel createFocalPointPanel() {
-        JPanel focalPointPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        JPanel focalPointPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         focalPointDiameter = 4d;
         JLabel focalPointLabel = new JLabel(String.format("Diâmetro do corte:   %.0f mm", focalPointDiameter));
@@ -248,9 +258,10 @@ public class GenerateLaserPanel extends JPanel {
      * @return material panel
      */
     private JPanel createMaterialPanel() {
-        JPanel materialPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        JPanel materialPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         JComboBox<Material> materialComboBox = new JComboBox<>();
+        materialComboBox.setPreferredSize(new Dimension(150, 20));
         materials.stream().forEach((material) -> {
             materialComboBox.addItem(material);
         });
@@ -276,7 +287,7 @@ public class GenerateLaserPanel extends JPanel {
      * @return material tickness panel
      */
     private JPanel createMaterialThickness() {
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         materialThicknessTextField = new DoubleJTextField(6);
         materialThicknessTextField.addKeyListener(new KeyAdapter() {
@@ -310,7 +321,7 @@ public class GenerateLaserPanel extends JPanel {
      * @return calculate button panel
      */
     private JPanel createCalculateButtonPanel() {
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         calculateMaxPowerButton = new JButton("Calcular corte");
         calculateMaxPowerButton.setEnabled(false);
@@ -318,8 +329,8 @@ public class GenerateLaserPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 controller.newLaser();
-                // TODO
-                //controller.initiateCut();
+                controller.initiateCut();
+                simulatorFrame.initiateCutPanel(controller.getCalculateLaserCutController());
                 maxPower = controller.getMaxPower();
                 maxPowerLabel.setText(String.format("Poder máximo:   %.4e W", maxPower));
             }
@@ -336,7 +347,7 @@ public class GenerateLaserPanel extends JPanel {
      * @return max power panel
      */
     private JPanel createMaxPowerPanel() {
-        JPanel maxPowerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        JPanel maxPowerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         maxPowerLabel = new JLabel("Poder máximo:");
 

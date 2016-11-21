@@ -15,12 +15,7 @@ import model.Laser;
  * @author Tiago Correia 1151031
  */
 public class CalculateLaserCutController {
-
-    /**
-     * The generated laser.
-     */
-    private Laser laser;
-
+    
     /**
      * The experience to manipulate.
      */
@@ -32,30 +27,29 @@ public class CalculateLaserCutController {
      * @param simulator the simulator with all data
      */
     public CalculateLaserCutController(Laser laser) {
-        this.laser = laser;
 
         this.experience = new Experience(laser);
         this.experience.calculatePenetrationVelocity();
     }
 
     /**
-     * Updates the experience.
-     *
-     * @param factor new factor value
+     * Obtains the experience to manipulate.
+     * @return the experience
      */
-    public void updateExperience(Float factor) {
-
-        this.experience.calculatePenetrationVelocity(factor);
+    public Experience getExperience() {
+        return experience;
     }
 
     /**
      * Updates the experience.
      *
+     * @param factor new factor value
      * @param cuttingTime new cutting time value.
      */
-    public void updateExperience(Double cuttingTime) {
+    public void updateExperience(Float factor, Double cuttingTime) {
 
-        this.experience.setCuttingTimeLimit(cuttingTime);
+        this.getExperience().calculatePenetrationVelocity(factor);
+         this.getExperience().setCuttingTimeLimit(cuttingTime);
     }
 
     /**
@@ -65,7 +59,7 @@ public class CalculateLaserCutController {
      */
     public String[][] getResults() {
 
-        return this.experience.generateResults();
+        return this.getExperience().generateResults();
     }
 
 }

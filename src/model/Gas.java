@@ -14,7 +14,7 @@ import java.util.Objects;
  * @author Ivo Ferro 1151159
  * @author Tiago Correia 1151031
  */
-public class Gas implements Serializable {
+public class Gas implements Serializable, Comparable<Gas> {
 
     /**
      * The name of the gas.
@@ -143,6 +143,11 @@ public class Gas implements Serializable {
     public String toString() {
         return String.format("Gas{name=%s, maxWavelength=%f, minWavelength=%f}",
                 name, maxWavelength, minWavelength);
+    }
+
+    @Override
+    public int compareTo(Gas otherGas) {
+        return this.name.compareTo(otherGas.name);
     }
 
 }

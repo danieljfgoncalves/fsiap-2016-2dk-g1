@@ -159,7 +159,7 @@ public class Experience implements Exportable {
 
         this.laser.setFactor(factor);
         this.laser.updateCalculus();
-        Experience.this.calculatePenetrationVelocity();
+        this.penetrationVelocity = this.laser.getCalculus().calculate();
     }
 
     /**
@@ -181,18 +181,22 @@ public class Experience implements Exportable {
      * @return a table with the results.
      */
     public String[][] generateResults() {
-        String[][] results = new String[2][DEFAULT_RESULTS_TITLES.length];
+        String[][] results = new String[DEFAULT_RESULTS_TITLES.length][2];
+
+        for (int i = 0; i < DEFAULT_RESULTS_TITLES.length; i++) {
+            results[i][0]= DEFAULT_RESULTS_TITLES[i];
+        }
 
         // [ Gas | Power | Focal Point Area | Material | Thickness | Cut Method |P Vel | Time Limit | Cuts? ]
-        results[1][0] = this.laser.getGas().getName();
-        results[1][1] = String.format("%.2d W", this.laser.getMaxPower() * this.laser.getFactor());
-        results[1][2] = String.format("%.2d m2", this.laser.getFocalPointArea());
-        results[1][3] = this.laser.getMaterial().getName();
-        results[1][4] = String.format("%.2d m", this.laser.getMaterialThickness());
-        results[1][5] = (this.laser.getMaterial().isMeltable() ? "Fusion Cutting" : "Vaporisation Cutting");
-        results[1][6] = String.format("%.2d m/s", this.laser.getFocalPointArea());
-        results[1][7] = String.format("%.2d s", this.cuttingTimeLimit);
-        results[1][8] = (doesCut() ? "Yes" : "No");
+        results[0][1] = this.laser.getGas().getName();
+        results[1][1] = String.format("%.2f W", this.laser.getMaxPower() * this.laser.getFactor());
+        results[2][1] = String.format("%.2f m2", this.laser.getFocalPointArea());
+        results[3][1] = this.laser.getMaterial().getName();
+        results[4][1] = String.format("%.2f m", this.laser.getMaterialThickness());
+        results[5][1] = (this.laser.getMaterial().isMeltable() ? "Fusion Cutting" : "Vaporisation Cutting");
+        results[6][1] = String.format("%.2f m/s", this.laser.getFocalPointArea());
+        results[7][1] = String.format("%.2f s", this.cuttingTimeLimit);
+        results[8][1] = (doesCut() ? "Yes" : "No");
 
         return results;
     }

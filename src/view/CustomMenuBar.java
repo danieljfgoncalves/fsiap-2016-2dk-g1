@@ -48,7 +48,7 @@ public class CustomMenuBar extends JMenuBar {
 
         this.parentFrame = parentFrame;
         this.simulator = simulator;
-        
+
         add(createMenuOptions());
     }
 
@@ -61,6 +61,7 @@ public class CustomMenuBar extends JMenuBar {
         JMenu menu = new JMenu("Options");
         menu.setMnemonic(KeyEvent.VK_O);
         menu.add(createItemCuriosities());
+        menu.add(createItemAddMaterial());
         menu.add(createSubMenuList());
         menu.add(createItemExit());
         return menu;
@@ -73,9 +74,29 @@ public class CustomMenuBar extends JMenuBar {
      */
     private JMenu createSubMenuList() {
         JMenu menu = new JMenu("Export");
+//        if(experience == null){
+//            menu.setEnabled(false);
+//        }
         menu.setMnemonic(KeyEvent.VK_E);
         menu.add(createItemExportHTML());
         return menu;
+    }
+
+    /**
+     * Creates the Add New Material item.
+     * 
+     * @return the Add New Material item
+     */
+    private JMenuItem createItemAddMaterial() {
+        JMenuItem item = new JMenuItem("Add New Material", 'M');
+        item.setAccelerator(KeyStroke.getKeyStroke("ctrl M"));
+        item.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //TODO
+            }
+        });
+        return item;
     }
 
     /**
@@ -92,7 +113,7 @@ public class CustomMenuBar extends JMenuBar {
             public void actionPerformed(ActionEvent e) {
 
                 MyJFileChooser fileChooser = new MyJFileChooser();
-                int resposta = fileChooser.showSaveDialog(CustomMenuBar.this);
+                int resposta = fileChooser.showSaveDialog(parentFrame);
                 if (resposta == JFileChooser.APPROVE_OPTION) {
                     File file = fileChooser.getSelectedFile();
                     if (!file.getName().endsWith(".html")) {
@@ -102,7 +123,6 @@ public class CustomMenuBar extends JMenuBar {
                 }
             }
         });
-
         return item;
     }
 
