@@ -3,9 +3,10 @@
  */
 package model;
 
-import java.io.FileOutputStream;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.Objects;
 import utils.HTMLPage;
 
@@ -184,7 +185,7 @@ public class Experience implements Exportable {
         String[][] results = new String[DEFAULT_RESULTS_TITLES.length][2];
 
         for (int i = 0; i < DEFAULT_RESULTS_TITLES.length; i++) {
-            results[i][0]= DEFAULT_RESULTS_TITLES[i];
+            results[i][0] = DEFAULT_RESULTS_TITLES[i];
         }
 
         // [ Gas | Power | Focal Point Area | Material | Thickness | Cut Method |P Vel | Time Limit | Cuts? ]
@@ -205,19 +206,18 @@ public class Experience implements Exportable {
      * Creates the structure of the exported HTML file.
      */
     @Override
-    public void exportHTML(String url) {
-        StringBuffer page = new StringBuffer();
-        HTMLPage.pageStart(page, "Experience Results");
-        HTMLPage.insertTableStyle(page);
-        HTMLPage.header(page, "Experience Results:\n");
-        HTMLPage.createTableWithoutHeaders(page, generateResults(), generateResults().length);
-        HTMLPage.pageCloseWithDate(page);
-         try {
-            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(url));
-            try {
-                out.writeObject(page);
-            } finally {
-                out.close();
+    public void exportHTML(File file) {
+        StringBuilder page = new StringBuilder();
+
+        page.append(HTMLPage.pageStart("Experience Results"));
+        page.append(HTMLPage.header("Experience Results:\n"));
+        page.append(HTMLPage.createTableWithoutHeaders(generateResults(), generateResults().length));
+        page.append(HTMLPage.pageCloseWithDate());
+
+        try {
+            try (BufferedWriter out = new BufferedWriter(new FileWriter(file))) {
+                
+                out.write(String.format("%s", page));
             }
         } catch (IOException ex) {
         }

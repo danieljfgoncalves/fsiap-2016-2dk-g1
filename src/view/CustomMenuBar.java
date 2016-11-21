@@ -31,12 +31,14 @@ public class CustomMenuBar extends JMenuBar {
     /**
      * The parent JFrame.
      */
-    private final JFrame parentFrame;
+    private final SimulatorFrame parentFrame;
 
     /**
      * The simulator with all data.
      */
     private final Simulator simulator;
+
+    private JMenu menuExport;
 
     /**
      * Creates an instance of the CustomMenuBar.
@@ -44,7 +46,7 @@ public class CustomMenuBar extends JMenuBar {
      * @param parentFrame the main frame
      * @param simulator simulator with all data
      */
-    public CustomMenuBar(JFrame parentFrame, Simulator simulator) {
+    public CustomMenuBar(SimulatorFrame parentFrame, Simulator simulator) {
 
         this.parentFrame = parentFrame;
         this.simulator = simulator;
@@ -73,18 +75,16 @@ public class CustomMenuBar extends JMenuBar {
      * @return the submenu list
      */
     private JMenu createSubMenuList() {
-        JMenu menu = new JMenu("Export");
-//        if(experience == null){
-//            menu.setEnabled(false);
-//        }
-        menu.setMnemonic(KeyEvent.VK_E);
-        menu.add(createItemExportHTML());
-        return menu;
+        this.menuExport = new JMenu("Export");
+        this.menuExport.setMnemonic(KeyEvent.VK_E);
+        this.menuExport.setEnabled(false);
+        this.menuExport.add(createItemExportHTML());
+        return this.menuExport;
     }
 
     /**
      * Creates the Add New Material item.
-     * 
+     *
      * @return the Add New Material item
      */
     private JMenuItem createItemAddMaterial() {
@@ -93,7 +93,7 @@ public class CustomMenuBar extends JMenuBar {
         item.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new AddMaterialUI(simulator, parentFrame);
+                //TODO
             }
         });
         return item;
@@ -107,7 +107,6 @@ public class CustomMenuBar extends JMenuBar {
     private JMenuItem createItemExportHTML() {
         JMenuItem item = new JMenuItem("HTML", 'H');
         item.setAccelerator(KeyStroke.getKeyStroke("ctrl H"));
-
         item.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -119,7 +118,7 @@ public class CustomMenuBar extends JMenuBar {
                     if (!file.getName().endsWith(".html")) {
                         file = new File(file.getPath().trim() + ".html");
                     }
-                    //experience.exportHTML(file.getPath());
+                    parentFrame.getExperience().exportHTML(file);
                 }
             }
         });
@@ -173,5 +172,9 @@ public class CustomMenuBar extends JMenuBar {
         } else {
             System.exit(1);
         }
+    }
+
+    public void enableExportMenu() {
+        menuExport.setEnabled(true);
     }
 }
