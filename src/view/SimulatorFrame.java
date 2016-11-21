@@ -34,6 +34,11 @@ public class SimulatorFrame extends JFrame {
      * Panel that represents the calculate laser cut.
      */
     private CalculateLaserCutPanel calculateCutPanel;
+    
+    /**
+     * Custom menu bar.
+     */
+    private CustomMenuBar mb;
 
     /**
      * Title for the frame.
@@ -62,7 +67,7 @@ public class SimulatorFrame extends JFrame {
         this.simulator = simulator;
 
         createComponents();
-        CustomMenuBar mb = new CustomMenuBar(this, this.simulator);
+        mb = new CustomMenuBar(this, this.simulator);
         setJMenuBar(mb);
 
         // calls exit method from menu bar to save simulator in binary file
