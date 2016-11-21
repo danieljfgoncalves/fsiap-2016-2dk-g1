@@ -97,7 +97,7 @@ public class CalculateLaserCutPanel extends JPanel {
      * Creates the UI components.
      */
     private void createComponents() {
-        setLayout(new BorderLayout(10, 10));
+        setLayout(new BorderLayout(20, 0));
 
         add(new ImagePanel(), BorderLayout.CENTER);
         add(createDataPanel(), BorderLayout.EAST);

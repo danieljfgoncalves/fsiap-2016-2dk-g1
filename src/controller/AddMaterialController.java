@@ -14,7 +14,7 @@ import model.Simulator;
  * @author Ivo Ferro 1151159
  * @author Tiago Correia 1151031
  */
-public class addMaterialController {
+public class AddMaterialController {
     
     /**
      * The simulator with all data.
@@ -31,7 +31,7 @@ public class addMaterialController {
      * 
      * @param simulator the simulator with all data
      */
-    public addMaterialController(Simulator simulator) {
+    public AddMaterialController(Simulator simulator) {
         this.simulator = simulator;
     }
  
@@ -49,15 +49,17 @@ public class addMaterialController {
      * @param latentHeat the new latent heat
      * @param heatCapacity the new heat capacity 
      * @param density the new density
-     * @param vaporisationTemperature the new vaporisation temperature
+     * @param vaporizationTemperature the new vaporization temperature
+     * @param fusionTemperature the new fusion temperature
      * @param meltable the new meltable 
      */
-    public void setMaterialData(String name, Double latentHeat, Double heatCapacity, Double density, Double vaporisationTemperature, boolean meltable){
+    public void setMaterialData(String name, Double latentHeat, Double heatCapacity, Double density, Double vaporizationTemperature, Double fusionTemperature, boolean meltable){
         this.material.setName(name);
         this.material.setLatentHeat(latentHeat);
         this.material.setHeatCapacity(heatCapacity);
         this.material.setDensity(density);
-        this.material.setVaporisationTemperature(vaporisationTemperature);
+        this.material.setVaporisationTemperature(vaporizationTemperature);
+        this.material.setFusionTemperature(fusionTemperature);
         this.material.setMeltable(meltable);
     }
     
