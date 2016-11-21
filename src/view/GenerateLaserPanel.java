@@ -180,7 +180,7 @@ public class GenerateLaserPanel extends JPanel {
 
         JLabel wavelengthLabel = new JLabel(String.format("Comprimento de onda:   %-5.0f nm", wavelength));
         wavelengthLabel.setPreferredSize(new Dimension(195, 20));
-        
+
         JSlider wavelengthSlider = new JSlider(200, 27000, 10600);
         wavelengthSlider.addChangeListener(new ChangeListener() {
             @Override
@@ -241,7 +241,7 @@ public class GenerateLaserPanel extends JPanel {
             @Override
             public void stateChanged(ChangeEvent ce) {
                 focalPointDiameter = (double) focalPointSlider.getValue();
-                controller.setFocalPointArea(focalPointDiameter);
+                controller.setFocalPointArea(focalPointDiameter * 1E-3);
                 focalPointLabel.setText(String.format("Diâmetro do corte:   %.0f mm", focalPointDiameter));
             }
         });
@@ -297,7 +297,7 @@ public class GenerateLaserPanel extends JPanel {
                     double testValue = Double.parseDouble(materialThicknessTextField.getText() + e.getKeyChar());
                     if (testValue > 0) {
                         materialThickness = testValue;
-                        controller.setMaterialThickness(materialThickness);
+                        controller.setMaterialThickness(materialThickness * 1E-3);
                         calculateMaxPowerButton.setEnabled(true);
                     } else {
                         calculateMaxPowerButton.setEnabled(false);
@@ -310,7 +310,7 @@ public class GenerateLaserPanel extends JPanel {
 
         buttonPanel.add(new JLabel("Espessura do material:"));
         buttonPanel.add(materialThicknessTextField);
-        buttonPanel.add(new JLabel("m"));
+        buttonPanel.add(new JLabel("mm"));
 
         return buttonPanel;
     }
@@ -371,7 +371,7 @@ public class GenerateLaserPanel extends JPanel {
         this.material = this.materials.iterator().next();
         this.controller.setMaterial(material);
         this.focalPointDiameter = 4d;
-        this.controller.setFocalPointArea(focalPointDiameter);
+        this.controller.setFocalPointArea(focalPointDiameter * 1E-3f);
     }
 
     /**
