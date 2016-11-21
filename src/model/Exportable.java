@@ -3,6 +3,8 @@
  */
 package model;
 
+import java.io.File;
+
 /**
  * Interface for file exportation.
  *
@@ -16,6 +18,6 @@ public interface Exportable {
     /**
      * Exports data.
      */
-    public abstract void exportHTML(String url);
+    public abstract void exportHTML(File file);
     
 }

@@ -3,6 +3,7 @@
  */
 package model;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -205,7 +206,7 @@ public class Experience implements Exportable {
      * Creates the structure of the exported HTML file.
      */
     @Override
-    public void exportHTML(String url) {
+    public void exportHTML(File file) {
         StringBuffer page = new StringBuffer();
         HTMLPage.pageStart(page, "Experience Results");
         HTMLPage.insertTableStyle(page);
@@ -213,7 +214,7 @@ public class Experience implements Exportable {
         HTMLPage.createTableWithoutHeaders(page, generateResults(), generateResults().length);
         HTMLPage.pageCloseWithDate(page);
          try {
-            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(url));
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file));
             try {
                 out.writeObject(page);
             } finally {
