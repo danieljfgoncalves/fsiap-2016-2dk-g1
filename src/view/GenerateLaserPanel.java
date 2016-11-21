@@ -46,7 +46,9 @@ public class GenerateLaserPanel extends JPanel {
 
         @Override
         public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-            value = ((Gas) value).getName();
+            if (value != null) {
+                value = ((Gas) value).getName();
+            }
             return super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
         }
     }
@@ -58,7 +60,9 @@ public class GenerateLaserPanel extends JPanel {
 
         @Override
         public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-            value = ((Material) value).getName();
+            if (value != null) {
+                value = ((Material) value).getName();
+            }
             return super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
         }
     }
@@ -179,9 +183,16 @@ public class GenerateLaserPanel extends JPanel {
         JPanel wavelengthPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         JLabel wavelengthLabel = new JLabel(String.format("Comprimento de onda:   %-5.0f nm", wavelength));
-        wavelengthLabel.setPreferredSize(new Dimension(195, 20));
+        wavelengthLabel.setPreferredSize(new Dimension(220, 20));
+
+        JSlider wavelengthSlider = new JSlider(200, 26000, 10600);
+        wavelengthSlider.setSnapToTicks(true);
+
+        wavelengthSlider.setMajorTickSpacing(10000);
+        wavelengthSlider.setMinorTickSpacing(2500);
+        wavelengthSlider.setPaintTicks(true);
+        wavelengthSlider.setPaintLabels(true);
         
-        JSlider wavelengthSlider = new JSlider(200, 27000, 10600);
         wavelengthSlider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent ce) {
@@ -237,11 +248,17 @@ public class GenerateLaserPanel extends JPanel {
         JLabel focalPointLabel = new JLabel(String.format("Diâmetro do corte:   %.0f mm", focalPointDiameter));
 
         JSlider focalPointSlider = new JSlider(1, 8, 4);
+        focalPointSlider.setSnapToTicks(true);
+
+        focalPointSlider.setMajorTickSpacing(1);
+        focalPointSlider.setPaintTicks(true);
+        focalPointSlider.setPaintLabels(true);
+        
         focalPointSlider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent ce) {
                 focalPointDiameter = (double) focalPointSlider.getValue();
-                controller.setFocalPointArea(focalPointDiameter);
+                controller.setFocalPointArea(focalPointDiameter * 1E-3);
                 focalPointLabel.setText(String.format("Diâmetro do corte:   %.0f mm", focalPointDiameter));
             }
         });
@@ -297,7 +314,7 @@ public class GenerateLaserPanel extends JPanel {
                     double testValue = Double.parseDouble(materialThicknessTextField.getText() + e.getKeyChar());
                     if (testValue > 0) {
                         materialThickness = testValue;
-                        controller.setMaterialThickness(materialThickness);
+                        controller.setMaterialThickness(materialThickness * 1E-3);
                         calculateMaxPowerButton.setEnabled(true);
                     } else {
                         calculateMaxPowerButton.setEnabled(false);
@@ -310,7 +327,7 @@ public class GenerateLaserPanel extends JPanel {
 
         buttonPanel.add(new JLabel("Espessura do material:"));
         buttonPanel.add(materialThicknessTextField);
-        buttonPanel.add(new JLabel("m"));
+        buttonPanel.add(new JLabel("mm"));
 
         return buttonPanel;
     }
@@ -328,6 +345,11 @@ public class GenerateLaserPanel extends JPanel {
         calculateMaxPowerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
+                if (gas == null) {
+                    gas = new Gas("CO2", 4600E-9, 5800E-9);
+                    gasesComboBox.addItem(gas);
+                    controller.setGas(gas);
+                }
                 controller.newLaser();
                 controller.initiateCut();
                 simulatorFrame.initiateCutPanel(controller.getCalculateLaserCutController());
@@ -371,7 +393,7 @@ public class GenerateLaserPanel extends JPanel {
         this.material = this.materials.iterator().next();
         this.controller.setMaterial(material);
         this.focalPointDiameter = 4d;
-        this.controller.setFocalPointArea(focalPointDiameter);
+        this.controller.setFocalPointArea(focalPointDiameter * 1E-3f);
     }
 
     /**
