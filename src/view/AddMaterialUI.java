@@ -100,7 +100,7 @@ public class AddMaterialUI extends JDialog {
     /**
      * Window title.
      */
-    private static final String WINDOW_TITLE = "ADD MATERIAL";
+    private static final String WINDOW_TITLE = "Add Material";
 
     /**
      * Padding border.
@@ -116,7 +116,7 @@ public class AddMaterialUI extends JDialog {
     public AddMaterialUI(Simulator simulator, JFrame parentFrame) {
         super(parentFrame, WINDOW_TITLE, true);
 
-        AddMaterialController controller = new AddMaterialController(simulator);
+        controller = new AddMaterialController(simulator);
 
         createComponents();
 
@@ -299,8 +299,12 @@ public class AddMaterialUI extends JDialog {
 
                 try {
                     if (jtfName.getText().length() < 1 || jtfLatentHeat.getText().length() < 1 || jtfHeatCapacity.getText().length() < 1
-                            || jtfDensity.getText().length() < 1 || jtfVaporizationTemperature.getText().length() < 1 || jtfFusionTemperature.getText().length() < 1) {
+                            || jtfDensity.getText().length() < 1 || jtfVaporizationTemperature.getText().length() < 1) {
                         throw new IllegalArgumentException("Empty field! . Try again.");
+                    }
+                    
+                    if (jtfFusionTemperature.getText().isEmpty()) {
+                        jtfFusionTemperature.setText("0");
                     }
                     
                     controller.addNewMaterial();
