@@ -7,6 +7,7 @@ import controller.GenerateLaserController;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -183,9 +184,11 @@ public class GenerateLaserPanel extends JPanel {
         JPanel wavelengthPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         JLabel wavelengthLabel = new JLabel(String.format("Comprimento de onda:   %-5.0f nm", wavelength));
-        wavelengthLabel.setPreferredSize(new Dimension(220, 20));
+        wavelengthLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        wavelengthLabel.setPreferredSize(new Dimension(280, 20));
 
         JSlider wavelengthSlider = new JSlider(200, 26000, 10600);
+        wavelengthSlider.setFont(new Font("Arial", Font.BOLD, 14));
         wavelengthSlider.setSnapToTicks(true);
 
         wavelengthSlider.setMajorTickSpacing(10000);
@@ -220,6 +223,7 @@ public class GenerateLaserPanel extends JPanel {
 
         gasesComboBox = new JComboBox<>();
         gasesComboBox.setPreferredSize(new Dimension(150, 20));
+        gasesComboBox.setFont(new Font("Arial", Font.BOLD, 16));
         updateGasComboBox();
 
         gasesComboBox.addActionListener(new ActionListener() {
@@ -230,7 +234,11 @@ public class GenerateLaserPanel extends JPanel {
             }
         });
 
-        gasPanel.add(new JLabel("Gás:"));
+        JLabel gasLabel = new JLabel("Gás:");
+        gasLabel.setPreferredSize(new Dimension(50, 20));
+        gasLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        
+        gasPanel.add(gasLabel);
         gasPanel.add(gasesComboBox);
 
         return gasPanel;
@@ -246,8 +254,11 @@ public class GenerateLaserPanel extends JPanel {
 
         focalPointDiameter = 4d;
         JLabel focalPointLabel = new JLabel(String.format("Diâmetro do corte:   %.0f mm", focalPointDiameter));
+        focalPointLabel.setPreferredSize(new Dimension(210, 20));
+        focalPointLabel.setFont(new Font("Arial", Font.BOLD, 16));
 
         JSlider focalPointSlider = new JSlider(1, 8, 4);
+        focalPointSlider.setFont(new Font("Arial", Font.BOLD, 14));
         focalPointSlider.setSnapToTicks(true);
 
         focalPointSlider.setMajorTickSpacing(1);
@@ -278,7 +289,8 @@ public class GenerateLaserPanel extends JPanel {
         JPanel materialPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         JComboBox<Material> materialComboBox = new JComboBox<>();
-        materialComboBox.setPreferredSize(new Dimension(150, 20));
+        materialComboBox.setPreferredSize(new Dimension(150, 30));
+        materialComboBox.setFont(new Font("Arial", Font.BOLD, 16));
         materials.stream().forEach((material) -> {
             materialComboBox.addItem(material);
         });
@@ -292,7 +304,11 @@ public class GenerateLaserPanel extends JPanel {
             }
         });
 
-        materialPanel.add(new JLabel("Material:"));
+        JLabel materialLabel = new JLabel("Material:");
+        materialLabel.setPreferredSize(new Dimension(80, 20));
+        materialLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        
+        materialPanel.add(materialLabel);
         materialPanel.add(materialComboBox);
 
         return materialPanel;
@@ -324,10 +340,19 @@ public class GenerateLaserPanel extends JPanel {
                 }
             }
         });
+        materialThicknessTextField.setPreferredSize(new Dimension(70, 30));
+        materialThicknessTextField.setFont(new Font("Arial", Font.BOLD, 16));
 
-        buttonPanel.add(new JLabel("Espessura do material:"));
+        JLabel materialThicknessTextFieldLabel = new JLabel("Espessura do material:");
+        materialThicknessTextFieldLabel.setPreferredSize(new Dimension(180, 20));
+        materialThicknessTextFieldLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        
+        JLabel mesureUnitsLabel = new JLabel("mm");
+        mesureUnitsLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        
+        buttonPanel.add(materialThicknessTextFieldLabel);
         buttonPanel.add(materialThicknessTextField);
-        buttonPanel.add(new JLabel("mm"));
+        buttonPanel.add(mesureUnitsLabel);
 
         return buttonPanel;
     }
@@ -341,6 +366,8 @@ public class GenerateLaserPanel extends JPanel {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         calculateMaxPowerButton = new JButton("Calcular corte");
+        calculateMaxPowerButton.setPreferredSize(new Dimension(140, 40));
+        calculateMaxPowerButton.setFont(new Font("Arial", Font.BOLD, 16));
         calculateMaxPowerButton.setEnabled(false);
         calculateMaxPowerButton.addActionListener(new ActionListener() {
             @Override
@@ -359,7 +386,7 @@ public class GenerateLaserPanel extends JPanel {
                 simulatorFrame.enableExport();
             }
         });
-
+        
         buttonPanel.add(calculateMaxPowerButton);
 
         return buttonPanel;
@@ -374,6 +401,8 @@ public class GenerateLaserPanel extends JPanel {
         JPanel maxPowerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         maxPowerLabel = new JLabel("Poder máximo:");
+        maxPowerLabel.setPreferredSize(new Dimension(250, 40));
+        maxPowerLabel.setFont(new Font("Arial", Font.BOLD, 16));
 
         maxPowerPanel.add(maxPowerLabel);
 
