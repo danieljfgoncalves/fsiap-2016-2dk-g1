@@ -8,13 +8,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
-import model.Experience;
 import model.Simulator;
 import utils.SimulatorFileLoader;
 
@@ -38,6 +35,9 @@ public class CustomMenuBar extends JMenuBar {
      */
     private final Simulator simulator;
 
+    /**
+     * The export menu.
+     */
     private JMenu menuExport;
 
     /**
@@ -64,6 +64,7 @@ public class CustomMenuBar extends JMenuBar {
         menu.setMnemonic(KeyEvent.VK_O);
         menu.add(createItemCuriosities());
         menu.add(createItemAddMaterial());
+        menu.add(createItemRemoveMaterial());
         menu.add(createSubMenuList());
         menu.add(createItemExit());
         return menu;
@@ -88,12 +89,29 @@ public class CustomMenuBar extends JMenuBar {
      * @return the Add New Material item
      */
     private JMenuItem createItemAddMaterial() {
-        JMenuItem item = new JMenuItem("Add New Material", 'M');
+        JMenuItem item = new JMenuItem("Add Material", 'M');
         item.setAccelerator(KeyStroke.getKeyStroke("ctrl M"));
         item.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new AddMaterialUI(simulator, parentFrame);
+            }
+        });
+        return item;
+    }
+
+    /**
+     * Creates the Remove Material item.
+     *
+     * @return the Remove Material item
+     */
+    private JMenuItem createItemRemoveMaterial() {
+        JMenuItem item = new JMenuItem("Remove Material", 'R');
+        item.setAccelerator(KeyStroke.getKeyStroke("ctrl R"));
+        item.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new RemoveMaterialUI(simulator, parentFrame);
             }
         });
         return item;
