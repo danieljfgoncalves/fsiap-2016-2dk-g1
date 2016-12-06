@@ -61,7 +61,7 @@ public class RemoveMaterialUI extends JDialog {
     /**
      * The confirm button.
      */
-    private JButton confirmButton;
+    private JButton removeButton;
 
     /**
      * The cancel button.
@@ -117,7 +117,7 @@ public class RemoveMaterialUI extends JDialog {
     private JPanel createButtonsPanel() {
         JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
-        buttonsPanel.add(createConfirmButton());
+        buttonsPanel.add(createRemoveButton());
         buttonsPanel.add(createCancelButton());
 
         return buttonsPanel;
@@ -170,28 +170,31 @@ public class RemoveMaterialUI extends JDialog {
     }
 
     /**
-     * Creates the confirm data button.
+     * Creates the remove button.
      *
-     * @return confirm data button
+     * @return remove button
      */
-    private JButton createConfirmButton() {
-        this.confirmButton = new JButton("Confirm");
+    private JButton createRemoveButton() {
+        this.removeButton = new JButton("Remove");
 
-        this.confirmButton.addActionListener(new ActionListener() {
+        this.removeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                boolean isRemoved;
-                isRemoved = controller.removeMaterial(material);
-                if (isRemoved) {
-                    JOptionPane.showMessageDialog(rootPane,
-                            "Material removed sucessfully!",
-                            "Remove Material",
-                            JOptionPane.INFORMATION_MESSAGE);
+                int selectedOption = JOptionPane.showConfirmDialog(null, "Are you sure you want to remove the selected material?", "Remove Material", JOptionPane.YES_NO_OPTION);
+                if (selectedOption == JOptionPane.YES_OPTION) {
+                    boolean isRemoved;
+                    isRemoved = controller.removeMaterial(material);
+                    if (isRemoved) {
+                        JOptionPane.showMessageDialog(rootPane,
+                                "Material removed sucessfully!",
+                                "Remove Material",
+                                JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    dispose();
                 }
-                dispose();
             }
         }
         );
-        return confirmButton;
+        return removeButton;
     }
 }
