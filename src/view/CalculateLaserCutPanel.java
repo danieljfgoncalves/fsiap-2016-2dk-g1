@@ -5,6 +5,7 @@ package view;
 
 import controller.CalculateLaserCutController;
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -143,9 +144,11 @@ public class CalculateLaserCutPanel extends JPanel {
         JPanel powPanel = new JPanel(new BorderLayout());
 
         JLabel powerLabel = new JLabel("Power:", JLabel.CENTER);
+        powerLabel.setFont(new Font("Arial", Font.BOLD, 16));
         powPanel.add(powerLabel, BorderLayout.NORTH);
 
         this.powerSlider = new JSlider(0, 100, 100);
+        powerSlider.setFont(new Font("Arial", Font.BOLD, 14));
         this.powerSlider.setSnapToTicks(true);
 
         this.powerSlider.setMajorTickSpacing(25);
@@ -176,9 +179,11 @@ public class CalculateLaserCutPanel extends JPanel {
         JPanel cutPanel = new JPanel(new BorderLayout());
 
         JLabel cutLabel = new JLabel("Cutting Time Limit:", JLabel.CENTER);
+        cutLabel.setFont(new Font("Arial", Font.BOLD, 16));
         cutPanel.add(cutLabel, BorderLayout.NORTH);
 
         this.cutTimeLimitTxt = new DoubleJTextField("", 6);
+        cutTimeLimitTxt.setFont(new Font("Arial", Font.BOLD, 16));
         this.cutTimeLimitTxt.addFocusListener(new FocusListener() {
 
             public void focusGained(FocusEvent e) {
