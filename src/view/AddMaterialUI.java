@@ -314,10 +314,11 @@ public class AddMaterialUI extends JDialog {
                             Double.parseDouble(jtfHeatCapacity.getText()), Double.parseDouble(jtfDensity.getText()),
                             Double.parseDouble(jtfVaporizationTemperature.getText()),
                             Double.parseDouble(jtfFusionTemperature.getText()), isMeltable);
+                    
                     if (!flag) {
-                        throw new IllegalArgumentException("The density must be positive!");
+                        throw new IllegalArgumentException("The density must be positive! Material not added Succesfully!");                 
                     }
-
+                    
                     boolean addedMaterial;
                     addedMaterial = controller.registerMaterial();
 
