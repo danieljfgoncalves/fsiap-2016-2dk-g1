@@ -41,7 +41,7 @@ public class Material implements Serializable, Comparable<Material> {
     /**
      * The material's vaporisation temperature (ºC).
      */
-    private Double vaporisationTemperature;
+    private Double vaporizationTemperature;
     
     /**
      * The material's fusion temperatura (ºC).
@@ -82,7 +82,7 @@ public class Material implements Serializable, Comparable<Material> {
         this.latentHeat = latentHeat;
         this.heatCapacity = heatCapacity;
         this.density = density;
-        this.vaporisationTemperature = vaporisationTemperature;
+        this.vaporizationTemperature = vaporisationTemperature;
         this.fusionTemperature = fusionTemperature;
         this.meltable = meltable;
     }
@@ -96,7 +96,7 @@ public class Material implements Serializable, Comparable<Material> {
         this.latentHeat = LATENT_HEAT_BY_DEFAULT;
         this.meltable = MELTABLE_BY_DEFAULT;
         this.name = NAME_BY_DEFAULT;
-        this.vaporisationTemperature = VAPORISATION_TEMPERATURE_BY_DEFAULT;
+        this.vaporizationTemperature = VAPORISATION_TEMPERATURE_BY_DEFAULT;
         this.fusionTemperature = FUSION_TEMPERATURE_BY_DEFAULT;
     }
 
@@ -114,7 +114,7 @@ public class Material implements Serializable, Comparable<Material> {
      *
      * @param name the name to set
      */
-    public void setName(String name) {
+    public void setName(String name) {    
         this.name = name;
     }
 
@@ -168,26 +168,30 @@ public class Material implements Serializable, Comparable<Material> {
      *
      * @param density the density to set
      */
-    public void setDensity(Double density) {
+    public boolean setDensity(Double density) {
+        if (density < 0) {
+            return false;
+        }
         this.density = density;
+        return true;
     }
 
     /**
      * Gets the vaporization temperature.
      *
-     * @return the vaporisationTemperature
+     * @return the vaporizationTemperature
      */
-    public Double getVaporisationTemperature() {
-        return vaporisationTemperature;
+    public Double getVaporizationTemperature() {
+        return vaporizationTemperature;
     }
 
     /**
      * Sets the vaporization temperature.
      *
-     * @param vaporisationTemperature the vaporisationTemperature to set
+     * @param vaporizationTemperature the vaporizationTemperature to set
      */
-    public void setVaporisationTemperature(Double vaporisationTemperature) {
-        this.vaporisationTemperature = vaporisationTemperature;
+    public void setVaporizationTemperature(Double vaporizationTemperature) {
+        this.vaporizationTemperature = vaporizationTemperature;
     }
     
     /**
@@ -233,7 +237,7 @@ public class Material implements Serializable, Comparable<Material> {
         hash = 47 * hash + Objects.hashCode(this.latentHeat);
         hash = 47 * hash + Objects.hashCode(this.heatCapacity);
         hash = 47 * hash + Objects.hashCode(this.density);
-        hash = 47 * hash + Objects.hashCode(this.vaporisationTemperature);
+        hash = 47 * hash + Objects.hashCode(this.vaporizationTemperature);
         hash = 47 * hash + Objects.hashCode(this.fusionTemperature);
         hash = 47 * hash + (this.meltable ? 1 : 0);
         return hash;
@@ -255,7 +259,7 @@ public class Material implements Serializable, Comparable<Material> {
                 && Math.abs(this.heatCapacity - other.heatCapacity) < EPSILON
                 && Math.abs(this.latentHeat - other.latentHeat) < EPSILON
                 && Math.abs(this.fusionTemperature - other.fusionTemperature) < EPSILON
-                && Math.abs(this.vaporisationTemperature - other.vaporisationTemperature) < EPSILON;
+                && Math.abs(this.vaporizationTemperature - other.vaporizationTemperature) < EPSILON;
     }
 
     @Override
@@ -263,7 +267,7 @@ public class Material implements Serializable, Comparable<Material> {
         return String.format("Material{name=%s, meltable=%s, latentHeat=%4f, "
                 + "heatCapacity=%4f, density=%4f, fusionTemperature=&4f, vaporisationTemperature=%4f}",
                 name, meltable, latentHeat, heatCapacity,
-                density, fusionTemperature, vaporisationTemperature);
+                density, fusionTemperature, vaporizationTemperature);
     }
 
     @Override

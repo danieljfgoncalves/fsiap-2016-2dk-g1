@@ -15,60 +15,63 @@ import model.Simulator;
  * @author Tiago Correia 1151031
  */
 public class AddMaterialController {
-    
+
     /**
      * The simulator with all data.
      */
     private final Simulator simulator;
-    
+
     /**
      * The material.
      */
     private Material material;
 
     /**
-     * Creates a addMaterialController 
-     * 
+     * Creates a addMaterialController
+     *
      * @param simulator the simulator with all data
      */
     public AddMaterialController(Simulator simulator) {
         this.simulator = simulator;
     }
- 
+
     /**
      * Adds new material.
      */
-    public void addNewMaterial(){
+    public void addNewMaterial() {
         this.material = this.simulator.newMaterial();
     }
-    
+
     /**
      * Sets the data of the new material.
-     * 
+     *
      * @param name the new name
      * @param latentHeat the new latent heat
-     * @param heatCapacity the new heat capacity 
+     * @param heatCapacity the new heat capacity
      * @param density the new density
      * @param vaporizationTemperature the new vaporization temperature
      * @param fusionTemperature the new fusion temperature
-     * @param meltable the new meltable 
+     * @param meltable the new meltable
      */
-    public void setMaterialData(String name, Double latentHeat, Double heatCapacity, Double density, Double vaporizationTemperature, Double fusionTemperature, boolean meltable){
-        this.material.setName(name);
+    public boolean setMaterialData(String name, Double latentHeat, Double heatCapacity, Double density, Double vaporizationTemperature, Double fusionTemperature, boolean meltable) {
         this.material.setLatentHeat(latentHeat);
         this.material.setHeatCapacity(heatCapacity);
-        this.material.setDensity(density);
-        this.material.setVaporisationTemperature(vaporizationTemperature);
+        this.material.setVaporizationTemperature(vaporizationTemperature);
         this.material.setFusionTemperature(fusionTemperature);
         this.material.setMeltable(meltable);
+        this.material.setName(name);
+
+        return this.material.setDensity(density);
+
     }
-    
+
     /**
      * Registers the new material.
-     * 
-     * @return true if the material was added to the set of material, false otherwise.
+     *
+     * @return true if the material was added to the set of material, false
+     * otherwise.
      */
-    public boolean registerMaterial(){
+    public boolean registerMaterial() {
         return this.simulator.registerMaterial(this.material);
     }
 }

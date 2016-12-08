@@ -35,7 +35,7 @@ public class ShowCuriositiesUI extends JDialog {
      * The curiosities list.
      */
     private final ListIterator<Curiosity> curiositiesIterator;
-
+    
     /**
      * The text area
      */
