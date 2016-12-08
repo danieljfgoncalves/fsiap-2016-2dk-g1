@@ -159,11 +159,27 @@ public class SimulatorTest {
         System.out.println("getCuriosities");
 
         Set<Curiosity> expResult = new HashSet<>();
-        expResult.add(new Curiosity("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce maximus felis eget metus dapibus porta. Nam vel dictum diam, a finibus mi. Donec at rhoncus tellus. Suspendisse potenti. Praesent accumsan faucibus ante non tristique. Cras sed urna ac eros laoreet varius sagittis quis lorem. Integer non felis massa."));
-        expResult.add(new Curiosity("Pellentesque eu ullamcorper ex. Vestibulum quam lectus, tincidunt at felis et, fermentum tristique nisl. Proin mollis aliquam posuere. Proin pretium sit amet neque eu finibus. Aliquam a arcu varius, vehicula mauris eget, suscipit sapien. Aenean porta arcu quis tincidunt pellentesque. Nulla facilisi. Donec egestas imperdiet eros, non posuere erat ornare quis."));
-        expResult.add(new Curiosity("Curabitur vel imperdiet nibh. Integer gravida purus quis sapien fringilla, quis semper lorem varius. Mauris velit est, cursus at eros quis, fermentum sollicitudin augue. Nam finibus nisl turpis, ut finibus mauris aliquam id. Etiam eleifend dictum tellus, at varius arcu interdum eget."));
-        expResult.add(new Curiosity("Vivamus pharetra consectetur scelerisque. Ut tristique mi et tincidunt mattis. Sed justo nibh, venenatis nec cursus et, faucibus eu nisi. Vivamus efficitur rhoncus nunc, sit amet rutrum nulla placerat ut. Fusce pulvinar metus vel erat hendrerit lobortis. Nam interdum, tortor vel dignissim ultricies, enim ipsum elementum nisi, tincidunt condimentum lectus eros in dui."));
-        expResult.add(new Curiosity("Pellentesque viverra luctus erat vitae vulputate. Nulla pretium viverra sem a dapibus. Maecenas elit arcu, posuere eget tortor quis, suscipit efficitur nibh. Sed congue, lectus quis rutrum sollicitudin, eros nisl fringilla massa, non imperdiet elit sapien vitae tellus."));
+        expResult.add(new Curiosity("É impressionante  como tantos tipos de laser e tantos comprimentos de onda de laser foram descobertos."
+                + " Estes cobrem essencialmente quase todo tipo de material, desde eletrões, gases, liquidos e sólidos.\n"
+                + "Há decadas atrás, cientistas estavam a tentar como criar um laser... hoje em dia alguns tipos de laser até são fáceis de se construir.\n"
+                + "Felizmente os lasers despoletaram  a imaginação de muitas pessoas inteligentes, levando a que se criassem diversas aplicabilidades para os lasers dentro das quais cirurgias médicas, cortar materiais industriais, pesquisa científica, etc..\n"));
+        expResult.add(new Curiosity("\"Mas afinal o que é um laser? um laser é um aparelho que amplifica a luz para produzir um feixe intenso e fino de ondas. As suas propriedades dependem do material que emite luz, do sistema óptico e da forma como energizá-lo, a luz laser provem principalmente de uma transição determinada entre níveis de energia dos eletrões (ou seja eletrão do estado fundamental para o estado ‘excitado’ estimulando assim a emissão de fotões amplificando a emissão de feixes de luz de comprimento de onda definido e coerente). \n"
+                + "\"Entretanto, para se compreender perfeitamente um laser, faz-se necessário o uso da mecânica .\""));
+        expResult.add(new Curiosity("Será que um laser de 200 tetrawatts poderia destruir os asteróides que ameaçam a Terra?\n"
+                + "Um raio laser com capacidade de 202 terawatts poderia destruir um asteróide de 7,5 km de diâmetro, como o que causou a extinção dos dinossauros há 65 milhões de anos. \n"
+                + "Atualmente não se tem sido capaz construir um dispositivo laser dessa potência, o que põe em dúvida as teorias destes projetos de \"defesa contra asteróides \", disse uma equipa de físicos britânicos num artigo publicado na revista \"Journal of Physics Special Topics\". \n"
+                + "Astrónomos de países como a Rússia e dos EUA recentemente consideraram a possibilidade de a Terra colidir com um dos grandes asteróides ou cometas que passam relativamente próximos à órbita do nosso planeta. \n"
+                + "Teorias originais estão sendo consideradas incluíndo um sistema de defesa com base na instalação de armas nucleares ou lasers de alta potência, localizadas em plataformas orbitais . \n"
+                + "Um grupo de físicos britânicos liderados por Henry Simms, da Universidade de Leicester, calculou a potência para destruir um asteróide como o que eliminou os dinossauros, deixando uma cratera de 180 milhas no Golfo do México, conhecida como Chicxulub . \n"
+                + "De acordo com Simms e seus colegas, um feixe que possa afectar o campo do asteróides de várias formas. Em primeiro lugar, um fluxo de luz derretia e vaporizava o objeto rochoso, criando uma espécie de impulso de propulsão. Em segundo lugar, o feixe teria a sua própria pressão de  \"arrastar\" o asteróide na direcção do seu próprio movimento. \n"
+                + "Considerando estes fatores, os autores calcularam ser necessário uma capacidade mínima de 202 tetrawatts por metro quadrado para desviar um asteróide de 4,42 biliões de toneladas, a fim de evitar a colisão com a Terra, que está fora do alcance das atuais tecnologias terrestres. \n"
+                + "Esta conclusão põe em causa a viabilidade de muitas iniciativas para proteger a Terra de asteróides com satélites armados de raios lasers. No entanto, do ponto de vista técnico da construção do tal laser é possível, se os cientistas conseguirem criar uma fonte de energia capaz de gerar a quantidade necessária de energia para \"carregar\" um poderoso raio laser. "));
+        expResult.add(new Curiosity("Mecanismo básico de corte de laser (exemplo do laser de CO2):\n"
+                + "1. Feixe de alta intensidade the luz vermelha é gerada pelo laser.\n"
+                + "2. Este feixe é focado na superfície da peça de trabalho por meio de uma lente.\n"
+                + "3. O feixe focado aquece o material numa zona muito específica geralmente menos que 0.5mm de diametro.\n"
+                + "4. O material derretido é ejectado da área por um jato de gas pressurizado ao mesmo tempo de o feixe atua, na maioria dos casos o uso do gás aumenta a velocidade de corte atuando quimicamente como fisicamente.\n"
+                + "5. Esta zona muito específica (zona específica de remoção de material) é deslocada da superfície do material gerando assim um corte."));
 
         Set<Curiosity> result = instance.getCuriosities();
 
