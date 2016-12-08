@@ -8,7 +8,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-
 /**
  * Represents a simulator for the experiences.
  *
@@ -131,21 +130,34 @@ public class Simulator implements Serializable {
     public Laser newLaser(Double wavelength, Gas gas, Double focalPointArea, Material material, Double materialThickness) {
         return new Laser(wavelength, gas, focalPointArea, material, materialThickness);
     }
-    
+
     /**
      * Constructs new material.
+     *
      * @return the new material.
      */
-    public Material newMaterial(){
+    public Material newMaterial() {
         return new Material();
     }
-    
+
+    /**
+     * Removes a material.
+     * 
+     * @param material the material to be removed
+     * @return true if material is removed, false othwerwise
+     */
+    public boolean removeMaterial(Material material) {
+        return materials.remove(material);
+    }
+
     /**
      * Register the new material in the set of materials
+     *
      * @param material the new material
-     * @return true if new material is added to the set of material, false otherwise.
+     * @return true if new material is added to the set of material, false
+     * otherwise.
      */
-    public boolean registerMaterial(Material material){
+    public boolean registerMaterial(Material material) {
         return this.materials.add(material);
     }
 
@@ -179,5 +191,5 @@ public class Simulator implements Serializable {
         return String.format("Simulator{materials=%s, gases=%s, curiosities=%s}",
                 materials, gases, curiosities);
     }
-
+    
 }

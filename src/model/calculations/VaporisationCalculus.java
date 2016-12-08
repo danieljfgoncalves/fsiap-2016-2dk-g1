@@ -117,6 +117,6 @@ public class VaporisationCalculus implements Calculable {
         return powerDensity
                 / (material.getDensity()
                 * (material.getLatentHeat() + material.getHeatCapacity()
-                * (material.getVaporisationTemperature() - inicialTemp)));
+                * (material.getVaporizationTemperature() - inicialTemp)));
     }
 }

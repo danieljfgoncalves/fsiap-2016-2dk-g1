@@ -296,7 +296,8 @@ public class AddMaterialUI extends JDialog {
         this.confirmDataButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                    int selectedOption = JOptionPane.showConfirmDialog(null, "Add " + jtfName.getText() + " to the materials?", "Add Material", JOptionPane.OK_CANCEL_OPTION);
+                    if (selectedOption == JOptionPane.OK_OPTION) {
                 try {
                     if (jtfName.getText().length() < 1 || jtfLatentHeat.getText().length() < 1 || jtfHeatCapacity.getText().length() < 1
                             || jtfDensity.getText().length() < 1 || jtfVaporizationTemperature.getText().length() < 1) {
@@ -307,10 +308,17 @@ public class AddMaterialUI extends JDialog {
                         jtfFusionTemperature.setText("0");
                     }
                     
+                    boolean flag;
                     controller.addNewMaterial();
-                    controller.setMaterialData(jtfName.getText(), Double.parseDouble(jtfLatentHeat.getText()), Double.parseDouble(jtfHeatCapacity.getText()), Double.parseDouble(jtfDensity.getText()), Double.parseDouble(jtfVaporizationTemperature.getText()),
+                    flag = controller.setMaterialData(jtfName.getText(), Double.parseDouble(jtfLatentHeat.getText()),
+                            Double.parseDouble(jtfHeatCapacity.getText()), Double.parseDouble(jtfDensity.getText()),
+                            Double.parseDouble(jtfVaporizationTemperature.getText()),
                             Double.parseDouble(jtfFusionTemperature.getText()), isMeltable);
-
+                    
+                    if (!flag) {
+                        throw new IllegalArgumentException("The density must be positive! Material not added Succesfully!");                 
+                    }
+                    
                     boolean addedMaterial;
                     addedMaterial = controller.registerMaterial();
 
@@ -322,6 +330,7 @@ public class AddMaterialUI extends JDialog {
                                 "Add material",
                                 JOptionPane.INFORMATION_MESSAGE);
                     }
+                    
                     dispose();
 
                 } catch (IllegalArgumentException ex) {
@@ -332,6 +341,7 @@ public class AddMaterialUI extends JDialog {
                             "Invalid designation",
                             JOptionPane.WARNING_MESSAGE);
                 }
+                    }
             }
         }
         );

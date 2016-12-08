@@ -39,12 +39,12 @@ public class Material implements Serializable, Comparable<Material> {
     private Double density;
 
     /**
-     * The material's vaporisation temperature (ºC).
+     * The material's vaporization temperature (ºC).
      */
-    private Double vaporisationTemperature;
+    private Double vaporizationTemperature;
     
     /**
-     * The material's fusion temperatura (ºC).
+     * The material's fusion temperature (ºC).
      */
     private Double fusionTemperature;
 
@@ -58,7 +58,7 @@ public class Material implements Serializable, Comparable<Material> {
      * The epsilon value to calculate the error.
      */
     private final static double EPSILON = 0.0001;
-    
+
     private final static double DENSITY_BY_DEFAULT = 0.0;
     private final static double HEAT_CAPACITY_BY_DEFAULT = 0.0;
     private final static double LATENT_HEAT_BY_DEFAULT = 0.0;
@@ -82,21 +82,21 @@ public class Material implements Serializable, Comparable<Material> {
         this.latentHeat = latentHeat;
         this.heatCapacity = heatCapacity;
         this.density = density;
-        this.vaporisationTemperature = vaporisationTemperature;
+        this.vaporizationTemperature = vaporisationTemperature;
         this.fusionTemperature = fusionTemperature;
         this.meltable = meltable;
     }
-    
+
     /**
      * Constructs a instance of material using it's parameters by default.
      */
-    public Material(){
+    public Material() {
         this.density = DENSITY_BY_DEFAULT;
         this.heatCapacity = HEAT_CAPACITY_BY_DEFAULT;
         this.latentHeat = LATENT_HEAT_BY_DEFAULT;
         this.meltable = MELTABLE_BY_DEFAULT;
         this.name = NAME_BY_DEFAULT;
-        this.vaporisationTemperature = VAPORISATION_TEMPERATURE_BY_DEFAULT;
+        this.vaporizationTemperature = VAPORISATION_TEMPERATURE_BY_DEFAULT;
         this.fusionTemperature = FUSION_TEMPERATURE_BY_DEFAULT;
     }
 
@@ -114,7 +114,7 @@ public class Material implements Serializable, Comparable<Material> {
      *
      * @param name the name to set
      */
-    public void setName(String name) {
+    public void setName(String name) {    
         this.name = name;
     }
 
@@ -168,28 +168,32 @@ public class Material implements Serializable, Comparable<Material> {
      *
      * @param density the density to set
      */
-    public void setDensity(Double density) {
+    public boolean setDensity(Double density) {
+        if (density < 0) {
+            return false;
+        }
         this.density = density;
+        return true;
     }
 
     /**
      * Gets the vaporization temperature.
      *
-     * @return the vaporisationTemperature
+     * @return the vaporizationTemperature
      */
-    public Double getVaporisationTemperature() {
-        return vaporisationTemperature;
+    public Double getVaporizationTemperature() {
+        return vaporizationTemperature;
     }
 
     /**
      * Sets the vaporization temperature.
      *
-     * @param vaporisationTemperature the vaporisationTemperature to set
+     * @param vaporizationTemperature the vaporizationTemperature to set
      */
-    public void setVaporisationTemperature(Double vaporisationTemperature) {
-        this.vaporisationTemperature = vaporisationTemperature;
+    public void setVaporizationTemperature(Double vaporizationTemperature) {
+        this.vaporizationTemperature = vaporizationTemperature;
     }
-    
+
     /**
      * Gets the fusion temperature.
      *
@@ -233,7 +237,7 @@ public class Material implements Serializable, Comparable<Material> {
         hash = 47 * hash + Objects.hashCode(this.latentHeat);
         hash = 47 * hash + Objects.hashCode(this.heatCapacity);
         hash = 47 * hash + Objects.hashCode(this.density);
-        hash = 47 * hash + Objects.hashCode(this.vaporisationTemperature);
+        hash = 47 * hash + Objects.hashCode(this.vaporizationTemperature);
         hash = 47 * hash + Objects.hashCode(this.fusionTemperature);
         hash = 47 * hash + (this.meltable ? 1 : 0);
         return hash;
@@ -255,7 +259,7 @@ public class Material implements Serializable, Comparable<Material> {
                 && Math.abs(this.heatCapacity - other.heatCapacity) < EPSILON
                 && Math.abs(this.latentHeat - other.latentHeat) < EPSILON
                 && Math.abs(this.fusionTemperature - other.fusionTemperature) < EPSILON
-                && Math.abs(this.vaporisationTemperature - other.vaporisationTemperature) < EPSILON;
+                && Math.abs(this.vaporizationTemperature - other.vaporizationTemperature) < EPSILON;
     }
 
     @Override
@@ -263,12 +267,16 @@ public class Material implements Serializable, Comparable<Material> {
         return String.format("Material{name=%s, meltable=%s, latentHeat=%4f, "
                 + "heatCapacity=%4f, density=%4f, fusionTemperature=&4f, vaporisationTemperature=%4f}",
                 name, meltable, latentHeat, heatCapacity,
-                density, fusionTemperature, vaporisationTemperature);
+                density, fusionTemperature, vaporizationTemperature);
     }
 
     @Override
     public int compareTo(Material otherMaterial) {
         return this.name.compareTo(otherMaterial.name);
+    }
+
+    public String toStringName() {
+        return String.format("%s", name);
     }
 
 }
