@@ -191,5 +191,5 @@ public class Simulator implements Serializable {
         return String.format("Simulator{materials=%s, gases=%s, curiosities=%s}",
                 materials, gases, curiosities);
     }
-
+    
 }

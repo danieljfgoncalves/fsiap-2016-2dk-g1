@@ -142,7 +142,6 @@ public class RemoveMaterialUI extends JDialog {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 material = (Material) materialComboBox.getSelectedItem();
-                controller.setMaterial(material);
             }
         });
 
@@ -180,17 +179,28 @@ public class RemoveMaterialUI extends JDialog {
         this.removeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int selectedOption = JOptionPane.showConfirmDialog(null, "Are you sure you want to remove the selected material?", "Remove Material", JOptionPane.YES_NO_OPTION);
-                if (selectedOption == JOptionPane.YES_OPTION) {
-                    boolean isRemoved;
-                    isRemoved = controller.removeMaterial(material);
-                    if (isRemoved) {
-                        JOptionPane.showMessageDialog(rootPane,
-                                "Material removed sucessfully!",
-                                "Remove Material",
-                                JOptionPane.INFORMATION_MESSAGE);
+                try {
+                    if (material == null) {
+                        throw new IllegalArgumentException("Please select a material!");
                     }
-                    dispose();
+                    int selectedOption = JOptionPane.showConfirmDialog(null, "Are you sure you want to remove " + material.toStringName() + "?", "Remove Material", JOptionPane.YES_NO_OPTION);
+                    if (selectedOption == JOptionPane.YES_OPTION) {
+                        boolean isRemoved;
+                        isRemoved = controller.removeMaterial(material);
+                        if (isRemoved) {
+                            JOptionPane.showMessageDialog(rootPane,
+                                    "Material removed sucessfully!",
+                                    "Remove Material",
+                                    JOptionPane.INFORMATION_MESSAGE);
+                        }
+                        dispose();
+                    }
+                } catch (IllegalArgumentException ex) {
+                    JOptionPane.showMessageDialog(
+                            null,
+                            ex.getMessage(),
+                            "Error Message",
+                            JOptionPane.WARNING_MESSAGE);
                 }
             }
         }

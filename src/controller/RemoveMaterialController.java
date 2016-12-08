@@ -18,11 +18,6 @@ import model.Simulator;
 public class RemoveMaterialController {
 
     /**
-     * The selected material.
-     */
-    private Material material;
-
-    /**
      * The simulator with all data.
      */
     private final Simulator simulator;
@@ -34,15 +29,6 @@ public class RemoveMaterialController {
      */
     public RemoveMaterialController(Simulator simulator) {
         this.simulator = simulator;
-    }
-
-    /**
-     * Sets the material to use.
-     *
-     * @param material material to use
-     */
-    public void setMaterial(Material material) {
-        this.material = material;
     }
 
     /**
