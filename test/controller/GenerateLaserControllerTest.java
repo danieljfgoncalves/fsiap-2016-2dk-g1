@@ -23,7 +23,14 @@ import utils.DefaultInstantiator;
  */
 public class GenerateLaserControllerTest {
 
+    /**
+     * The generate laser controller instance to be tested.
+     */
     private GenerateLaserController instance;
+
+    /**
+     * The simulator to be used on tests.
+     */
     private Simulator simulator;
 
     @Before

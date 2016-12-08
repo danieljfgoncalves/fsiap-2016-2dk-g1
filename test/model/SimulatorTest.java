@@ -21,6 +21,9 @@ import utils.DefaultInstantiator;
  */
 public class SimulatorTest {
 
+    /**
+     * The simulator instance to be tested.
+     */
     private Simulator instance;
 
     @Before
@@ -243,7 +246,7 @@ public class SimulatorTest {
         boolean result = instance.registerMaterial(material);
 
         assertEquals(expResult, result);
-        
+
         assertTrue(instance.getMaterials().contains(material));
     }
 
@@ -253,9 +256,9 @@ public class SimulatorTest {
     @Test
     public void testEquals() {
         System.out.println("equals");
-        
+
         Object obj = DefaultInstantiator.createSimulator();
-        
+
         assertTrue(instance.equals(obj));
     }
 
