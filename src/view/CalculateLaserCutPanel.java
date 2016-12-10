@@ -9,6 +9,7 @@ import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import javax.swing.GroupLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -40,6 +41,11 @@ public class CalculateLaserCutPanel extends JPanel {
      * The controller to calculate the laser cut.
      */
     private CalculateLaserCutController controller;
+
+    /**
+     * Effective Power Label.
+     */
+    JLabel powLabel;
 
     /**
      * Slider component for the power.
@@ -129,7 +135,7 @@ public class CalculateLaserCutPanel extends JPanel {
         JPanel varPanel = new JPanel(new BorderLayout(10, 10));
 
         varPanel.add(createPowerPanel(), BorderLayout.WEST);
-        varPanel.add(createCuttingTimePanel(), BorderLayout.EAST);
+        varPanel.add(createKeyholeTimePanel(), BorderLayout.EAST);
 
         return varPanel;
     }
@@ -143,9 +149,33 @@ public class CalculateLaserCutPanel extends JPanel {
 
         JPanel powPanel = new JPanel(new BorderLayout());
 
-        JLabel powerLabel = new JLabel("Power:", JLabel.CENTER);
-        powerLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        powPanel.add(powerLabel, BorderLayout.NORTH);
+        // TODO: Label Power
+        JLabel titleLabel = new JLabel("Power:", JLabel.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        powLabel = new JLabel("", JLabel.CENTER);
+        powLabel.setFont(new Font("Arial", Font.BOLD, 16));
+
+        JPanel labelsPanel = new JPanel();
+        GroupLayout layout = new GroupLayout(labelsPanel);
+        labelsPanel.setLayout(layout);
+        layout.setAutoCreateContainerGaps(true);
+        // Align horizontally
+        layout.setHorizontalGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(titleLabel)
+                )
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(powLabel)
+                )
+        );
+        // Align vertically
+        layout.setVerticalGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(titleLabel)
+                        .addComponent(powLabel))
+        );
+
+        powPanel.add(labelsPanel, BorderLayout.NORTH);
 
         this.powerSlider = new JSlider(0, 100, 100);
         powerSlider.setFont(new Font("Arial", Font.BOLD, 14));
@@ -160,6 +190,11 @@ public class CalculateLaserCutPanel extends JPanel {
             @Override
             public void stateChanged(ChangeEvent e) {
                 if (!powerSlider.getValueIsAdjusting()) {
+
+                    Double effectivePower = controller.getExperience().getLaser().getMaxPower()
+                            * ((float) powerSlider.getValue() / 100);
+
+                    powLabel.setText(String.format("  %d W", effectivePower.intValue()));
                     updateCalculus();
                 }
             }
@@ -170,15 +205,15 @@ public class CalculateLaserCutPanel extends JPanel {
     }
 
     /**
-     * Creates a panel with cutting time limit field.
+     * Creates a panel with keyhole time limit field.
      *
      * @return
      */
-    private JPanel createCuttingTimePanel() {
+    private JPanel createKeyholeTimePanel() {
 
         JPanel cutPanel = new JPanel(new BorderLayout());
 
-        JLabel cutLabel = new JLabel("Cutting Time Limit:", JLabel.CENTER);
+        JLabel cutLabel = new JLabel("Keyhole Time Limit:", JLabel.CENTER);
         cutLabel.setFont(new Font("Arial", Font.BOLD, 16));
         cutPanel.add(cutLabel, BorderLayout.NORTH);
 
@@ -220,6 +255,10 @@ public class CalculateLaserCutPanel extends JPanel {
      * Sets the values of the variables fields.
      */
     private void setValues() {
+
+        Double effectivePower = controller.getExperience().getLaser().getMaxPower()
+                * ((float) powerSlider.getValue() / 100);
+        this.powLabel.setText(String.format("  %d W", effectivePower.intValue()));
 
         String txt = String.format("%.2f", this.controller.getExperience().getCuttingTimeLimit());
         this.cutTimeLimitTxt.setPredefiendText(txt);
