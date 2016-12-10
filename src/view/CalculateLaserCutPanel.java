@@ -194,7 +194,7 @@ public class CalculateLaserCutPanel extends JPanel {
                     Double effectivePower = controller.getExperience().getLaser().getMaxPower()
                             * ((float) powerSlider.getValue() / 100);
 
-                    powLabel.setText(String.format("  %d W", effectivePower.intValue()));
+                    powLabel.setText(String.format("  %E W", effectivePower.doubleValue()));
                     updateCalculus();
                 }
             }
@@ -258,7 +258,7 @@ public class CalculateLaserCutPanel extends JPanel {
 
         Double effectivePower = controller.getExperience().getLaser().getMaxPower()
                 * ((float) powerSlider.getValue() / 100);
-        this.powLabel.setText(String.format("  %d W", effectivePower.intValue()));
+        this.powLabel.setText(String.format("  %E W", effectivePower.doubleValue()));
 
         String txt = String.format("%.2f", this.controller.getExperience().getCuttingTimeLimit());
         this.cutTimeLimitTxt.setPredefiendText(txt);
