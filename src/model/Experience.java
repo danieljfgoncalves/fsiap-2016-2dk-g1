@@ -185,6 +185,8 @@ public class Experience implements Exportable {
             Double effectedArea = this.laser.getBeamDiameter() * this.laser.getMaterialThickness();
 
             this.cuttingSpeed = (new MeltingCalculus(emittedPower, effectedArea, this.laser.getMaterial())).calculate();
+        } else {
+            this.cuttingSpeed = null;
         }
     }
 
@@ -199,6 +201,15 @@ public class Experience implements Exportable {
         this.laser.setFactor(factor);
         this.laser.updateCalculus();
         this.penetrationVelocity = this.laser.getCalculus().calculate();
+        if (doesCut()) {
+            // Calculate Cutting Speed
+            Double emittedPower = this.laser.getMaxPower() * this.laser.getFactor();
+            Double affectedArea = this.laser.getBeamDiameter() * this.laser.getMaterialThickness();
+
+            this.cuttingSpeed = (new MeltingCalculus(emittedPower, affectedArea, this.laser.getMaterial())).calculate();
+        } else {
+            this.cuttingSpeed = null;
+        }
     }
 
     /**
@@ -236,7 +247,7 @@ public class Experience implements Exportable {
         results[6][1] = String.format("%.4E mm/s", (this.penetrationVelocity * 1E3));
         results[7][1] = String.format("%.2f s", this.laser.getMaterialThickness() / this.penetrationVelocity);
         results[8][1] = doesCut() ? "Yes" : "No";
-        results[9][1] = this.cuttingSpeed.isNaN() ? "N/A" : String.format("%.4E mm/s", (this.penetrationVelocity * 1E3));
+        results[9][1] = this.cuttingSpeed == null ? "N/A" : String.format("%.4E mm/s", (this.cuttingSpeed * 1E3));
         return results;
     }
 
