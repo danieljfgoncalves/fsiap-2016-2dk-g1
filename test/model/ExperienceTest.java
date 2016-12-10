@@ -207,7 +207,7 @@ public class ExperienceTest {
                                 {"Penetration Velocity", "0,0000E+00 mm/s"},
                                 {"Time to cut", "Infinity s"},
                                 {"Does it Cut?", "No"},
-                                {"Cutting Speed", "N/A"}};
+                                {"Cutting Speed", "NAN mm/s"}};
         String[][] result = instance.generateResults();
         
         assertArrayEquals(expResult, result);
