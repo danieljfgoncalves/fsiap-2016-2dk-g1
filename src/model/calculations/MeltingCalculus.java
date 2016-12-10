@@ -71,13 +71,13 @@ public class MeltingCalculus implements Calculable {
      * Constructs an instance of a melting calculus for a transversal cut (Default value - e.g. 1cm).
      *
      * @param power the emitting power (W).
-     * @param effectedArea  the effected area by the laser - thickness x beam diameter - (m^2).
+     * @param affectedArea  the effected area by the laser - thickness x beam diameter - (m^2).
      * @param material the selected material (contains all necessary variables).
      */
-    public MeltingCalculus(Double power, Double effectedArea, Material material) {
+    public MeltingCalculus(Double power, Double affectedArea, Material material) {
 
         this.power = power;
-        this.focalPointArea = effectedArea;
+        this.focalPointArea = affectedArea;
         this.material = material;
         this.height = DEFAULT_CUT;
         this.inicialTemp = DEFAULT_INICIAL_TEMP;
@@ -196,7 +196,7 @@ public class MeltingCalculus implements Calculable {
 
         Double mass = calculateMass();
 
-        Double changeFaseTemp = (this.material.getFusionTemperature().isNaN()) 
+        Double changeFaseTemp = (this.material.getFusionTemperature() == null) 
                 ? this.material.getVaporizationTemperature() : this.material.getFusionTemperature();
         // Q = mc∆T (J)
         Double heat = mass * material.getHeatCapacity() * (changeFaseTemp - this.inicialTemp);
