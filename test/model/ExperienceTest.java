@@ -139,10 +139,10 @@ public class ExperienceTest {
     @Test
     public void testGetLaser() {
         System.out.println("getLaser");
-        
+
         Laser expResult = laser;
         Laser result = instance.getLaser();
-        
+
         assertEquals(expResult, result);
     }
 
@@ -152,11 +152,11 @@ public class ExperienceTest {
     @Test
     public void testSetLaser() {
         System.out.println("setLaser");
-        
-        Laser laserToSet = new Laser(1d, new Gas("abc", 1d, 1d), 1d, 
+
+        Laser laserToSet = new Laser(1d, new Gas("abc", 1d, 1d), 1d,
                 new Material("a", 1d, 1d, 1d, 1d, 1d, true), 1d);
         instance.setLaser(laserToSet);
-        
+
         assertEquals(instance.getLaser(), laserToSet);
     }
 
@@ -166,12 +166,12 @@ public class ExperienceTest {
     @Test
     public void testCalculatePenetrationVelocity_0args() {
         System.out.println("calculatePenetrationVelocity");
-        
+
         instance.calculatePenetrationVelocity();
-        
+
         Double result = instance.getPenetrationVelocity();
         Double expResult = 0.01d;
-        
+
         assertEquals(expResult, result, 0.1d);
     }
 
@@ -181,13 +181,13 @@ public class ExperienceTest {
     @Test
     public void testCalculatePenetrationVelocity_Float() {
         System.out.println("calculatePenetrationVelocity");
-        
+
         Float factor = 23f;
         instance.calculatePenetrationVelocity(factor);
-        
+
         Double result = instance.getPenetrationVelocity();
         Double expResult = 0.15d;
-        
+
         assertEquals(expResult, result, 0.1d);
     }
 
@@ -197,19 +197,19 @@ public class ExperienceTest {
     @Test
     public void testGenerateResults() {
         System.out.println("generateResults");
-        
+
         String[][] expResult = {{"Laser Gas", "CO2"},
-                                {"Laser Power", "8,0000E+01 W"},
-                                {"Affected Area", "3,1416E+00 mm2"},
-                                {"Material", "Gold"},
-                                {"Material Thickness", "4,0000E+00 mm"},
-                                {"Cutting Method", "Fusion Cutting"},
-                                {"Penetration Velocity", "0,0000E+00 mm/s"},
-                                {"Time to cut", "Infinity s"},
-                                {"Does it Cut?", "No"},
-                                {"Cutting Speed", "NAN mm/s"}};
+        {"Laser Power", "8,0000E+01 W"},
+        {"Affected Area", "3,1416E+00 mm2"},
+        {"Material", "Gold"},
+        {"Material Thickness", "4,0000E+00 mm"},
+        {"Cutting Method", "Fusion Cutting"},
+        {"Penetration Velocity", "0,0000E+00 mm/s"},
+        {"Time to cut", "Infinity s"},
+        {"Does it Cut?", "No"},
+        {"Cutting Speed", "NAN mm/s"}};
         String[][] result = instance.generateResults();
-        
+
         assertArrayEquals(expResult, result);
     }
 
@@ -219,15 +219,15 @@ public class ExperienceTest {
     @Test
     public void testEquals() {
         System.out.println("equals");
-        
-        Object obj = new Experience(new Laser(1d, new Gas("abc", 1d, 1d), 1d, 
+
+        Object obj = new Experience(new Laser(1d, new Gas("abc", 1d, 1d), 1d,
                 new Material("a", 1d, 1d, 1d, 1d, 1d, true), 1d));
-        
+
         assertFalse(instance.equals(obj));
-        
+
         obj = new Experience(new Laser(10600e-9, new Gas("CO2", 9200E-9, 11400E-9), 2e-3,
                 new Material("Gold", 63000.0, 130.0, 19320.0, 2800.0, 1063.0, true), 4e-3));
-        
+
         assertTrue(instance.equals(obj));
     }
 

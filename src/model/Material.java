@@ -167,6 +167,7 @@ public class Material implements Serializable, Comparable<Material> {
      * Sets the density.
      *
      * @param density the density to set
+     * @return ture if the density valid, false otherwise
      */
     public boolean setDensity(Double density) {
         if (density < 0) {
