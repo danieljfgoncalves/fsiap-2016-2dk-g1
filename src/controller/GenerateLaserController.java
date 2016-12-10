@@ -47,7 +47,7 @@ public class GenerateLaserController {
     /**
      * The selected focal point area.
      */
-    private Double focalPointArea;
+    private Double focalPointDiameter;
 
     /**
      * The laser to generate.
@@ -125,17 +125,17 @@ public class GenerateLaserController {
     /**
      * Sets the focal point area to cut.
      *
-     * @param focalPointArea focal point area to cut
+     * @param focalPointDiameter focal point area to cut
      */
-    public void setFocalPointArea(Double focalPointArea) {
-        this.focalPointArea = focalPointArea;
+    public void setFocalPointDiameter(Double focalPointDiameter) {
+        this.focalPointDiameter = focalPointDiameter;
     }
 
     /**
      * Creates the laser for the experience.
      */
     public void newLaser() {
-        laser = simulator.newLaser(wavelength, gas, focalPointArea, material, materialThickness);
+        laser = simulator.newLaser(wavelength, gas, focalPointDiameter, material, materialThickness);
     }
 
     /**

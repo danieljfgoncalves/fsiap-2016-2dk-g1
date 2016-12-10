@@ -24,7 +24,7 @@ public class MaximumPowerCalculusTest {
 
     @Before
     public void setUp() throws Exception {
-        instance = new MaximumPowerCalculus(500e-9, 200e-6);
+        instance = new MaximumPowerCalculus(1.064e-6, 7.85e-7);
     }
 
     /**
@@ -34,7 +34,7 @@ public class MaximumPowerCalculusTest {
     public void testCalculate() {
         System.out.println("calculate");
 
-        double expResult = 15.1833815e3;
+        double expResult = 199.1471;
         double result = instance.calculate();
 
         assertEquals(expResult, result, 0.0001);
@@ -47,7 +47,7 @@ public class MaximumPowerCalculusTest {
     public void testGetWavelength() {
         System.out.println("getWavelength");
 
-        Double expResult = 500E-9;
+        Double expResult = 1.064e-6;
         Double result = instance.getWavelength();
 
         assertEquals(expResult, result);
@@ -73,7 +73,7 @@ public class MaximumPowerCalculusTest {
     public void testGetFocalPointArea() {
         System.out.println("getFocalPointArea");
 
-        Double expResult = 200E-6;
+        Double expResult = 7.85e-7;
         Double result = instance.getFocalPointArea();
 
         assertEquals(expResult, result);

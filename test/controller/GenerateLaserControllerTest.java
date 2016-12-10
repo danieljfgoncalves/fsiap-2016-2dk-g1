@@ -78,13 +78,13 @@ public class GenerateLaserControllerTest {
 
         instance.setWavelength(10600E-9);
         instance.setGas(new Gas("CO2", 9200E-9, 11400E-9));
-        instance.setFocalPointArea(4E-3);
+        instance.setFocalPointDiameter(4E-3);
         instance.setMaterial(new Material("Iron", 272000.0, 450.0, 7850.0, 2870.0, 1149.0, true));
         instance.setMaterialThickness(8E-3);
         instance.newLaser();
         instance.initiateCut();
 
-        Double expResult = 45d;
+        Double expResult = 320d;
         Double result = instance.getMaxPower();
 
         assertEquals(expResult, result);

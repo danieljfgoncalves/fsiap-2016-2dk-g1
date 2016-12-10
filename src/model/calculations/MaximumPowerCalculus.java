@@ -87,10 +87,10 @@ public class MaximumPowerCalculus implements Calculable {
      * @return photon number per square metre
      */
     private Double calculatePhotonNumberPerSquareMetre() {
-        // using sealed CO2 laser PX180 to get a photon number as a base
+        // using CO2 Laser – Firestar-ti80W to get a photon number as a base
         Double baseWavelength = 10600e-9;
-        Double baseMaxPower = 180d;
-        Double baseFocalPointRadius = 4e-3;
+        Double baseMaxPower = 80d;
+        Double baseFocalPointRadius = 1e-3;
 
         Double photonNumberPer8mm = (baseMaxPower * baseWavelength) / (PLANK_CONSTANT * SPEED_OF_LIGHT);
         Double beamArea = Math.PI * Math.pow(baseFocalPointRadius, 2);

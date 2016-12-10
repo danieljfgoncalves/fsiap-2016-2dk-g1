@@ -269,7 +269,7 @@ public class GenerateLaserPanel extends JPanel {
             @Override
             public void stateChanged(ChangeEvent ce) {
                 focalPointDiameter = (double) focalPointSlider.getValue();
-                controller.setFocalPointArea(focalPointDiameter * 1E-3);
+                controller.setFocalPointDiameter(focalPointDiameter * 1E-3);
                 focalPointLabel.setText(String.format("Diâmetro do corte:   %.0f mm", focalPointDiameter));
             }
         });
@@ -422,7 +422,7 @@ public class GenerateLaserPanel extends JPanel {
         this.material = this.materials.iterator().next();
         this.controller.setMaterial(material);
         this.focalPointDiameter = 4d;
-        this.controller.setFocalPointArea(focalPointDiameter * 1E-3f);
+        this.controller.setFocalPointDiameter(focalPointDiameter * 1E-3f);
     }
 
     /**
