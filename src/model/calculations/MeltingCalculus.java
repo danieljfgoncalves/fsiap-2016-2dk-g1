@@ -31,9 +31,9 @@ public class MeltingCalculus implements Calculable {
     private Material material;
 
     /**
-     * The selected material's thickness.
+     * The selected height of cut (material's thickness or the cut length).
      */
-    private Double materialThickness;
+    private Double height;
 
     /**
      * Enviromental Temperature (ºC).
@@ -44,6 +44,11 @@ public class MeltingCalculus implements Calculable {
      * Default enviromental Temperature (ºC).
      */
     private final static Double DEFAULT_INICIAL_TEMP = 20.0; // ºC 
+    
+    /**
+     * Default enviromental Temperature (ºC).
+     */
+    private final static Double DEFAULT_CUT = 1E-2; // m 
 
     /**
      * Constructs an instance of a melting calculus.
@@ -58,7 +63,23 @@ public class MeltingCalculus implements Calculable {
         this.power = power;
         this.focalPointArea = focalPointArea;
         this.material = material;
-        this.materialThickness = materialThickness;
+        this.height = materialThickness;
+        this.inicialTemp = DEFAULT_INICIAL_TEMP;
+    }
+    
+    /**
+     * Constructs an instance of a melting calculus for a transversal cut (Default value - e.g. 1cm).
+     *
+     * @param power the emitting power (W).
+     * @param effectedArea  the effected area by the laser - thickness x beam diameter - (m^2).
+     * @param material the selected material (contains all necessary variables).
+     */
+    public MeltingCalculus(Double power, Double effectedArea, Material material) {
+
+        this.power = power;
+        this.focalPointArea = effectedArea;
+        this.material = material;
+        this.height = DEFAULT_CUT;
         this.inicialTemp = DEFAULT_INICIAL_TEMP;
     }
 
@@ -117,21 +138,21 @@ public class MeltingCalculus implements Calculable {
     }
 
     /**
-     * Obtains the selected material's thickness.
+     * Obtains the selected heigth (material's thickness or the cut length).
      *
-     * @return the materialThickness
+     * @return the height
      */
-    public Double getMaterialThickness() {
-        return materialThickness;
+    public Double getHeight() {
+        return height;
     }
 
     /**
-     * Sets the selected material's thickness.
+     * Sets the selected heigth (material's thickness or the cut length).
      *
-     * @param materialThickness the materialThickness to set
+     * @param heigth the height to set
      */
-    public void setMaterialThickness(Double materialThickness) {
-        this.materialThickness = materialThickness;
+    public void setHeight(Double heigth) {
+        this.height = heigth;
     }
 
     /**
@@ -160,7 +181,7 @@ public class MeltingCalculus implements Calculable {
     private double calculateMass() {
 
         // Volume: πr^2 (base area) * h (m^3)
-        Double volume = this.focalPointArea * this.materialThickness;
+        Double volume = this.focalPointArea * this.height;
 
         // Mass (kg) =  density (kg/m^3) * volume (m^3)
         return this.material.getDensity() * volume;
@@ -175,9 +196,10 @@ public class MeltingCalculus implements Calculable {
 
         Double mass = calculateMass();
 
-        // TODO: change vaporisation temperature to changeFaseTemperature.
+        Double changeFaseTemp = (this.material.getFusionTemperature().isNaN()) 
+                ? this.material.getVaporizationTemperature() : this.material.getFusionTemperature();
         // Q = mc∆T (J)
-        Double heat = mass * material.getHeatCapacity() * (this.material.getFusionTemperature() - this.inicialTemp);
+        Double heat = mass * material.getHeatCapacity() * (changeFaseTemp - this.inicialTemp);
 
         // Q = mL (J)
         Double latentHeat = mass * this.material.getLatentHeat();
@@ -187,7 +209,7 @@ public class MeltingCalculus implements Calculable {
     }
 
     /**
-     * Calculates the penetration velocity of the vaporisation process.
+     * Calculates the velocity (penetration or aprox. cut) of the melting process.
      *
      * @return the pener velocity (m/s)
      */
@@ -199,6 +221,6 @@ public class MeltingCalculus implements Calculable {
         Double timeToCut = requiredHeat / power;
         
         // Penetration velocity = material thickness / timeToCut
-        return this.materialThickness / timeToCut;
+        return this.height / timeToCut;
     }
 }

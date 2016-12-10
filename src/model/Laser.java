@@ -30,6 +30,11 @@ public class Laser {
     private Gas gas;
 
     /**
+     * Diameter of the laser beam.
+     */
+    private Double beamDiameter;
+    
+    /**
      * Area of selected focal point.
      */
     private Double focalPointArea;
@@ -81,6 +86,7 @@ public class Laser {
     public Laser(Double wavelength, Gas gas, Double focalPointDiameter, Material material, Double materialThickness) {
         this.wavelength = wavelength;
         this.gas = gas;
+        this.beamDiameter = focalPointDiameter;
         this.focalPointArea = Math.PI * Math.pow((focalPointDiameter / 2), 2);
         this.factor = DEFAULT_FACTOR;
         this.material = material;
@@ -164,6 +170,22 @@ public class Laser {
      */
     public void setMaterialThickness(Double materialThickness) {
         this.materialThickness = materialThickness;
+    }
+
+    /**
+     * Obtains the diameter of the laser beam.
+     * @return the beam diameter
+     */
+    public Double getBeamDiameter() {
+        return beamDiameter;
+    }
+
+    /**
+     * Sets the diameter of the laser beam.
+     * @param beamDiameter the beam diameter to set
+     */
+    public void setBeamDiameter(Double beamDiameter) {
+        this.beamDiameter = beamDiameter;
     }
 
     /**

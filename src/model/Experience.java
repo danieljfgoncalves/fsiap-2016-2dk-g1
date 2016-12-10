@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Objects;
+import model.calculations.MeltingCalculus;
 import utils.HTMLPage;
 
 /**
@@ -41,6 +42,11 @@ public class Experience implements Exportable {
     private Double penetrationVelocity;
 
     /**
+     * Transversal Cutting Speed (in m/s).
+     */
+    private Double cuttingSpeed;
+
+    /**
      * Default time limit to cut material (in seconds).
      */
     private final static double DEFAULT_CUTTING_TIME_LIMIT = 30.0;
@@ -50,9 +56,14 @@ public class Experience implements Exportable {
      */
     private final static double DEFAULT_PENETRATION_VELOCITY = 0.0;
 
+    /**
+     * Default cutting speed (not calculated).
+     */
+    private final static double DEFAULT_CUTTING_SPEED = Double.NaN;
+
     private final static String[] DEFAULT_RESULTS_TITLES
             = {"Laser Gas", "Laser Power", "Affected Area", "Material", "Material Thickness",
-                "Cutting Method", "Penetration Velocity", "Cutting Time Limit", "Does it Cut?"};
+                "Cutting Method", "Penetration Velocity", "Time to cut", "Does it Cut?", "Cutting Speed"};
 
     /**
      * Error margin for comparisons.
@@ -70,6 +81,7 @@ public class Experience implements Exportable {
         this.laser = laser;
         this.penetrationVelocity = DEFAULT_PENETRATION_VELOCITY;
         this.cut = false;
+        this.cuttingSpeed = DEFAULT_CUTTING_SPEED;
     }
 
     /**
@@ -125,6 +137,24 @@ public class Experience implements Exportable {
     }
 
     /**
+     * Obtains the transversal Cutting Speed (in m/s).
+     *
+     * @return the cuttingSpeed
+     */
+    public Double getCuttingSpeed() {
+        return cuttingSpeed;
+    }
+
+    /**
+     * Sets the transversal Cutting Speed (in m/s).
+     *
+     * @param cuttingSpeed the cuttingSpeed to set
+     */
+    public void setCuttingSpeed(Double cuttingSpeed) {
+        this.cuttingSpeed = cuttingSpeed;
+    }
+
+    /**
      * Obtains Laser used for the experience.
      *
      * @return the laser
@@ -148,6 +178,14 @@ public class Experience implements Exportable {
     public void calculatePenetrationVelocity() {
 
         this.penetrationVelocity = this.laser.getCalculus().calculate();
+
+        if (doesCut()) {
+            // Calculate Cutting Speed
+            Double emittedPower = this.laser.getMaxPower() * this.laser.getFactor();
+            Double effectedArea = this.laser.getBeamDiameter() * this.laser.getMaterialThickness();
+
+            this.cuttingSpeed = (new MeltingCalculus(emittedPower, effectedArea, this.laser.getMaterial())).calculate();
+        }
     }
 
     /**
@@ -196,9 +234,9 @@ public class Experience implements Exportable {
         results[4][1] = String.format("%.4E mm", (this.laser.getMaterialThickness() * 1E3));
         results[5][1] = (this.laser.getMaterial().isMeltable() ? "Fusion Cutting" : "Vaporisation Cutting");
         results[6][1] = String.format("%.4E mm/s", (this.penetrationVelocity * 1E3));
-        results[7][1] = String.format("%.2f s", this.cuttingTimeLimit);
-        results[8][1] = (doesCut() ? "Yes" : "No");
-
+        results[7][1] = String.format("%.2f s", this.laser.getMaterialThickness() / this.penetrationVelocity);
+        results[8][1] = doesCut() ? "Yes" : "No";
+        results[9][1] = this.cuttingSpeed.isNaN() ? "N/A" : String.format("%.4E mm/s", (this.penetrationVelocity * 1E3));
         return results;
     }
 
