@@ -150,7 +150,7 @@ public class CalculateLaserCutPanel extends JPanel {
         JPanel powPanel = new JPanel(new BorderLayout());
 
         // TODO: Label Power
-        JLabel titleLabel = new JLabel("Power:", JLabel.CENTER);
+        JLabel titleLabel = new JLabel("Poder:", JLabel.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
         powLabel = new JLabel("", JLabel.CENTER);
         powLabel.setFont(new Font("Arial", Font.BOLD, 16));
@@ -213,7 +213,7 @@ public class CalculateLaserCutPanel extends JPanel {
 
         JPanel cutPanel = new JPanel(new BorderLayout());
 
-        JLabel cutLabel = new JLabel("Keyhole Time Limit:", JLabel.CENTER);
+        JLabel cutLabel = new JLabel("Tempo limite:", JLabel.CENTER);
         cutLabel.setFont(new Font("Arial", Font.BOLD, 16));
         cutPanel.add(cutLabel, BorderLayout.NORTH);
 

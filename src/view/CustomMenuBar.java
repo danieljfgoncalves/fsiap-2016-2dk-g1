@@ -61,7 +61,7 @@ public class CustomMenuBar extends JMenuBar {
      * @return menu Options
      */
     private JMenu createMenuOptions() {
-        JMenu menu = new JMenu("Options");
+        JMenu menu = new JMenu("Opções");
         menu.setMnemonic(KeyEvent.VK_O);
         menu.add(createItemCuriosities());
         menu.add(createItemAddMaterial());
@@ -77,7 +77,7 @@ public class CustomMenuBar extends JMenuBar {
      * @return the submenu list
      */
     private JMenu createSubMenuList() {
-        this.menuExport = new JMenu("Export");
+        this.menuExport = new JMenu("Exportar");
         this.menuExport.setMnemonic(KeyEvent.VK_E);
         this.menuExport.setEnabled(false);
         this.menuExport.add(createItemExportHTML());
@@ -90,7 +90,7 @@ public class CustomMenuBar extends JMenuBar {
      * @return the Add New Material item
      */
     private JMenuItem createItemAddMaterial() {
-        JMenuItem item = new JMenuItem("Add Material", 'M');
+        JMenuItem item = new JMenuItem("Adicionar Material", 'M');
         item.setAccelerator(KeyStroke.getKeyStroke("ctrl M"));
         item.addActionListener(new ActionListener() {
             @Override
@@ -107,7 +107,7 @@ public class CustomMenuBar extends JMenuBar {
      * @return the Remove Material item
      */
     private JMenuItem createItemRemoveMaterial() {
-        JMenuItem item = new JMenuItem("Remove Material", 'R');
+        JMenuItem item = new JMenuItem("Remover Material", 'R');
         item.setAccelerator(KeyStroke.getKeyStroke("ctrl R"));
         item.addActionListener(new ActionListener() {
             @Override
@@ -151,7 +151,7 @@ public class CustomMenuBar extends JMenuBar {
      * @return Exit item
      */
     private JMenuItem createItemExit() {
-        JMenuItem item = new JMenuItem("Exit", 'x');
+        JMenuItem item = new JMenuItem("Sair", 'x');
         item.setAccelerator(KeyStroke.getKeyStroke("ctrl X"));
 
         item.addActionListener(new ActionListener() {
@@ -170,7 +170,7 @@ public class CustomMenuBar extends JMenuBar {
      * @return Curiosities item
      */
     private JMenuItem createItemCuriosities() {
-        JMenuItem item = new JMenuItem("Curiosities", 'C');
+        JMenuItem item = new JMenuItem("Curiosidades", 'C');
         item.setAccelerator(KeyStroke.getKeyStroke("ctrl C"));
         item.addActionListener(new ActionListener() {
             @Override

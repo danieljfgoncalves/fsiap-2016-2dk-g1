@@ -29,12 +29,12 @@ public class SimulatorFrame extends JFrame {
      * The simulator with all data.
      */
     private final Simulator simulator;
-    
+
     /**
      * Panel that represents the calculate laser cut.
      */
     private CalculateLaserCutPanel calculateCutPanel;
-    
+
     /**
      * Custom menu bar.
      */
@@ -94,10 +94,10 @@ public class SimulatorFrame extends JFrame {
         laserCutPanelPlaceholder.setBackground(Color.GRAY);
 
         componentsPanel.add(new GenerateLaserPanel(this, simulator), BorderLayout.WEST);
-        
+
         this.calculateCutPanel = new CalculateLaserCutPanel(this);
         componentsPanel.add(this.calculateCutPanel, BorderLayout.CENTER);
-        
+
         componentsPanel.setBorder(PADDING_BORDER);
         add(componentsPanel);
     }
@@ -108,21 +108,21 @@ public class SimulatorFrame extends JFrame {
      * @param calculateLaserCutController calculate laser cut controller
      */
     public void initiateCutPanel(CalculateLaserCutController calculateLaserCutController) {
-        
+
         this.calculateCutPanel.setController(calculateLaserCutController);
     }
-    
+
     /**
      * Obtains the current experience.
-     * 
+     *
      * @return the current experience
      */
     public Experience getExperience() {
-        
+
         Experience experience = this.calculateCutPanel.getExperience();
         return experience;
     }
-    
+
     /**
      * Eanbles export.
      */

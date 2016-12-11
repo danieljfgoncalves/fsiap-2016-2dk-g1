@@ -54,7 +54,7 @@ public class HTMLPage {
         int day = today.get(Calendar.DAY_OF_MONTH);
         int month = today.get(Calendar.MONTH) + 1;
         int year = today.get(Calendar.YEAR);
-        return paragraph("Date: " + day + "/" + month + "/" + year) + "</body>\n</html>";
+        return paragraph("Data: " + day + "/" + month + "/" + year) + "</body>\n</html>";
     }
 
     /**
@@ -152,7 +152,7 @@ public class HTMLPage {
      * @param numLines - number of lines in the table
      */
     public static String createTableWithHeaders(String[] headers, String[][] info, int numLines) {
-        
+
         return startTable()
                 + insertTableHeaders(headers)
                 + insertTableBody(info, numLines)

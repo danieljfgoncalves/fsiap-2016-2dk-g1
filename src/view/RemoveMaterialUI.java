@@ -81,7 +81,7 @@ public class RemoveMaterialUI extends JDialog {
     /**
      * Window title.
      */
-    private static final String WINDOW_TITLE = "Remove Material";
+    private static final String WINDOW_TITLE = "Remover Material";
 
     public RemoveMaterialUI(Simulator simulator, JFrame parentFrame) {
         super(parentFrame, WINDOW_TITLE, true);
@@ -145,7 +145,7 @@ public class RemoveMaterialUI extends JDialog {
             }
         });
 
-        materialPanel.add(new JLabel("Select the material to remove:"));
+        materialPanel.add(new JLabel("Selecione o material a remover:"));
         materialPanel.add(materialComboBox);
 
         return materialPanel;
@@ -157,7 +157,7 @@ public class RemoveMaterialUI extends JDialog {
      * @return cancel button
      */
     private JButton createCancelButton() {
-        this.cancelButton = new JButton("Cancel");
+        this.cancelButton = new JButton("Cancelar");
 
         this.cancelButton.addActionListener(new ActionListener() {
             @Override
@@ -174,23 +174,23 @@ public class RemoveMaterialUI extends JDialog {
      * @return remove button
      */
     private JButton createRemoveButton() {
-        this.removeButton = new JButton("Remove");
+        this.removeButton = new JButton("Remover");
 
         this.removeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     if (material == null) {
-                        throw new IllegalArgumentException("Please select a material!");
+                        throw new IllegalArgumentException("Por favor selecione um material!");
                     }
-                    int selectedOption = JOptionPane.showConfirmDialog(null, "Are you sure you want to remove " + material.toStringName() + "?", "Remove Material", JOptionPane.YES_NO_OPTION);
+                    int selectedOption = JOptionPane.showConfirmDialog(null, "Tem a certeza que pretende remover  " + material.toStringName() + "?", "Remover Material", JOptionPane.YES_NO_OPTION);
                     if (selectedOption == JOptionPane.YES_OPTION) {
                         boolean isRemoved;
                         isRemoved = controller.removeMaterial(material);
                         if (isRemoved) {
                             JOptionPane.showMessageDialog(rootPane,
-                                    "Material removed sucessfully!",
-                                    "Remove Material",
+                                    "Material removido com sucesso!",
+                                    "Remover Material",
                                     JOptionPane.INFORMATION_MESSAGE);
                         }
                         dispose();
@@ -199,7 +199,7 @@ public class RemoveMaterialUI extends JDialog {
                     JOptionPane.showMessageDialog(
                             null,
                             ex.getMessage(),
-                            "Error Message",
+                            "Erro",
                             JOptionPane.WARNING_MESSAGE);
                 }
             }

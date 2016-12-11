@@ -62,8 +62,8 @@ public class Experience implements Exportable {
     private final static double DEFAULT_CUTTING_SPEED = Double.NaN;
 
     private final static String[] DEFAULT_RESULTS_TITLES
-            = {"Laser Gas", "Laser Power", "Affected Area", "Material", "Material Thickness",
-                "Cutting Method", "Penetration Velocity", "Time to cut", "Does it Cut?", "Cutting Speed"};
+            = {"Gás do laser", "Poder do laser", "Área afectada", "Material", "Espessura do material",
+                "Método de corte", "Velocidade de penetração", "Tempo para cortar", "Corta?", "Velocidade do corte"};
 
     /**
      * Error margin for comparisons.
@@ -243,10 +243,10 @@ public class Experience implements Exportable {
         results[2][1] = String.format("%.4E mm2", (this.laser.getFocalPointArea() * 1E6));
         results[3][1] = this.laser.getMaterial().getName();
         results[4][1] = String.format("%.4E mm", (this.laser.getMaterialThickness() * 1E3));
-        results[5][1] = (this.laser.getMaterial().isMeltable() ? "Fusion Cutting" : "Vaporisation Cutting");
+        results[5][1] = (this.laser.getMaterial().isMeltable() ? "Corte por fusão" : "Corte por sublimação");
         results[6][1] = String.format("%.4E mm/s", (this.penetrationVelocity * 1E3));
         results[7][1] = String.format("%.2f s", this.laser.getMaterialThickness() / this.penetrationVelocity);
-        results[8][1] = doesCut() ? "Yes" : "No";
+        results[8][1] = doesCut() ? "Sim" : "Não";
         results[9][1] = (this.cuttingSpeed == null || !doesCut()) ? "N/A" : String.format("%.4E mm/s", (this.cuttingSpeed * 1E3));
         return results;
     }
@@ -258,8 +258,8 @@ public class Experience implements Exportable {
     public void exportHTML(File file) {
         StringBuilder page = new StringBuilder();
 
-        page.append(HTMLPage.pageStart("Experience Results"));
-        page.append(HTMLPage.header("Experience Results:\n"));
+        page.append(HTMLPage.pageStart("Resultados da experiência"));
+        page.append(HTMLPage.header("Resultados da experiência:\n"));
         page.append(HTMLPage.createTableWithoutHeaders(generateResults(), generateResults().length));
         page.append(HTMLPage.pageCloseWithDate());
 

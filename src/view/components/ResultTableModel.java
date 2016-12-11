@@ -15,22 +15,22 @@ import javax.swing.table.AbstractTableModel;
  */
 public class ResultTableModel extends AbstractTableModel {
 
-    private final static String[] RESULT_COLUMN_NAMES = {"Results", "Values"};
+    private final static String[] RESULT_COLUMN_NAMES = {"Resultados", "Valores"};
 
     private String[][] results;
-    
+
     public ResultTableModel(String[][] results) {
         this.results = results;
     }
-    
+
     @Override
     public String getColumnName(int column) {
         return RESULT_COLUMN_NAMES[column];
     }
-    
+
     @Override
     public int getRowCount() {
-        
+
         return this.results.length;
     }
 

@@ -35,7 +35,7 @@ public class ShowCuriositiesUI extends JDialog {
      * The curiosities list.
      */
     private final ListIterator<Curiosity> curiositiesIterator;
-    
+
     /**
      * The text area
      */
@@ -59,7 +59,7 @@ public class ShowCuriositiesUI extends JDialog {
     /**
      * Window title.
      */
-    private static final String WINDOW_TITLE = "Curiosities";
+    private static final String WINDOW_TITLE = "Curiosidades";
 
     /**
      * Padding border.
@@ -144,7 +144,7 @@ public class ShowCuriositiesUI extends JDialog {
      * @return previous button
      */
     private JButton createPreviousButton() {
-        this.previousButton = new JButton("Previous");
+        this.previousButton = new JButton("Anterior");
         this.previousButton.setEnabled(this.curiositiesIterator.previousIndex() > 0);
 
         this.previousButton.addActionListener(new ActionListener() {
@@ -172,19 +172,19 @@ public class ShowCuriositiesUI extends JDialog {
      * @return the next button
      */
     public JButton createNextButton() {
-        this.nextButton = new JButton("Next");
+        this.nextButton = new JButton("Próximo");
         this.nextButton.setEnabled(curiositiesIterator.hasNext());
 
         this.nextButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String text;
-				if (!direction) {
+                if (!direction) {
                     text = curiositiesIterator.next().getCuriosityString();
                     direction = true;
                 }
-				text = curiositiesIterator.next().getCuriosityString();
-				jtextArea.setText(curiositiesIterator.next().getCuriosityString());
+                text = curiositiesIterator.next().getCuriosityString();
+                jtextArea.setText(curiositiesIterator.next().getCuriosityString());
                 nextButton.setEnabled(curiositiesIterator.hasNext());
                 previousButton.setEnabled(curiositiesIterator.hasPrevious());
             }

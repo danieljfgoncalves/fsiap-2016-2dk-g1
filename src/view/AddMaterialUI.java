@@ -100,7 +100,7 @@ public class AddMaterialUI extends JDialog {
     /**
      * Window title.
      */
-    private static final String WINDOW_TITLE = "Add Material";
+    private static final String WINDOW_TITLE = "Adicionar Material";
 
     /**
      * Padding border.
@@ -159,19 +159,19 @@ public class AddMaterialUI extends JDialog {
      */
     private JPanel labelsPanel() {
         JPanel labelPanel = new JPanel(new GridLayout(0, 1));
-        JTextArea jta1 = new JTextArea("Name");
+        JTextArea jta1 = new JTextArea("Nome");
         jta1.setEditable(false);
-        JTextArea jta2 = new JTextArea("Latent Heat (J/Kg)");
+        JTextArea jta2 = new JTextArea("Calor latente (J/Kg)");
         jta2.setEditable(false);
-        JTextArea jta3 = new JTextArea("Heat Capacity (J/(KgºC)");
+        JTextArea jta3 = new JTextArea("Capacidade térmica (J/(KgºC)");
         jta3.setEditable(false);
-        JTextArea jta4 = new JTextArea("Density (kg/m^3)");
+        JTextArea jta4 = new JTextArea("Densidade (kg/m^3)");
         jta4.setEditable(false);
-        JTextArea jta5 = new JTextArea("Vaporisation Temperature (ºC)");
+        JTextArea jta5 = new JTextArea("Temperatura de vaporização(ºC)");
         jta5.setEditable(false);
-        JTextArea jta6 = new JTextArea("Fusion Temperature (ºC)");
+        JTextArea jta6 = new JTextArea("Temperatura de fusão(ºC)");
         jta6.setEditable(false);
-        JTextArea jta7 = new JTextArea("Meltable");
+        JTextArea jta7 = new JTextArea("Fundível");
         jta7.setEditable(false);
         labelPanel.add(jta1);
         labelPanel.add(jta2);
@@ -217,8 +217,8 @@ public class AddMaterialUI extends JDialog {
      */
     private JPanel createRbPanel() {
         JPanel rbPanel = new JPanel(new GridLayout(0, 2));
-        jrbIsMeltable = new JRadioButton("Yes");
-        jrbNotMeltable = new JRadioButton("No");
+        jrbIsMeltable = new JRadioButton("Sim");
+        jrbNotMeltable = new JRadioButton("Não");
         ButtonGroup bG = new ButtonGroup();
         bG.add(jrbIsMeltable);
         bG.add(jrbNotMeltable);
@@ -273,7 +273,7 @@ public class AddMaterialUI extends JDialog {
      * @return cancel button
      */
     private JButton createCancelButton() {
-        this.cancelAddMaterial = new JButton("Cancel");
+        this.cancelAddMaterial = new JButton("Cancelar");
 
         this.cancelAddMaterial.addActionListener(new ActionListener() {
             @Override
@@ -291,57 +291,57 @@ public class AddMaterialUI extends JDialog {
      * @return confirm data button
      */
     private JButton createConfirmButton() {
-        this.confirmDataButton = new JButton("Confirm");
+        this.confirmDataButton = new JButton("Confirmar");
 
         this.confirmDataButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                    int selectedOption = JOptionPane.showConfirmDialog(null, "Add " + jtfName.getText() + " to the materials?", "Add Material", JOptionPane.OK_CANCEL_OPTION);
-                    if (selectedOption == JOptionPane.OK_OPTION) {
-                try {
-                    if (jtfName.getText().length() < 1 || jtfLatentHeat.getText().length() < 1 || jtfHeatCapacity.getText().length() < 1
-                            || jtfDensity.getText().length() < 1 || jtfVaporizationTemperature.getText().length() < 1) {
-                        throw new IllegalArgumentException("Empty field! . Try again.");
-                    }
-                    
-                    if (jtfFusionTemperature.getText().isEmpty()) {
-                        jtfFusionTemperature.setText("0");
-                    }
-                    
-                    boolean flag;
-                    controller.addNewMaterial();
-                    flag = controller.setMaterialData(jtfName.getText(), Double.parseDouble(jtfLatentHeat.getText()),
-                            Double.parseDouble(jtfHeatCapacity.getText()), Double.parseDouble(jtfDensity.getText()),
-                            Double.parseDouble(jtfVaporizationTemperature.getText()),
-                            Double.parseDouble(jtfFusionTemperature.getText()), isMeltable);
-                    
-                    if (!flag) {
-                        throw new IllegalArgumentException("The density must be positive!");                 
-                    }
-                    
-                    boolean addedMaterial;
-                    addedMaterial = controller.registerMaterial();
+                int selectedOption = JOptionPane.showConfirmDialog(null, "Adicionar " + jtfName.getText() + " aos materiais?", "Adicionar material", JOptionPane.OK_CANCEL_OPTION);
+                if (selectedOption == JOptionPane.OK_OPTION) {
+                    try {
+                        if (jtfName.getText().length() < 1 || jtfLatentHeat.getText().length() < 1 || jtfHeatCapacity.getText().length() < 1
+                                || jtfDensity.getText().length() < 1 || jtfVaporizationTemperature.getText().length() < 1) {
+                            throw new IllegalArgumentException("Campo em branco! . Tente novamente.");
+                        }
 
-                    if (!addedMaterial) {
-                        throw new IllegalArgumentException("The material already exists. Insert a new one!");
-                    } else {
-                        JOptionPane.showMessageDialog(rootPane,
-                                "Material added sucessfully!",
-                                "Add material",
-                                JOptionPane.INFORMATION_MESSAGE);
+                        if (jtfFusionTemperature.getText().isEmpty()) {
+                            jtfFusionTemperature.setText("0");
+                        }
+
+                        boolean flag;
+                        controller.addNewMaterial();
+                        flag = controller.setMaterialData(jtfName.getText(), Double.parseDouble(jtfLatentHeat.getText()),
+                                Double.parseDouble(jtfHeatCapacity.getText()), Double.parseDouble(jtfDensity.getText()),
+                                Double.parseDouble(jtfVaporizationTemperature.getText()),
+                                Double.parseDouble(jtfFusionTemperature.getText()), isMeltable);
+
+                        if (!flag) {
+                            throw new IllegalArgumentException("A densidade tem de ser positiva!");
+                        }
+
+                        boolean addedMaterial;
+                        addedMaterial = controller.registerMaterial();
+
+                        if (!addedMaterial) {
+                            throw new IllegalArgumentException("O material já existe! Insira um novo.");
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane,
+                                    "Material adicionado com sucesso!",
+                                    "Adicionar material",
+                                    JOptionPane.INFORMATION_MESSAGE);
+                        }
+
+                        dispose();
+
+                    } catch (IllegalArgumentException ex) {
+
+                        JOptionPane.showMessageDialog(
+                                parentFrame,
+                                ex.getMessage(),
+                                "Designação inválida",
+                                JOptionPane.WARNING_MESSAGE);
                     }
-                    
-                    dispose();
-
-                } catch (IllegalArgumentException ex) {
-
-                    JOptionPane.showMessageDialog(
-                            parentFrame,
-                            ex.getMessage(),
-                            "Invalid designation",
-                            JOptionPane.WARNING_MESSAGE);
                 }
-                    }
             }
         }
         );

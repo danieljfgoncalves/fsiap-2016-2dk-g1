@@ -198,16 +198,16 @@ public class ExperienceTest {
     public void testGenerateResults() {
         System.out.println("generateResults");
 
-        String[][] expResult = {{"Laser Gas", "CO2"},
-        {"Laser Power", "8,0000E+01 W"},
-        {"Affected Area", "3,1416E+00 mm2"},
+        String[][] expResult = {{"Gás do laser", "CO2"},
+        {"Poder do laser", "8,0000E+01 W"},
+        {"Área afectada", "3,1416E+00 mm2"},
         {"Material", "Gold"},
-        {"Material Thickness", "4,0000E+00 mm"},
-        {"Cutting Method", "Fusion Cutting"},
-        {"Penetration Velocity", "0,0000E+00 mm/s"},
-        {"Time to cut", "Infinity s"},
-        {"Does it Cut?", "No"},
-        {"Cutting Speed", "N/A"}};
+        {"Espessura do material", "4,0000E+00 mm"},
+        {"Método de corte", "Corte por fusão"},
+        {"Velocidade de penetração", "0,0000E+00 mm/s"},
+        {"Tempo para cortar", "Infinity s"},
+        {"Corta?", "Não"},
+        {"Velocidade do corte", "N/A"}};
         String[][] result = instance.generateResults();
 
         assertArrayEquals(expResult, result);
