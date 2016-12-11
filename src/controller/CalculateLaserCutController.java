@@ -48,8 +48,8 @@ public class CalculateLaserCutController {
      */
     public void updateExperience(Float factor, Double cuttingTime) {
 
+        this.getExperience().setCuttingTimeLimit(cuttingTime);
         this.getExperience().calculatePenetrationVelocity(factor);
-         this.getExperience().setCuttingTimeLimit(cuttingTime);
     }
 
     /**
