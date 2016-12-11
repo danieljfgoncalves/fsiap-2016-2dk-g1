@@ -6,10 +6,6 @@
 package model.calculations;
 
 import model.Material;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -19,23 +15,20 @@ import static org.junit.Assert.*;
  */
 public class MeltingCalculusTest {
     
+    /**
+     * test Material
+     */
+    private Material testMaterial;
+
+    /**
+     * vaporisation calculus instance
+     */
+    private MeltingCalculus calculus;
+    
     public MeltingCalculusTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
+        
+        testMaterial = new Material("Copper", 205000.0, 390.0, 8940.0, 2575.0, 1084.0, true);
+        calculus = new MeltingCalculus(199.90, 7.85E-7, testMaterial, 20E-3);
     }
 
     /**
@@ -44,12 +37,9 @@ public class MeltingCalculusTest {
     @Test
     public void testGetPower() {
         System.out.println("getPower");
-        MeltingCalculus instance = null;
-        Double expResult = null;
-        Double result = instance.getPower();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Double expResult = 199.90;
+        Double result = calculus.getPower();
+        assertEquals(expResult, result, 0.1);
     }
 
     /**
@@ -58,11 +48,9 @@ public class MeltingCalculusTest {
     @Test
     public void testSetPower() {
         System.out.println("setPower");
-        Double power = null;
-        MeltingCalculus instance = null;
-        instance.setPower(power);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Double power = 200.0;
+        calculus.setPower(power);
+        assertEquals(power, calculus.getPower());
     }
 
     /**
@@ -71,12 +59,9 @@ public class MeltingCalculusTest {
     @Test
     public void testGetFocalPointArea() {
         System.out.println("getFocalPointArea");
-        MeltingCalculus instance = null;
-        Double expResult = null;
-        Double result = instance.getFocalPointArea();
+        Double expResult = 7.85E-7;
+        Double result = calculus.getFocalPointArea();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -85,11 +70,9 @@ public class MeltingCalculusTest {
     @Test
     public void testSetFocalPointArea() {
         System.out.println("setFocalPointArea");
-        Double focalPointArea = null;
-        MeltingCalculus instance = null;
-        instance.setFocalPointArea(focalPointArea);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Double focalPointArea = 1.0;
+        calculus.setFocalPointArea(focalPointArea);
+        assertEquals(focalPointArea, calculus.getFocalPointArea());
     }
 
     /**
@@ -98,12 +81,9 @@ public class MeltingCalculusTest {
     @Test
     public void testGetMaterial() {
         System.out.println("getMaterial");
-        MeltingCalculus instance = null;
-        Material expResult = null;
-        Material result = instance.getMaterial();
+        Material expResult = testMaterial;
+        Material result = calculus.getMaterial();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -112,11 +92,9 @@ public class MeltingCalculusTest {
     @Test
     public void testSetMaterial() {
         System.out.println("setMaterial");
-        Material material = null;
-        MeltingCalculus instance = null;
-        instance.setMaterial(material);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Material material = new Material();
+        calculus.setMaterial(material);
+        assertEquals(material, calculus.getMaterial());
     }
 
     /**
@@ -125,12 +103,9 @@ public class MeltingCalculusTest {
     @Test
     public void testGetHeight() {
         System.out.println("getHeight");
-        MeltingCalculus instance = null;
-        Double expResult = null;
-        Double result = instance.getHeight();
+        Double expResult = 20E-3;
+        Double result = calculus.getHeight();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -139,11 +114,9 @@ public class MeltingCalculusTest {
     @Test
     public void testSetHeight() {
         System.out.println("setHeight");
-        Double heigth = null;
-        MeltingCalculus instance = null;
-        instance.setHeight(heigth);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Double heigth = 1.0;
+        calculus.setHeight(heigth);
+        assertEquals(heigth, calculus.getHeight());
     }
 
     /**
@@ -152,12 +125,9 @@ public class MeltingCalculusTest {
     @Test
     public void testGetInicialTemp() {
         System.out.println("getInicialTemp");
-        MeltingCalculus instance = null;
-        Double expResult = null;
-        Double result = instance.getInicialTemp();
+        Double expResult = 20.0;
+        Double result = calculus.getInicialTemp();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -166,11 +136,9 @@ public class MeltingCalculusTest {
     @Test
     public void testSetInicialTemp() {
         System.out.println("setInicialTemp");
-        Double inicialTemp = null;
-        MeltingCalculus instance = null;
-        instance.setInicialTemp(inicialTemp);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Double inicialTemp = 30.0;
+        calculus.setInicialTemp(inicialTemp);
+        assertEquals(inicialTemp, calculus.getInicialTemp());
     }
 
     /**
@@ -179,12 +147,9 @@ public class MeltingCalculusTest {
     @Test
     public void testCalculate() {
         System.out.println("calculate");
-        MeltingCalculus instance = null;
-        double expResult = 0.0;
-        double result = instance.calculate();
-        assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        double expResult = 0.05;
+        double result = calculus.calculate();
+        assertEquals(expResult, result, 0.01);
     }
     
 }
