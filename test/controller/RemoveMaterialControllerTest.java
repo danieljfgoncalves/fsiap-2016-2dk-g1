@@ -58,13 +58,13 @@ public class RemoveMaterialControllerTest {
         System.out.println("removeMaterial");
 
         // material exists, so the method should return true
-        Material material1 = new Material("Zinc", 113000.0, 390.0, 7135.0, 910.0, 419.5, true);;
+        Material material1 = new Material("Zinc", 113000.0, 390.0, 7135.0, 910.0, 419.5, true);
         boolean result1 = instance.removeMaterial(material1);
         boolean expResult1 = true;
         assertEquals(expResult1, result1);
 
         // material does not exist, so the method should return false
-        Material material2 = new Material("test", 10000.0, 100.0, 1000.0, 100.0, 100.5, true);;
+        Material material2 = new Material("test", 10000.0, 100.0, 1000.0, 100.0, 100.5, true);
         boolean result2 = instance.removeMaterial(material2);
         boolean expResult2 = false;
         assertEquals(expResult2, result2);

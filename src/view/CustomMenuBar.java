@@ -3,6 +3,7 @@
  */
 package view;
 
+import controller.ExportHTMLController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -136,7 +137,8 @@ public class CustomMenuBar extends JMenuBar {
                     if (!file.getName().endsWith(".html")) {
                         file = new File(file.getPath().trim() + ".html");
                     }
-                    parentFrame.getExperience().exportHTML(file);
+                    ExportHTMLController controller = new ExportHTMLController(parentFrame, file);
+                    controller.export();
                 }
             }
         });
