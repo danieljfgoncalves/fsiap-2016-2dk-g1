@@ -11,6 +11,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Iterator;
@@ -18,6 +20,7 @@ import java.util.Set;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -183,31 +186,56 @@ public class GenerateLaserPanel extends JPanel {
     private JPanel createWavelengthPanel() {
         JPanel wavelengthPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-        JLabel wavelengthLabel = new JLabel(String.format("Comprimento de onda:   %-5.0f nm", wavelength));
+        JLabel wavelengthLabel = new JLabel(String.format("Comprimento de onda:"));
         wavelengthLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        wavelengthLabel.setPreferredSize(new Dimension(280, 20));
+        wavelengthLabel.setPreferredSize(new Dimension(180, 20));
+
+        JTextField wavelengthTextField = new JTextField();
+        wavelengthTextField.setText(wavelength.toString());
+        wavelengthTextField.setFont(new Font("Arial", Font.BOLD, 16));
+        wavelengthTextField.setPreferredSize(new Dimension(80, 30));
+
+        JLabel unitsLabel = new JLabel(String.format("nm", wavelength));
+        unitsLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        unitsLabel.setPreferredSize(new Dimension(30, 20));
 
         JSlider wavelengthSlider = new JSlider(200, 26000, 10600);
         wavelengthSlider.setFont(new Font("Arial", Font.BOLD, 14));
-        wavelengthSlider.setSnapToTicks(true);
 
         wavelengthSlider.setMajorTickSpacing(10000);
         wavelengthSlider.setMinorTickSpacing(2500);
         wavelengthSlider.setPaintTicks(true);
         wavelengthSlider.setPaintLabels(true);
-        
+
         wavelengthSlider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent ce) {
                 wavelength = (double) wavelengthSlider.getValue();
                 controller.setWavelength(wavelength * 1e-9);
-                wavelengthLabel.setText(String.format("Comprimento de onda:   %-5.0f nm", wavelength));
+                wavelengthTextField.setText(wavelength.toString());
                 gases = controller.getGasesByWavelength();
                 updateGasComboBox();
             }
         });
+        wavelengthTextField.addFocusListener(new FocusListener() {
+
+            public void focusGained(FocusEvent e) {
+                wavelengthTextField.setText("");
+            }
+
+            public void focusLost(FocusEvent e) {
+                String typed = wavelengthTextField.getText();
+                int value = (typed.isEmpty()) ? 0 : Integer.parseInt(typed);
+                wavelengthSlider.setValue(value);
+                wavelength = Double.parseDouble(typed);
+                controller.setWavelength(wavelength * 1e-9);
+                gases = controller.getGasesByWavelength();
+            }
+        });
 
         wavelengthPanel.add(wavelengthLabel);
+        wavelengthPanel.add(wavelengthTextField);
+        wavelengthPanel.add(unitsLabel);
         wavelengthPanel.add(wavelengthSlider);
 
         return wavelengthPanel;
@@ -237,7 +265,7 @@ public class GenerateLaserPanel extends JPanel {
         JLabel gasLabel = new JLabel("Gás:");
         gasLabel.setPreferredSize(new Dimension(50, 20));
         gasLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        
+
         gasPanel.add(gasLabel);
         gasPanel.add(gasesComboBox);
 
@@ -264,7 +292,7 @@ public class GenerateLaserPanel extends JPanel {
         focalPointSlider.setMajorTickSpacing(1);
         focalPointSlider.setPaintTicks(true);
         focalPointSlider.setPaintLabels(true);
-        
+
         focalPointSlider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent ce) {
@@ -307,7 +335,7 @@ public class GenerateLaserPanel extends JPanel {
         JLabel materialLabel = new JLabel("Material:");
         materialLabel.setPreferredSize(new Dimension(80, 20));
         materialLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        
+
         materialPanel.add(materialLabel);
         materialPanel.add(materialComboBox);
 
@@ -346,10 +374,10 @@ public class GenerateLaserPanel extends JPanel {
         JLabel materialThicknessTextFieldLabel = new JLabel("Espessura do material:");
         materialThicknessTextFieldLabel.setPreferredSize(new Dimension(180, 20));
         materialThicknessTextFieldLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        
+
         JLabel mesureUnitsLabel = new JLabel("mm");
         mesureUnitsLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        
+
         buttonPanel.add(materialThicknessTextFieldLabel);
         buttonPanel.add(materialThicknessTextField);
         buttonPanel.add(mesureUnitsLabel);
@@ -386,7 +414,7 @@ public class GenerateLaserPanel extends JPanel {
                 simulatorFrame.enableExport();
             }
         });
-        
+
         buttonPanel.add(calculateMaxPowerButton);
 
         return buttonPanel;
