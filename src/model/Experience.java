@@ -247,7 +247,7 @@ public class Experience implements Exportable {
         results[6][1] = String.format("%.4E mm/s", (this.penetrationVelocity * 1E3));
         results[7][1] = String.format("%.2f s", this.laser.getMaterialThickness() / this.penetrationVelocity);
         results[8][1] = doesCut() ? "Yes" : "No";
-        results[9][1] = this.cuttingSpeed == null ? "N/A" : String.format("%.4E mm/s", (this.cuttingSpeed * 1E3));
+        results[9][1] = (this.cuttingSpeed == null || !doesCut()) ? "N/A" : String.format("%.4E mm/s", (this.cuttingSpeed * 1E3));
         return results;
     }
 
