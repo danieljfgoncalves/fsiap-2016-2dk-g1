@@ -20,7 +20,6 @@ import java.util.Set;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -190,7 +189,7 @@ public class GenerateLaserPanel extends JPanel {
         wavelengthLabel.setFont(new Font("Arial", Font.BOLD, 16));
         wavelengthLabel.setPreferredSize(new Dimension(180, 20));
 
-        JTextField wavelengthTextField = new JTextField();
+        JTextField wavelengthTextField = new JTextField("200");
         wavelengthTextField.setText(wavelength.toString());
         wavelengthTextField.setFont(new Font("Arial", Font.BOLD, 16));
         wavelengthTextField.setPreferredSize(new Dimension(80, 30));
@@ -225,9 +224,9 @@ public class GenerateLaserPanel extends JPanel {
 
             public void focusLost(FocusEvent e) {
                 String typed = wavelengthTextField.getText();
-                int value = (typed.isEmpty()) ? 0 : Integer.parseInt(typed);
+                int value = (typed.isEmpty()) ? 200 : Integer.parseInt(typed);
                 wavelengthSlider.setValue(value);
-                wavelength = Double.parseDouble(typed);
+                wavelength = (typed.isEmpty()) ? 200.0 : Double.parseDouble(typed);
                 controller.setWavelength(wavelength * 1e-9);
                 gases = controller.getGasesByWavelength();
             }
